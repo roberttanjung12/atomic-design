@@ -1,0 +1,49 @@
+import React from 'react';
+import { render, screen, within } from '@testing-library/react';
+import DeviceManagementPage from '@/app/(main)/setting/device-management/page';
+
+jest.mock('@/@dront/components/PageID', () =>
+  jest.fn(({ title, breadcrumbs, children }) => (
+    <div data-testid="PageID">
+      <h1>{title}</h1>
+      <nav>
+        {breadcrumbs?.routes.map((route: { href: string; label: string }, index: number) => (
+          <a key={index} href={route.href} data-testid="breadcrumb-link">
+            {route.label}
+          </a>
+        ))}
+      </nav>
+      <div data-testid="children">{children}</div>
+    </div>
+  ))
+);
+
+describe('DeviceManagementPage Component', () => {
+  it('renders PageID with the correct title and breadcrumbs', () => {
+    render(<DeviceManagementPage />);
+
+    const pageIDContainer = screen.getByTestId('PageID');
+
+    expect(pageIDContainer).toBeInTheDocument();
+
+    const titleElement = within(pageIDContainer).getByRole('heading', { level: 1 });
+
+    expect(titleElement).toHaveTextContent('Device Management');
+
+    const breadcrumbLinks = within(pageIDContainer).getAllByTestId('breadcrumb-link');
+
+    expect(breadcrumbLinks).toHaveLength(2);
+    expect(breadcrumbLinks[0]).toHaveTextContent('Settings');
+    expect(breadcrumbLinks[0]).toHaveAttribute('href', '#');
+    expect(breadcrumbLinks[1]).toHaveTextContent('Device Management');
+    expect(breadcrumbLinks[1]).toHaveAttribute('href', '#');
+  });
+
+  it('renders children content correctly', () => {
+    render(<DeviceManagementPage />);
+
+    const childrenContainer = screen.getByTestId('children');
+
+    expect(within(childrenContainer).getByText('Device Management')).toBeInTheDocument();
+  });
+});

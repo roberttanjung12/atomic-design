@@ -1,0 +1,27 @@
+import { BarChart as BarChartIcon } from '@mui/icons-material';
+import { uniqueId } from 'lodash';
+import { type NavigationItem } from '@/@dront/layouts/Main/Sidebar/Navigation/navigation-types';
+
+const Menuitems: NavigationItem[] = [
+  {
+    navigationLabel: true,
+    subheader: 'Getting Started'
+  },
+  {
+    id: uniqueId(),
+    title: 'Overview',
+    icon: BarChartIcon,
+    href: '/dashboard/overview'
+  },
+  {
+    navigationLabel: true,
+    subheader: 'Components'
+  },
+  {
+    id: uniqueId(),
+    title: 'Field Text',
+    href: '/components/field-text'
+  }
+];
+
+export default Menuitems;

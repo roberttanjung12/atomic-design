@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LayoutMainSidebarNavigationGroup renders with correct styling based on hideMenu prop 1`] = `
+<div>
+  <li
+    class="MuiListSubheader-root MuiListSubheader-gutters css-1bcbipv-MuiListSubheader-root"
+  >
+    <svg
+      aria-hidden="true"
+      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-xlc4g3-MuiSvgIcon-root"
+      data-testid="HorizontalRuleIcon"
+      focusable="false"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M4 11h16v2H4z"
+        fill-rule="evenodd"
+      />
+    </svg>
+  </li>
+</div>
+`;
