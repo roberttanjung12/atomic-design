@@ -1,0 +1,33 @@
+{
+  "recommendations": [
+    "aaron-bond.better-comments",
+    "chakrounanas.turbo-console-log",
+    "christian-kohler.npm-intellisense",
+    "compulim.indent4to2",
+    "davidanson.vscode-markdownlint",
+    "dbaeumer.vscode-eslint",
+    "dsznajder.es7-react-js-snippets",
+    "eamodio.gitlens",
+    "editorconfig.editorconfig",
+    "esbenp.prettier-vscode",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag",
+    "glenn2223.live-sass",
+    "jasonnutter.search-node-modules",
+    "jock.svg",
+    "kisstkondoros.vscode-codemetrics",
+    "liamhammett.inline-parameters",
+    "mikestead.dotenv",
+    "mrmlnc.vscode-scss",
+    "planbcoding.vscode-react-refactor",
+    "quicktype.quicktype",
+    "shd101wyy.markdown-preview-enhanced",
+    "syler.sass-indented",
+    "usernamehw.errorlens",
+    "wix.vscode-import-cost",
+    "xabikos.javascriptsnippets",
+    "yzhang.markdown-all-in-one",
+    "zhuangtongfa.material-theme",
+    "zignd.html-css-class-completion"
+  ]
+}
