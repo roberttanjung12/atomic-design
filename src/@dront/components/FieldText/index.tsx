@@ -1,1 +1,1 @@
-export { default } from './FieldText';
+export { default, type FieldTextProps } from './FieldText';

@@ -1,25 +1,31 @@
 'use client';
 
-import FormControl from '@mui/material/FormControl';
+import FormControl, { type FormControlProps } from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import { styled } from '@mui/material/styles';
 import TextField, { type TextFieldProps } from '@mui/material/TextField';
 import FieldLabel from './FieldLabel';
 
 /**
- * Props for the FieldText component.
- *
- * @typedef {Object} FieldTextProps
- * @property {string} label - The label for the text field.
- * @property {string} name - The name attribute for the text field.
- * @property {string} [errorMessage] - The error message to display if validation fails.
- * @property {string} [helperText] - Additional helper text to display below the text field.
- * @extends {Omit<TextFieldProps, 'label'>}
+ * Props for the FieldText component, extends from `TextFieldProps`
  */
-interface FieldTextProps extends Omit<TextFieldProps, 'label'> {
+export interface FieldTextProps extends Omit<TextFieldProps, 'label'> {
+  /**
+   * The label for the text field.
+   */
   label: string;
+
+  /**
+   * The name attribute for the text field.
+   */
   name: string;
+
+  /**
+   * The error message to display if validation fails.
+   */
   errorMessage?: string;
+
+  FormControlProps?: FormControlProps;
 }
 
 /**
@@ -45,12 +51,19 @@ const TextFieldStyled = styled(TextField)(({ theme: { palette } }) => ({
  * @param {FieldTextProps} props - The props for the FieldText component.
  * @returns {JSX.Element} The rendered FieldText component.
  */
-const FieldText = ({ label, name, errorMessage, helperText: initialHelperText, ...rest }: FieldTextProps) => {
+const FieldText = ({
+  label,
+  name,
+  errorMessage,
+  helperText: initialHelperText,
+  FormControlProps,
+  ...rest
+}: FieldTextProps) => {
   const error = !!errorMessage;
   const helperText = errorMessage || initialHelperText;
 
   return (
-    <FormControl fullWidth error={error}>
+    <FormControl fullWidth error={error} {...FormControlProps}>
       <FieldLabel htmlFor={name}>{label}</FieldLabel>
       <TextFieldStyled name={name} error={error} {...rest} />
       <FormHelperText>{helperText ?? ' '}</FormHelperText>
