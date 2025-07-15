@@ -24,6 +24,11 @@ const Menuitems: NavigationItem[] = [
   },
   {
     id: uniqueId(),
+    title: 'Field Password Validation',
+    href: '/components/field-password-validation'
+  },
+  {
+    id: uniqueId(),
     title: 'Field Text',
     href: '/components/field-text'
   },
