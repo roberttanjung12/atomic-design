@@ -10,6 +10,8 @@ export { default as Field } from './Field';
 
 export { default as FieldPassword } from './FieldPassword';
 
+export { default as FieldPasswordValidation } from './FieldPasswordValidation';
+
 export { default as FieldText } from './FieldText';
 
 export { default as FieldTextValidation } from './FieldTextValidation';
