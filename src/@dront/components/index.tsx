@@ -8,6 +8,8 @@ export { default as DynamicAlert } from './DynamicAlert';
 
 export { default as Field } from './Field';
 
+export { default as FieldPassword } from './FieldPassword';
+
 export { default as FieldText } from './FieldText';
 
 export { default as FieldTextValidation } from './FieldTextValidation';
