@@ -1,32 +1,25 @@
 import { List, useMediaQuery } from '@mui/material';
 import { type Theme } from '@mui/material/styles';
 import { usePathname } from 'next/navigation';
-import Menuitems from '@/configurations/sidebar-navigation';
-import { useDispatch, useSelector } from '@/store/hooks';
-import { toggleMobileSidebar } from '@/store/slice/appearance';
-import type { ApplicationState } from '@/store/store';
+import { toggleMobileSidebar, useAppearance } from '@/@dront/context/AppearanceProvider';
+import { useMainLayout } from '@/@dront/context/MainLayoutProvider';
 import NavigationCollapse from './NavigationCollapse';
 import NavigationGroup from './NavigationGroup';
 import NavigationItem from './NavigationItem';
 
 const SidebarNavigation = () => {
   const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
-
   const pathname = usePathname();
-
   const pathDirect = pathname;
-
   const pathWithoutLastPart = pathname.slice(0, pathname.lastIndexOf('/'));
-
-  const { isCollapse, isHover } = useSelector((state: ApplicationState) => state.appearance.sidebar);
-
+  const { appearanceState, appearanceDispatch } = useAppearance();
+  const { navigations } = useMainLayout();
+  const { isCollapse, isHover } = appearanceState.sidebar;
   const hideMenu: any = lgUp ? isCollapse && !isHover : '';
-
-  const dispatch = useDispatch();
 
   return (
     <List sx={{ pt: 0 }}>
-      {Menuitems.map(item => {
+      {navigations?.map(item => {
         if (item.subheader) {
           return <NavigationGroup item={item} hideMenu={hideMenu} key={item.subheader} />;
         } else if (item.children) {
@@ -38,7 +31,7 @@ const SidebarNavigation = () => {
               pathWithoutLastPart={pathWithoutLastPart}
               level={1}
               key={item.id}
-              onClick={() => dispatch(toggleMobileSidebar())}
+              onClick={() => appearanceDispatch(toggleMobileSidebar())}
             />
           );
         } else {
@@ -49,7 +42,7 @@ const SidebarNavigation = () => {
               key={item.id}
               pathDirect={pathDirect}
               hideMenu={hideMenu}
-              onClick={() => dispatch(toggleMobileSidebar())}
+              onClick={() => appearanceDispatch(toggleMobileSidebar())}
             />
           );
         }

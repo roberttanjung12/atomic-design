@@ -14,7 +14,7 @@ import {
   Typography
 } from '@mui/material';
 import Link from 'next/link';
-import SidebarNavigationItems from '@/configurations/sidebar-navigation';
+import { useMainLayout } from '@/@dront/context/MainLayoutProvider';
 
 interface MenuType {
   title: string;
@@ -27,6 +27,7 @@ interface MenuType {
 const Search = () => {
   const [showDrawer, setShowDrawer] = useState(false);
   const [search, setSearch] = useState('');
+  const { navigations } = useMainLayout();
 
   const handleClose = () => {
     setShowDrawer(false);
@@ -58,7 +59,7 @@ const Search = () => {
     }, []);
   };
 
-  const searchData = filterRoutes(SidebarNavigationItems, search);
+  const searchData = filterRoutes(navigations ?? [], search);
 
   return (
     <>

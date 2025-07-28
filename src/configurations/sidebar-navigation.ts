@@ -1,6 +1,6 @@
 import { BarChart as BarChartIcon } from '@mui/icons-material';
 import { uniqueId } from 'lodash';
-import { type NavigationItem } from '@/@dront/layouts/Main/Sidebar/Navigation/navigation-types';
+import type { NavigationItem } from '@/@dront/layouts';
 
 const Menuitems: NavigationItem[] = [
   {

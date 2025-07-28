@@ -2,12 +2,13 @@ import { HorizontalRule as HorizontalRuleIcon } from '@mui/icons-material';
 import { ListSubheader } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from '@/store/hooks';
-import type { ApplicationState } from '@/store/store';
+import { useAppearance } from '@/@dront/context/AppearanceProvider';
 import type { NavigationGroupProps } from './navigation-types';
 
 const NavigationGroup = ({ item, hideMenu }: NavigationGroupProps) => {
-  const { sidebar } = useSelector((state: ApplicationState) => state.appearance);
+  const {
+    appearanceState: { sidebar }
+  } = useAppearance();
 
   const { t } = useTranslation();
 

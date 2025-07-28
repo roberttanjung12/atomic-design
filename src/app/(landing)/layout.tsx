@@ -1,13 +1,13 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import AuthenticationGuard from '@/@dront/authentication/AuthenticationGuard';
-import LandingLayout from '@/@dront/layouts/Landing';
+import { DrontAuthGuard } from '@/@dront/authentication';
+import { DrontLandingLayout } from '@/@dront/layouts';
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <AuthenticationGuard protectionLevel="public">
-      <LandingLayout>{children}</LandingLayout>
-    </AuthenticationGuard>
+    <DrontAuthGuard protectionLevel="public">
+      <DrontLandingLayout>{children}</DrontLandingLayout>
+    </DrontAuthGuard>
   );
 }

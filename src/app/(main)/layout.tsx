@@ -1,16 +1,19 @@
 'use client';
 
-import type { ReactNode } from 'react';
-import AuthenticationGuard from '@/@dront/authentication/AuthenticationGuard';
-import MainLayout from '@/@dront/layouts/Main';
-import MainLayoutProvider from '@/context/MainLayoutProvider';
+import { type ReactNode } from 'react';
+import { DrontAuthGuard } from '@/@dront/authentication';
+import { DrontMainLayout } from '@/@dront/layouts';
+import Menuitems from '@/configurations/sidebar-navigation';
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <AuthenticationGuard protectionLevel="authenticated">
-      <MainLayoutProvider>
-        <MainLayout>{children}</MainLayout>
-      </MainLayoutProvider>
-    </AuthenticationGuard>
+    <DrontAuthGuard
+      protectionLevel="authenticated"
+      getToken={() => {
+        return localStorage.getItem('dront') ?? '';
+      }}
+    >
+      <DrontMainLayout navigations={Menuitems}>{children}</DrontMainLayout>
+    </DrontAuthGuard>
   );
 }

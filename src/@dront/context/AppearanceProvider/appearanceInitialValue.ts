@@ -1,4 +1,4 @@
-export const appearanceConfiguration = {
+const appearanceInitialValue = {
   activeLanguage: 'en',
   activeMode: 'light',
   activeTheme: 'DRONT_THEME',
@@ -23,3 +23,5 @@ export const appearanceConfiguration = {
     width: 340
   }
 };
+
+export default appearanceInitialValue;

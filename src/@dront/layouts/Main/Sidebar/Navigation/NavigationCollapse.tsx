@@ -9,8 +9,7 @@ import { styled, type Theme } from '@mui/material/styles';
 import { isNull } from 'lodash';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from '@/store/hooks';
-import type { ApplicationState } from '@/store/store';
+import { useAppearance } from '@/@dront/context/AppearanceProvider';
 import type { NavigationCollapseProps } from './navigation-types';
 import NavigationItem from './NavigationItem';
 
@@ -26,7 +25,9 @@ const NavigationCollapse = ({
 
   const lgDown = useMediaQuery((theme: Theme) => theme.breakpoints.down('lg'));
 
-  const { sidebar } = useSelector((state: ApplicationState) => state.appearance);
+  const {
+    appearanceState: { sidebar }
+  } = useAppearance();
 
   const pathname = usePathname();
 

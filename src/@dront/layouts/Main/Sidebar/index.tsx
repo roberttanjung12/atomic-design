@@ -1,11 +1,12 @@
 import { Box, Drawer, useMediaQuery } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import Link from 'next/link';
 import { Drogo, MainScrollbar } from '@/@dront/components';
-import { useSelector, useDispatch } from '@/store/hooks';
-import { hoverSidebar, toggleMobileSidebar } from '@/store/slice/appearance';
-import type { Sidebar } from '@/store/slice/appearance/appearance-types';
-import type { ApplicationState } from '@/store/store';
+import {
+  hoverSidebar,
+  toggleMobileSidebar,
+  useAppearance,
+  type AppearanceSidebar
+} from '@/@dront/context/AppearanceProvider';
 import SidebarNavigation from './Navigation';
 import SidebarNavigationCustom from './NavigationCustom';
 
@@ -14,63 +15,61 @@ const SidebarContent = ({
   isCollapse,
   isHover
 }: {
-  variant: Sidebar['variant'];
-  isCollapse: Sidebar['isCollapse'];
-  isHover: Sidebar['isHover'];
-}) => (
-  <Box
-    height="100%"
-    className="sidebar__content"
-    sx={{
-      backgroundImage: 'url(/images/Abstract%20patern.png)',
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'bottom left',
-      backgroundSize: 'contain'
-    }}
-  >
-    <Box px={4} display="flex" alignItems="center" justifyContent="center" height={130}>
-      <Link href="/">
-        <Drogo size={isCollapse && !isHover ? 50 : 180} variant={isCollapse && !isHover ? 'box' : 'full'} />
-      </Link>
-    </Box>
+  variant: AppearanceSidebar['variant'];
+  isCollapse: AppearanceSidebar['isCollapse'];
+  isHover: AppearanceSidebar['isHover'];
+}) => {
+  return (
+    <Box
+      height="100%"
+      className="sidebar__content"
+      sx={{
+        backgroundImage: 'url(/images/Abstract%20patern.png)',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'bottom left',
+        backgroundSize: 'contain'
+      }}
+    >
+      <Box px={4} display="flex" alignItems="center" justifyContent="center" height={130}>
+        <Link href="/">
+          <Drogo size={isCollapse && !isHover ? 50 : 180} variant={isCollapse && !isHover ? 'box' : 'full'} />
+        </Link>
+      </Box>
 
-    <MainScrollbar sx={{ height: 'calc(100% - 130px)', pb: 5 }}>
-      {variant === 'dront' ? <SidebarNavigation /> : <SidebarNavigationCustom />}
-    </MainScrollbar>
-  </Box>
-);
+      <MainScrollbar sx={{ height: 'calc(100% - 130px)', pb: 5 }}>
+        {variant === 'dront' ? <SidebarNavigation /> : <SidebarNavigationCustom />}
+      </MainScrollbar>
+    </Box>
+  );
+};
 
 const MainSidebar = () => {
-  const lgUp = useMediaQuery((theme: any) => theme.breakpoints.down('lg'));
-
-  const { isCollapse, isMobile, isHover, miniWidth, variant, width } = useSelector(
-    (state: ApplicationState) => state.appearance.sidebar
-  );
-
-  const dispatch = useDispatch();
-
-  const theme = useTheme();
-
+  const lgDown = useMediaQuery((theme: any) => theme.breakpoints.down('lg'));
+  const { appearanceDispatch, appearanceState } = useAppearance();
+  const { isCollapse, isMobile, isHover, miniWidth, variant, width } = appearanceState.sidebar;
   const toggleWidth = isCollapse && !isHover ? miniWidth : width;
 
   const onHover = (isEntering: boolean) => {
     if (isCollapse) {
-      dispatch(hoverSidebar(isEntering));
+      appearanceDispatch(hoverSidebar(isEntering));
     }
   };
 
-  if (lgUp) {
+  if (lgDown) {
     return (
       <Drawer
         anchor="left"
         open={isMobile}
-        onClose={() => dispatch(toggleMobileSidebar())}
+        onClose={() => appearanceDispatch(toggleMobileSidebar())}
         variant="temporary"
-        PaperProps={{
-          sx: {
-            width: width,
-            border: '0 !important',
-            boxShadow: theme => theme.shadows[8]
+        slotProps={{
+          paper: {
+            className: 'mobile-sidebar',
+            sx: {
+              width: width,
+              border: '0 !important',
+              boxShadow: theme => theme.shadows[8]
+            }
           }
         }}
       >
@@ -80,18 +79,26 @@ const MainSidebar = () => {
   }
 
   return (
-    <Box zIndex={100} width={toggleWidth} flexShrink={0} sx={{ ...(isCollapse && { position: 'absolute' }) }}>
+    <Box
+      zIndex={100}
+      width={toggleWidth}
+      flexShrink={0}
+      className="desktop-sidebar"
+      sx={{ ...(isCollapse && { position: 'absolute' }) }}
+    >
       <Drawer
         anchor="left"
         open
         onMouseEnter={() => onHover(true)}
         onMouseLeave={() => onHover(false)}
         variant="permanent"
-        PaperProps={{
-          sx: {
-            transition: theme.transitions.create('width', { duration: theme.transitions.duration.shortest }),
-            width: toggleWidth,
-            boxSizing: 'border-box'
+        slotProps={{
+          paper: {
+            sx: {
+              transition: theme => theme.transitions.create('width', { duration: theme.transitions.duration.shortest }),
+              width: toggleWidth,
+              boxSizing: 'border-box'
+            }
           }
         }}
       >

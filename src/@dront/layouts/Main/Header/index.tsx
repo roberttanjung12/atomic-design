@@ -1,7 +1,6 @@
 import { AppBar, Box, Stack, Toolbar } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { useSelector } from '@/store/hooks';
-import type { ApplicationState } from '@/store/store';
+import { useAppearance } from '@/@dront/context/AppearanceProvider';
 import Language from './Language';
 import Mode from './Mode';
 import Notifications from './Notification';
@@ -10,7 +9,9 @@ import Search from './Search';
 import SidebarToggle from './SidebarToggle';
 
 const MainHeader = () => {
-  const { headerHeight } = useSelector((state: ApplicationState) => state.appearance);
+  const {
+    appearanceState: { headerHeight }
+  } = useAppearance();
 
   const AppBarStyled = styled(AppBar)(({ theme }) => ({
     background: theme.palette.background.paper,

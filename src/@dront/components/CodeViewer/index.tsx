@@ -3,7 +3,7 @@
 import { useRef, useState, type ReactNode } from 'react';
 import { Code, CodeOff, ContentCopy } from '@mui/icons-material';
 import { Card, CardActions, CardContent, Collapse, IconButton, Stack, Tooltip } from '@mui/material';
-import { CodeSnippet } from '@/@dront/components';
+import CodeSnippet from '../CodeSnippet';
 
 interface CodeViewerProps {
   /** ReactNode content to display above the code snippet. */

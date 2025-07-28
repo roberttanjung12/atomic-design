@@ -1,42 +1,51 @@
 'use client';
 
 import { useEffect } from 'react';
-import { Box } from '@mui/material';
+import { useMainLayout } from '@/@dront/context/MainLayoutProvider';
 import environment from '@/configurations/environment';
-import { useMainLayout } from '@/context/MainLayoutProvider';
 import type { PageIDProps } from './page-id-types';
 
 const PageID = ({
-  author,
+  author: initialAuthor,
   breadcrumbs,
-  canonical,
+  canonical: initialCanonical,
   children,
-  description,
-  keywords,
-  publisher,
-  robots,
-  title
+  description: initialDescription,
+  keywords: initialKeywords,
+  publisher: initialPublisher,
+  robots: initialRobots,
+  title: initialTitle
 }: PageIDProps) => {
   const { application } = environment;
-
   const { setBreadcrumbs } = useMainLayout();
+  const title = initialTitle ? `${application.name} | ${initialTitle}` : application.name;
+  const description = initialDescription ?? application.description;
+  const author = initialAuthor ?? application.author;
+  const keywords = initialKeywords ?? application.keywords;
+  const publisher = initialPublisher ?? application.publisher;
+  const robots = initialRobots ?? application.robots;
+  const canonical = initialCanonical ?? application.canonical;
 
   useEffect(() => {
-    if (breadcrumbs) setBreadcrumbs(breadcrumbs);
+    if (breadcrumbs) {
+      setBreadcrumbs(breadcrumbs);
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [breadcrumbs]);
 
   return (
-    <Box>
-      <title>{title ? `${application.name} | ${title}` : application.name}</title>
-      <meta name="description" content={description ?? application.description} />
-      <meta name="author" content={author ?? application.author} />
-      <meta name="keywords" content={keywords ?? application.keywords} />
-      <meta name="publisher" content={publisher ?? application.publisher} />
-      <meta name="robots" content={robots ?? application.robots} />
-      <link rel="canonical" href={canonical ?? application.canonical} />
+    <>
+      <title>{title}</title>
+      <meta name="description" content={description} />
+      <meta name="author" content={author} />
+      <meta name="keywords" content={keywords} />
+      <meta name="publisher" content={publisher} />
+      <meta name="robots" content={robots} />
+      <link rel="canonical" href={canonical} />
+
       {children}
-    </Box>
+    </>
   );
 };
 

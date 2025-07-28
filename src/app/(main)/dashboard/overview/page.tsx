@@ -1,7 +1,7 @@
 'use client';
 
 import { Box } from '@mui/material';
-import PageID from '@/@dront/components/PageID';
+import { PageID } from '@/@dront/components';
 
 const OverviewPage = () => {
   return (
