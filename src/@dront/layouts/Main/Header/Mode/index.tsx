@@ -3,17 +3,13 @@ import {
   LightModeOutlined as LightModeOutlinedIcon
 } from '@mui/icons-material';
 import { IconButton, Tooltip } from '@mui/material';
-import { useSelector, useDispatch } from '@/store/hooks';
-import { setAppearance } from '@/store/slice/appearance';
-import type { ApplicationState } from '@/store/store';
+import { themeActions, useThemeStore } from '@/@dront/store';
 
 const Mode = () => {
-  const { activeMode } = useSelector((state: ApplicationState) => state.appearance);
-
-  const dispatch = useDispatch();
+  const [activeMode] = useThemeStore('activeMode');
 
   const onClick = () => {
-    dispatch(setAppearance('activeMode', activeMode === 'light' ? 'dark' : 'light'));
+    themeActions.toggleActiveMode();
   };
 
   const Icon = activeMode === 'light' ? DarkModeOutlinedIcon : LightModeOutlinedIcon;

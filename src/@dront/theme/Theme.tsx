@@ -1,8 +1,8 @@
 import * as locales from '@mui/material/locale';
 import { createTheme } from '@mui/material/styles';
 import _ from 'lodash';
-import { useSelector } from '@/store/hooks';
-import type { ApplicationState } from '@/store/store';
+import { useAppearance } from '../context/AppearanceProvider';
+import { useThemeStore } from '../store';
 import components from './Components';
 import { shadows, darkshadows } from './Shadows';
 import { coreThemeDark, coreThemeLight } from './ThemeCore';
@@ -15,20 +15,22 @@ const BuildTheme = (config: any = {}) => {
 
   const darkthemeOptions = ThemeDark.find(theme => theme.name === config.theme);
 
-  const appearance = useSelector((state: ApplicationState) => state.appearance);
+  const { appearanceState } = useAppearance();
 
-  const defaultTheme = appearance.activeMode === 'dark' ? coreThemeDark : coreThemeLight;
+  const [activeMode] = useThemeStore('activeMode');
 
-  const defaultShadow = appearance.activeMode === 'dark' ? darkshadows : shadows;
+  const defaultTheme = activeMode === 'dark' ? coreThemeDark : coreThemeLight;
 
-  const themeSelect = appearance.activeMode === 'dark' ? darkthemeOptions : lightThemeOptions;
+  const defaultShadow = activeMode === 'dark' ? darkshadows : shadows;
+
+  const themeSelect = activeMode === 'dark' ? darkthemeOptions : lightThemeOptions;
 
   const baseMode = {
     palette: {
-      mode: appearance.activeMode
+      mode: activeMode
     },
     shape: {
-      borderRadius: appearance.borderRadius
+      borderRadius: appearanceState.borderRadius
     },
     shadows: defaultShadow,
     typography: typography
@@ -46,9 +48,9 @@ const BuildTheme = (config: any = {}) => {
 };
 
 const ThemeSettings = () => {
-  const activeTheme = useSelector((state: ApplicationState) => state.appearance.activeTheme);
+  const { appearanceState } = useAppearance();
 
-  const theme = BuildTheme({ theme: activeTheme });
+  const theme = BuildTheme({ theme: appearanceState.activeTheme });
 
   return theme;
 };

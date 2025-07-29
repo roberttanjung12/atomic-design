@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import { appearanceConfiguration } from '@/configurations/appearance';
 import type { Appearance, Sidebar } from './appearance-types';
+import appearanceConfiguration from './appearanceConfiguration';
 
 const initialState: Appearance = appearanceConfiguration;
 

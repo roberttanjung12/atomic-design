@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react';
 import { Avatar, IconButton, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from '@/store/hooks';
-import { setAppearance } from '@/store/slice/appearance';
-import type { ApplicationState } from '@/store/store';
+import usePersistedReducer from '@/@dront/utils/usePersistedReducer';
 
 const Languages = [
   {
@@ -24,16 +22,21 @@ const Languages = [
   }
 ];
 
+const myReducer = (state: any, action: Record<string, any>) => {
+  if (action.type === 'CHANGE_LANG') {
+    return { ...state, lang: action.payload };
+  }
+
+  return state;
+};
+
 const Language = () => {
   const [anchorElement, setAnchorElement] = useState(null);
-
-  const dispatch = useDispatch();
+  const [languageState, languageDispatch] = usePersistedReducer(myReducer, { lang: 'id' }, 'lang_state');
 
   const open = Boolean(anchorElement);
 
-  const { activeLanguage } = useSelector((state: ApplicationState) => state.appearance);
-
-  const currentLanguage = Languages.find(_language => _language.value === activeLanguage) || Languages[1];
+  const currentLanguage = Languages.find(language => language.value === languageState.lang) || Languages[1];
 
   const { i18n } = useTranslation();
 
@@ -45,8 +48,14 @@ const Language = () => {
     setAnchorElement(null);
   };
 
+  const handleChangeLang = (selectedLanguage: string) => {
+    languageDispatch({ type: 'CHANGE_LANG', payload: selectedLanguage });
+    i18n.changeLanguage(selectedLanguage);
+    setAnchorElement(null);
+  };
+
   useEffect(() => {
-    i18n.changeLanguage(activeLanguage);
+    i18n.changeLanguage(languageState.lang);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -64,6 +73,7 @@ const Language = () => {
           <Avatar src={currentLanguage.icon} alt={currentLanguage.value} sx={{ width: 20, height: 20 }} />
         </IconButton>
       </Tooltip>
+
       <Menu
         id="language-menu"
         anchorEl={anchorElement}
@@ -75,7 +85,11 @@ const Language = () => {
           <MenuItem
             key={option.value}
             sx={{ py: 2, px: 3 }}
-            onClick={() => dispatch(setAppearance('activeLanguage', option.value))}
+            onClick={() => {
+              handleChangeLang(option.value);
+
+              // dispatch(setAppearance('activeLanguage', option.value));
+            }}
           >
             <Stack direction="row" spacing={1} alignItems="center">
               <Avatar src={option.icon} alt={option.icon} sx={{ width: 20, height: 20 }} />

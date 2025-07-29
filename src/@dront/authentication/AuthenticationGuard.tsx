@@ -1,27 +1,44 @@
-import React, { useEffect, useState, type ReactNode } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import React, { useEffect, useState, type JSX, type ReactNode } from 'react';
+import { useRouter } from 'next/navigation';
 import { LoadingScreen } from '../components';
 
 type ProtectionLevel = 'public' | 'authenticated' | 'unauthenticated';
 
-interface AuthenticationGuardProps {
-  protectionLevel: ProtectionLevel;
+interface AuthenticationGuardBaseProps {
   fallback?: ReactNode;
   children: ReactNode;
 }
 
-const AuthenticationGuard = ({ protectionLevel, fallback, children }: AuthenticationGuardProps) => {
+interface AuthenticationGuardWithGetTokenProps extends AuthenticationGuardBaseProps {
+  protectionLevel: 'authenticated' | 'unauthenticated';
+  getToken: () => string;
+}
+
+interface AuthenticationGuardWithoutGetTokenProps extends AuthenticationGuardBaseProps {
+  protectionLevel: 'public';
+}
+
+interface AuthenticationGuardProps extends AuthenticationGuardBaseProps {
+  protectionLevel: ProtectionLevel;
+  getToken?: () => string;
+}
+
+function AuthenticationGuard(props: AuthenticationGuardWithGetTokenProps): JSX.Element;
+
+function AuthenticationGuard(props: AuthenticationGuardWithoutGetTokenProps): JSX.Element;
+
+function AuthenticationGuard({
+  protectionLevel,
+  getToken,
+  fallback,
+  children
+}: Readonly<AuthenticationGuardProps>): JSX.Element | null {
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
   const router = useRouter();
-  const pathname = usePathname();
 
   const checkAuthorization = () => {
-    const token = localStorage.getItem('dront');
-
-    console.log('Authorization:', isAuthorized);
-    console.log('Path:', pathname);
-    console.log('Token:', token);
-    console.log('Protection Level:', protectionLevel);
+    const token = getToken?.();
+    const hasToken = !!token;
 
     switch (protectionLevel) {
       case 'public':
@@ -29,7 +46,7 @@ const AuthenticationGuard = ({ protectionLevel, fallback, children }: Authentica
         break;
 
       case 'authenticated':
-        if (!token) {
+        if (!hasToken) {
           router.replace('/login');
           setIsAuthorized(false);
         } else {
@@ -38,7 +55,7 @@ const AuthenticationGuard = ({ protectionLevel, fallback, children }: Authentica
         break;
 
       case 'unauthenticated':
-        if (token) {
+        if (hasToken) {
           router.replace('/dashboard/overview');
           setIsAuthorized(false);
         } else {
@@ -54,21 +71,19 @@ const AuthenticationGuard = ({ protectionLevel, fallback, children }: Authentica
   useEffect(() => {
     checkAuthorization();
 
-    window.addEventListener('storage', checkAuthorization);
-
     return () => {
-      window.removeEventListener('storage', checkAuthorization);
+      checkAuthorization();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [protectionLevel, router]);
 
   if (isAuthorized === null) {
-    return fallback || <LoadingScreen background="#000000" color="white" height="100vh" />;
+    return <>{fallback}</> || <LoadingScreen background="#000000" color="white" height="100vh" />;
   }
 
   if (!isAuthorized) return null;
 
   return <>{children}</>;
-};
+}
 
 export default AuthenticationGuard;

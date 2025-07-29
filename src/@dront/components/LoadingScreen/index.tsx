@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import { Drogo } from '@/@dront/components';
+import Drogo from '../Drogo';
 
 const LoadingScreen = ({
   background,
@@ -24,6 +24,7 @@ const LoadingScreen = ({
     >
       <Box textAlign="center">
         <Drogo variant="box" size={200} />
+
         <Typography variant="h3" mt={8} color={color} fontSize="1.3em" letterSpacing={2}>
           LOADING
         </Typography>

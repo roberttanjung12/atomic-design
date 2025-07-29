@@ -1,8 +1,17 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import AuthenticationGuard from '@/@dront/authentication/AuthenticationGuard';
+import { DrontAuthGuard } from '@/@dront/authentication';
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
-  return <AuthenticationGuard protectionLevel="unauthenticated">{children}</AuthenticationGuard>;
+  return (
+    <DrontAuthGuard
+      protectionLevel="unauthenticated"
+      getToken={() => {
+        return localStorage.getItem('dront') ?? '';
+      }}
+    >
+      {children}
+    </DrontAuthGuard>
+  );
 }

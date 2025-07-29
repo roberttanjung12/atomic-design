@@ -1,0 +1,38 @@
+'use client';
+
+import type { ReactNode } from 'react';
+import type { Resource } from 'i18next';
+import dynamic from 'next/dynamic';
+import NextTopLoader from 'nextjs-toploader';
+import { AppearanceProvider } from '@/@dront/context/AppearanceProvider';
+import i18n from '@/@dront/utils/i18n';
+
+const DrontApplication = dynamic(() => import('@/@dront/app'), {
+  ssr: false
+});
+
+interface DrontRootLayoutProps {
+  children: ReactNode;
+  i18nResources: Resource;
+  i18nLocale: string;
+}
+
+const DrontRootLayout = ({ children, i18nResources, i18nLocale = 'id' }: DrontRootLayoutProps) => {
+  if (i18nResources) {
+    i18n.setInit(i18nResources, i18nLocale);
+  }
+
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <NextTopLoader color="#5D87FF" />
+
+        <AppearanceProvider>
+          <DrontApplication>{children}</DrontApplication>
+        </AppearanceProvider>
+      </body>
+    </html>
+  );
+};
+
+export default DrontRootLayout;

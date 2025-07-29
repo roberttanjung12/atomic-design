@@ -4,10 +4,9 @@ import type { ReactNode } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
-import { ThemeSettings } from '@/@dront/theme/Theme';
-import '@/@dront/utils/i18n';
+import { ThemeSettings } from './theme/Theme';
 
-const DRONTApplication = ({ children }: { children: ReactNode }) => {
+const DrontApplication = ({ children }: { children: ReactNode }) => {
   const theme = ThemeSettings();
 
   return (
@@ -20,4 +19,4 @@ const DRONTApplication = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default DRONTApplication;
+export default DrontApplication;

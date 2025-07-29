@@ -1,14 +1,16 @@
 import type { ReactNode } from 'react';
 import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { useSelector } from '@/store/hooks';
-import type { ApplicationState } from '@/store/store';
+import { useAppearance } from '@/@dront/context/AppearanceProvider';
+import { useSidebarStore } from '@/@dront/store';
 import MainContainer from './Container';
 import MainHeader from './Header';
 import MainSidebar from './Sidebar';
 
 const MainLayout = ({ children }: { children: ReactNode }) => {
-  const { sidebar } = useSelector((state: ApplicationState) => state.appearance);
+  const { appearanceState } = useAppearance();
+  const { miniWidth } = appearanceState.sidebar;
+  const [isCollapse] = useSidebarStore('isCollapse');
 
   const theme = useTheme();
 
@@ -25,7 +27,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
         width="100%"
         bgcolor="transparent"
         sx={{
-          ...(sidebar.isCollapse && { [theme.breakpoints.up('lg')]: { ml: `${sidebar.miniWidth}px` } })
+          ...(isCollapse && { [theme.breakpoints.up('lg')]: { ml: `${miniWidth}px` } })
         }}
       >
         <MainHeader />
