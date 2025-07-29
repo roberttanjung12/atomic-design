@@ -2,10 +2,14 @@
 
 import type { ReactNode } from 'react';
 import type { Resource } from 'i18next';
+import dynamic from 'next/dynamic';
 import NextTopLoader from 'nextjs-toploader';
-import DrontApplication from '@/@dront/app';
 import { AppearanceProvider } from '@/@dront/context/AppearanceProvider';
 import i18n from '@/@dront/utils/i18n';
+
+const DrontApplication = dynamic(() => import('@/@dront/app'), {
+  ssr: false
+});
 
 interface DrontRootLayoutProps {
   children: ReactNode;

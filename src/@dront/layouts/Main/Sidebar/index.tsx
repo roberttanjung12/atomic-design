@@ -1,12 +1,8 @@
 import { Box, Drawer, useMediaQuery } from '@mui/material';
 import Link from 'next/link';
 import { Drogo, MainScrollbar } from '@/@dront/components';
-import {
-  hoverSidebar,
-  toggleMobileSidebar,
-  useAppearance,
-  type AppearanceSidebar
-} from '@/@dront/context/AppearanceProvider';
+import { useAppearance, type AppearanceSidebar } from '@/@dront/context/AppearanceProvider';
+import { sidebarActions, useSidebarStore } from '@/@dront/store';
 import SidebarNavigation from './Navigation';
 import SidebarNavigationCustom from './NavigationCustom';
 
@@ -45,14 +41,22 @@ const SidebarContent = ({
 
 const MainSidebar = () => {
   const lgDown = useMediaQuery((theme: any) => theme.breakpoints.down('lg'));
-  const { appearanceDispatch, appearanceState } = useAppearance();
-  const { isCollapse, isMobile, isHover, miniWidth, variant, width } = appearanceState.sidebar;
+  const { appearanceState } = useAppearance();
+  const { miniWidth, variant, width } = appearanceState.sidebar;
+
+  const [isCollapse] = useSidebarStore('isCollapse');
+  const [isHover, setIsHover] = useSidebarStore('isHover');
+  const [isMobile] = useSidebarStore('isMobile');
   const toggleWidth = isCollapse && !isHover ? miniWidth : width;
 
   const onHover = (isEntering: boolean) => {
     if (isCollapse) {
-      appearanceDispatch(hoverSidebar(isEntering));
+      setIsHover(isEntering);
     }
+  };
+
+  const toggleMobileSidebar = () => {
+    sidebarActions.toggleMobileSidebar();
   };
 
   if (lgDown) {
@@ -60,7 +64,7 @@ const MainSidebar = () => {
       <Drawer
         anchor="left"
         open={isMobile}
-        onClose={() => appearanceDispatch(toggleMobileSidebar())}
+        onClose={toggleMobileSidebar}
         variant="temporary"
         slotProps={{
           paper: {

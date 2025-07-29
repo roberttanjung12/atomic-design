@@ -1,8 +1,8 @@
 import { List, useMediaQuery } from '@mui/material';
 import { type Theme } from '@mui/material/styles';
 import { usePathname } from 'next/navigation';
-import { toggleMobileSidebar, useAppearance } from '@/@dront/context/AppearanceProvider';
 import { useMainLayout } from '@/@dront/context/MainLayoutProvider';
+import { sidebarActions, useSidebarStore } from '@/@dront/store';
 import NavigationCollapse from './NavigationCollapse';
 import NavigationGroup from './NavigationGroup';
 import NavigationItem from './NavigationItem';
@@ -12,10 +12,14 @@ const SidebarNavigation = () => {
   const pathname = usePathname();
   const pathDirect = pathname;
   const pathWithoutLastPart = pathname.slice(0, pathname.lastIndexOf('/'));
-  const { appearanceState, appearanceDispatch } = useAppearance();
   const { navigations } = useMainLayout();
-  const { isCollapse, isHover } = appearanceState.sidebar;
+  const [isCollapse] = useSidebarStore('isCollapse');
+  const [isHover] = useSidebarStore('isHover');
   const hideMenu: any = lgUp ? isCollapse && !isHover : '';
+
+  const toggleMobileSidebar = () => {
+    sidebarActions.toggleMobileSidebar();
+  };
 
   return (
     <List sx={{ pt: 0 }}>
@@ -31,7 +35,7 @@ const SidebarNavigation = () => {
               pathWithoutLastPart={pathWithoutLastPart}
               level={1}
               key={item.id}
-              onClick={() => appearanceDispatch(toggleMobileSidebar())}
+              onClick={toggleMobileSidebar}
             />
           );
         } else {
@@ -42,7 +46,7 @@ const SidebarNavigation = () => {
               key={item.id}
               pathDirect={pathDirect}
               hideMenu={hideMenu}
-              onClick={() => appearanceDispatch(toggleMobileSidebar())}
+              onClick={toggleMobileSidebar}
             />
           );
         }

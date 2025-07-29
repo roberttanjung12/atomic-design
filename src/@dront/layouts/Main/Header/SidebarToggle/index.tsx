@@ -1,17 +1,25 @@
 import { MenuOpen as MenuOpenIcon } from '@mui/icons-material';
 import { IconButton, useMediaQuery } from '@mui/material';
-import { toggleMobileSidebar, toggleSidebar, useAppearance } from '@/@dront/context/AppearanceProvider';
+import { useSidebarStore, sidebarActions } from '@/@dront/store';
 
 const SidebarToggle = () => {
   const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up('lg'));
 
-  const { appearanceState, appearanceDispatch } = useAppearance();
+  const [isCollapse] = useSidebarStore('isCollapse');
 
-  const onClick = lgUp ? () => appearanceDispatch(toggleSidebar()) : () => appearanceDispatch(toggleMobileSidebar());
+  const toggleSidebar = () => {
+    sidebarActions.toggleSidebar();
+  };
+
+  const toggleMobileSidebar = () => {
+    sidebarActions.toggleMobileSidebar();
+  };
+
+  const onClick = lgUp ? () => toggleSidebar() : () => toggleMobileSidebar();
 
   return (
     <IconButton color="inherit" aria-label="menu" onClick={onClick}>
-      <MenuOpenIcon sx={{ rotate: appearanceState.sidebar.isCollapse ? '180deg' : '0deg' }} />
+      <MenuOpenIcon sx={{ rotate: isCollapse ? '180deg' : '0deg' }} />
     </IconButton>
   );
 };

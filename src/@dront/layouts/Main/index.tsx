@@ -2,13 +2,15 @@ import type { ReactNode } from 'react';
 import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useAppearance } from '@/@dront/context/AppearanceProvider';
+import { useSidebarStore } from '@/@dront/store';
 import MainContainer from './Container';
 import MainHeader from './Header';
 import MainSidebar from './Sidebar';
 
 const MainLayout = ({ children }: { children: ReactNode }) => {
   const { appearanceState } = useAppearance();
-  const { isCollapse, miniWidth } = appearanceState.sidebar;
+  const { miniWidth } = appearanceState.sidebar;
+  const [isCollapse] = useSidebarStore('isCollapse');
 
   const theme = useTheme();
 

@@ -2,6 +2,7 @@ import * as locales from '@mui/material/locale';
 import { createTheme } from '@mui/material/styles';
 import _ from 'lodash';
 import { useAppearance } from '../context/AppearanceProvider';
+import { useThemeStore } from '../store';
 import components from './Components';
 import { shadows, darkshadows } from './Shadows';
 import { coreThemeDark, coreThemeLight } from './ThemeCore';
@@ -16,15 +17,17 @@ const BuildTheme = (config: any = {}) => {
 
   const { appearanceState } = useAppearance();
 
-  const defaultTheme = appearanceState.activeMode === 'dark' ? coreThemeDark : coreThemeLight;
+  const [activeMode] = useThemeStore('activeMode');
 
-  const defaultShadow = appearanceState.activeMode === 'dark' ? darkshadows : shadows;
+  const defaultTheme = activeMode === 'dark' ? coreThemeDark : coreThemeLight;
 
-  const themeSelect = appearanceState.activeMode === 'dark' ? darkthemeOptions : lightThemeOptions;
+  const defaultShadow = activeMode === 'dark' ? darkshadows : shadows;
+
+  const themeSelect = activeMode === 'dark' ? darkthemeOptions : lightThemeOptions;
 
   const baseMode = {
     palette: {
-      mode: appearanceState.activeMode
+      mode: activeMode
     },
     shape: {
       borderRadius: appearanceState.borderRadius
