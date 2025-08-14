@@ -28,7 +28,14 @@ const AlertFloating = () => {
             severity: 'success',
             title: 'Floating Alert',
             message: 'This is a floating alert with 3 seconds duration',
-            duration: 3000 // 3 seconds of duration
+
+            duration: 3000, // 3 seconds of duration,
+            position: 'top-left', // Position of the alert,
+            offset: {
+              // You can fine-tune the alert's position
+              left: '16px',
+              top: '16px'
+            }
           });
         }}
       >

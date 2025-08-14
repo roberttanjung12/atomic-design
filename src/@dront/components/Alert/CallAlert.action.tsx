@@ -1,27 +1,41 @@
 import { createRoot } from 'react-dom/client';
 import DrontApplication from '@/@dront/app';
 import CallAlert, { type CallAlertOptions } from './CallAlert';
+import { getPositionStyles } from './callAlert.position-helper';
 
 let alertInstance: any;
 
-const initAlert = () => {
+type AlertPosition = 'top-right' | 'top-left' | 'top-center' | 'bottom-right' | 'bottom-left' | 'bottom-center';
+
+interface InitAlertParams {
+  position?: AlertPosition;
+  offset?: { left?: string; top?: string; right?: string; bottom?: string };
+}
+
+const initAlert = ({ position = 'top-right', offset = { top: '8px', right: '8px' } }: InitAlertParams) => {
   return new Promise(resolve => {
+    const styles = getPositionStyles(position, offset);
+
     const wrapper = document.createElement('div');
 
-    wrapper.className = 'alert-wrapper';
-    wrapper.style.position = 'fixed';
-    wrapper.style.top = '8px';
-    wrapper.style.right = '8px';
-    wrapper.style.zIndex = '9999';
+    const wrapperClassName = `dront-alert-wrapper--${position}--${offset.left}--${offset.top}--${offset.right}--${offset.bottom}`;
+
+    wrapper.className = wrapperClassName;
+    Object.assign(wrapper.style, {
+      position: 'fixed',
+      zIndex: '9999',
+      ...styles.wrapper
+    });
 
     const container = document.createElement('div');
 
     container.className = 'alert-container';
-    container.style.marginBottom = '8px';
-    container.style.transition = 'transform 0.4s cubic-bezier(1,0,0,1)';
-    container.style.transform = 'translateX(100%)';
+    Object.assign(container.style, {
+      marginBottom: '8px',
+      ...styles.container
+    });
 
-    const existingWrapper = document.body.querySelector('.alert-wrapper');
+    const existingWrapper = document.body.querySelector(`.${wrapperClassName}`);
 
     if (existingWrapper) {
       existingWrapper.appendChild(container);
@@ -31,10 +45,25 @@ const initAlert = () => {
     }
 
     requestAnimationFrame(() => {
-      container.style.transform = 'translateX(0)';
+      container.style.transform = 'translate(0, 0)';
     });
 
     const root = createRoot(container);
+
+    const handleClose = (callback: () => any) => {
+      if (container.parentNode) {
+        container.style.transform = styles.close.transform ?? '';
+
+        setTimeout(() => {
+          root.unmount();
+          container.parentNode?.removeChild(container);
+          if (wrapper.childElementCount === 0) {
+            wrapper.parentNode?.removeChild(wrapper);
+          }
+          callback();
+        }, 400);
+      }
+    };
 
     root.render(
       <DrontApplication>
@@ -43,8 +72,7 @@ const initAlert = () => {
             alertInstance = ref;
             resolve(ref);
           }}
-          root={root}
-          container={container}
+          handleClose={handleClose}
         />
       </DrontApplication>
     );
@@ -52,9 +80,8 @@ const initAlert = () => {
 };
 
 const callAlert = {
-  open: async (options: CallAlertOptions) => {
-    await initAlert();
-
+  open: async (options: CallAlertOptions & InitAlertParams) => {
+    await initAlert({ position: options.position, offset: options.offset });
     alertInstance?.open(options);
   }
 };

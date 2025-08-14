@@ -15,15 +15,15 @@ export interface AlertProps {
   /**
    * Severity level of the alert. options (success, error, info, warning)
    */
-  severity: 'success' | 'error' | 'info' | 'warning';
+  severity?: MuiAlertProps['severity'];
   /**
    * Variant of the alert. options (standard, snackbar)
    */
   variant?: 'standard' | 'snackbar';
   /**
-   * Optional title to display at the top of the alert.
+   * Title to display at the top of the alert.
    */
-  title?: string;
+  title: string;
   /**
    * The main message content of the alert. Can be a string or a React node.
    */
@@ -31,7 +31,7 @@ export interface AlertProps {
   /**
    * Additional props to pass to the underlying MUI Alert component.
    */
-  muiAlertProps?: MuiAlertProps;
+  muiAlertProps?: Omit<MuiAlertProps, 'severity'>;
 }
 
 type VariantStyles = {
@@ -44,11 +44,11 @@ type VariantStyles = {
  * Alert component for displaying alert messages with configurable severity, variant, title, and message.
  * Integrates with MUI's Alert and supports custom styling and props.
  *
- * @param severity - The severity level of the alert (e.g., 'error', 'warning', 'info', 'success').
- * @param variant - The visual variant of the alert ('standard' or 'snackbar'). Defaults to 'standard'.
- * @param title - Optional title to display at the top of the alert.
- * @param message - The main message content of the alert. Can be a string or a React node.
- * @param muiAlertProps - Additional props to pass to the underlying MUI Alert component.
+ * @property {string} [severity] - The severity level of the alert (e.g., 'error', 'warning', 'info', 'success').
+ * @property {string} [variant] - The visual variant of the alert ('standard' or 'snackbar'). Defaults to 'standard'.
+ * @property {string} title - Title to display at the top of the alert.
+ * @property {string | ReactNode} [message] - The main message content of the alert. Can be a string or a React node.
+ * @property {Omit<MuiAlertProps, 'severity'>} [muiAlertProps] - Additional props to pass to the underlying MUI Alert component.
  *
  * @example
  * <Alert
@@ -59,7 +59,7 @@ type VariantStyles = {
  *   muiAlertProps={{ onClose: handleClose }}
  * />
  */
-const Alert = ({ severity, variant = 'standard', title, message, muiAlertProps }: AlertProps) => {
+const Alert = ({ severity = 'info', variant = 'standard', title, message, muiAlertProps }: AlertProps) => {
   const { palette } = useTheme();
 
   const variantConfig: Record<'standard' | 'snackbar', VariantStyles> = {
@@ -95,14 +95,14 @@ const Alert = ({ severity, variant = 'standard', title, message, muiAlertProps }
         severity={severity}
         variant={selectedVariant.muiVariant}
         {...muiAlertProps}
-        sx={
+        sx={[
           {
             minWidth: 320,
-            borderRadius: 2,
-            ...selectedVariant.sx,
-            ...muiAlertProps?.sx
-          } as SxProps<Theme>
-        }
+            borderRadius: 2
+          },
+          ...(Array.isArray(selectedVariant.sx) ? selectedVariant.sx : [selectedVariant.sx]),
+          ...(Array.isArray(muiAlertProps?.sx) ? muiAlertProps.sx : [muiAlertProps?.sx])
+        ]}
       >
         {title && <AlertTitle>{title}</AlertTitle>}
         {typeof message === 'string' ? (
