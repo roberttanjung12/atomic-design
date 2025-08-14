@@ -26,4 +26,6 @@ export { default as PageID } from './PageID';
 
 export { default as Section } from './Section';
 
+export { default as StatusIndicator } from './StatusIndicator';
+
 export { default as TextHighlighter } from './TextHighlighter';
