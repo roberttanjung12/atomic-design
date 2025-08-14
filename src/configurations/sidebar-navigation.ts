@@ -24,6 +24,11 @@ const Menuitems: NavigationItem[] = [
   },
   {
     id: uniqueId(),
+    title: 'Alert',
+    href: '/components/alert'
+  },
+  {
+    id: uniqueId(),
     title: 'Field Password',
     href: '/components/field-password'
   },
@@ -41,11 +46,6 @@ const Menuitems: NavigationItem[] = [
     id: uniqueId(),
     title: 'Field Text Validation',
     href: '/components/field-text-validation'
-  },
-  {
-    id: uniqueId(),
-    title: 'Alert',
-    href: '/components/alert'
   }
 ];
 
