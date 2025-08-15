@@ -66,6 +66,16 @@ const TimeMachineModule = () => {
         </ParagraphWrapper>
       </Section>
 
+      <Section title="Date Range (Filter)">
+        <TextHighlighter text="Similar to the `single-date` filter, the `date-range` variant operates as a self-contained component that integrates directly with the URL. The key difference lies in the `filter` prop's configuration, which requires two properties instead of one: `startName` for the start date's query parameter and `endName` for the end date's parameter. This allows the component to automatically read from and write to two separate URL parameters, such as `?dr-start=...&dr-end=....` The inclusion of the `showTime` prop further enhances this by adding time values to the filter, providing higher precision for time-sensitive range filtering." />
+
+        <ParagraphWrapper>
+          <CodeViewer code={dateRangeFilterExample}>
+            <DateRangeFilterExample />
+          </CodeViewer>
+        </ParagraphWrapper>
+      </Section>
+
       <Section title="Date Range Two Months Displayed">
         <ParagraphWrapper>
           <TextHighlighter text="This is a controlled component that uses the `variant='date-range-two-months'` to render a date range picker that always displays two calendar months side-by-side, making it easier to select ranges that span across months." />
@@ -82,16 +92,6 @@ const TimeMachineModule = () => {
 
           <CodeViewer code={dateRangeTwoMonthsDisplayedFilterExample}>
             <DateRangeTwoMonthsDisplayedFilterExample />
-          </CodeViewer>
-        </ParagraphWrapper>
-      </Section>
-
-      <Section title="Date Range (Filter)">
-        <TextHighlighter text="Similar to the `single-date` filter, the `date-range` variant operates as a self-contained component that integrates directly with the URL. The key difference lies in the `filter` prop's configuration, which requires two properties instead of one: `startName` for the start date's query parameter and `endName` for the end date's parameter. This allows the component to automatically read from and write to two separate URL parameters, such as `?dr-start=...&dr-end=....` The inclusion of the `showTime` prop further enhances this by adding time values to the filter, providing higher precision for time-sensitive range filtering." />
-
-        <ParagraphWrapper>
-          <CodeViewer code={dateRangeFilterExample}>
-            <DateRangeFilterExample />
           </CodeViewer>
         </ParagraphWrapper>
       </Section>
