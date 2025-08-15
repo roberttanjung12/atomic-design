@@ -51,6 +51,11 @@ const Menuitems: NavigationItem[] = [
     id: uniqueId(),
     title: 'Status Indicator',
     href: '/components/status-indicator'
+  },
+  {
+    id: uniqueId(),
+    title: 'Time Machine',
+    href: '/components/time-machine'
   }
 ];
 
