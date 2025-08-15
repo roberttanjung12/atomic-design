@@ -1,6 +1,6 @@
 import * as locales from '@mui/material/locale';
 import { createTheme } from '@mui/material/styles';
-import _ from 'lodash';
+import merge from 'lodash/merge';
 import { useAppearance } from '../context/AppearanceProvider';
 import { useThemeStore } from '../store';
 import components from './Components';
@@ -37,7 +37,7 @@ const BuildTheme = (config: any = {}) => {
   };
 
   const theme = createTheme(
-    _.merge({}, baseMode, defaultTheme, locales, themeSelect, {
+    merge({}, baseMode, defaultTheme, locales, themeSelect, {
       direction: config.direction
     })
   );
