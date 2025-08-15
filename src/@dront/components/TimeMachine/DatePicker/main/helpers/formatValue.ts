@@ -1,13 +1,13 @@
-import moment from 'moment';
+import { format } from 'date-fns';
 import type { DateValue } from '../types/date-value';
 import type { Locale } from '../types/locale';
 
 const formatValue = (date: DateValue, locale: Locale, showTime?: boolean) => {
   if (!date) return '';
 
-  if (showTime) return moment(date).format('DD MMMM YYYY HH:mm');
+  if (showTime) return format(date, 'dd MMMM yyyy', { locale: locale });
 
-  return moment(date).locale(locale).format('DD MMMM YYYY');
+  return format(date, 'dd MMMM yyyy', { locale: locale });
 };
 
 export default formatValue;

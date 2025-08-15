@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction } from 'react';
-import moment from 'moment';
+import { endOfDay, endOfMonth, endOfQuarter, endOfYear } from 'date-fns';
 import type { DateValue } from '../types/date-value';
 import type { Modes } from '../types/modes';
 import { getWeekRange } from './getWeekRange';
@@ -10,8 +10,20 @@ interface HandleTemporaryByModeParams {
   setTemporaryDate: Dispatch<SetStateAction<DateValue>>;
 }
 
-const toTheEnd = (date: Date | null, unitTime: moment.unitOfTime.StartOf) => {
-  return date ? moment(date).endOf(unitTime).toDate() : null;
+const toTheEnd = (date: Date | null, unitTime: 'day' | 'month' | 'quarter' | 'year') => {
+  if (!date) return null;
+  switch (unitTime) {
+    case 'day':
+      return endOfDay(date);
+    case 'month':
+      return endOfMonth(date);
+    case 'quarter':
+      return endOfQuarter(date);
+    case 'year':
+      return endOfYear(date);
+    default:
+      return date;
+  }
 };
 
 const handleTemporaryByMode = ({ mode, values, setTemporaryDate }: HandleTemporaryByModeParams) => {

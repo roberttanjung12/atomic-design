@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { Box, InputBase, MenuItem, Select } from '@mui/material';
-import moment from 'moment';
+import { getYear, subYears } from 'date-fns';
 
 interface HeaderProps {
   date: Date;
@@ -9,9 +9,10 @@ interface HeaderProps {
 }
 
 const Header: FC<HeaderProps> = ({ date, changeYear }) => {
-  const selectedYear = moment(date).year();
+  const selectedYear = getYear(date);
 
-  const years = Array.from({ length: 10 }).map((_, index) => moment().subtract(5, 'years').year() + index + 1);
+  const startYear = getYear(subYears(new Date(), 5));
+  const years = Array.from({ length: 10 }, (_, index) => startYear + index + 1);
 
   return (
     <Box display="flex" ml={1}>

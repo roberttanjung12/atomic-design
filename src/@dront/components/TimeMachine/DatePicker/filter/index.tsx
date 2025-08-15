@@ -1,9 +1,9 @@
-import moment from 'moment';
+import { parse, format, isValid } from 'date-fns';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import TimeMachineDatePickerMain from '../main';
 import type { TimeMachineDatePickerFilterProps } from './types/time-machine-date-picker-filter-props';
 
-const FORMAT = 'DD-MM-YYYY HH:mm:ss';
+const FORMAT = 'dd-MM-yyyy HH:mm:ss';
 
 const TimeMachineDatePickerFilter = (props: TimeMachineDatePickerFilterProps) => {
   const { filter, ...rest } = props;
@@ -14,10 +14,11 @@ const TimeMachineDatePickerFilter = (props: TimeMachineDatePickerFilterProps) =>
   const params = new URLSearchParams(searchParams);
 
   const dateParam = searchParams.get(filter.name);
-  const date = dateParam ? moment(dateParam, FORMAT).toDate() : null;
+  const parsedDate = dateParam ? parse(dateParam, FORMAT, new Date()) : null;
+  const date = parsedDate && isValid(parsedDate) ? parsedDate : null;
 
   const handleSearch = (term: Date | null) => {
-    if (term) params.set(filter.name, moment(term).format(FORMAT));
+    if (term) params.set(filter.name, format(term, FORMAT));
     replace(`${pathname}?${params.toString()}`);
   };
 

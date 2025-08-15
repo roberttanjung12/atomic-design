@@ -1,15 +1,23 @@
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { List, ListItem, ListItemButton, Typography } from '@mui/material';
 
-import moment from 'moment';
+import { format, startOfDay, subDays } from 'date-fns';
 import handleTemplateRange from '../helpers/handle-template-range';
 import type { DateValue } from '../types/date-value';
 import type { Modes } from '../types/modes';
+
+const formatDate = (date: Date) => format(date, 'dd MMMM yyyy');
 
 const Templates: FC<{
   setTemporaryDate: Dispatch<SetStateAction<DateValue>>;
   setMode: Dispatch<SetStateAction<Modes>>;
 }> = ({ setTemporaryDate, setMode }) => {
+  const today = startOfDay(new Date());
+  const yesterday = startOfDay(subDays(new Date(), 1));
+  const last7Start = startOfDay(subDays(new Date(), 7));
+  const last30Start = startOfDay(subDays(new Date(), 30));
+  const last60Start = startOfDay(subDays(new Date(), 60));
+
   return (
     <List
       onClick={() => {
@@ -31,43 +39,35 @@ const Templates: FC<{
       <ListItemButton onClick={() => handleTemplateRange('Today', setTemporaryDate)}>
         <ListItem>
           <Typography mb="2px">Today</Typography>
-          <Typography variant="caption">{moment().startOf('day').format('DD MMMM YYYY')}</Typography>
+          <Typography variant="caption">{formatDate(today)}</Typography>
         </ListItem>
       </ListItemButton>
 
       <ListItemButton onClick={() => handleTemplateRange('Yesterday', setTemporaryDate)}>
         <ListItem>
           <Typography mb="2px">Yesterday</Typography>
-          <Typography variant="caption">
-            {moment().subtract(1, 'days').startOf('day').format('DD MMMM YYYY')}
-          </Typography>
+          <Typography variant="caption">{formatDate(yesterday)}</Typography>
         </ListItem>
       </ListItemButton>
 
       <ListItemButton onClick={() => handleTemplateRange('Last 7 Days', setTemporaryDate)}>
         <ListItem>
           <Typography mb="2px">Last 7 Days</Typography>
-          <Typography variant="caption">
-            {`${moment().subtract(7, 'days').startOf('day').format('DD MMMM YYYY')} - ${moment().format('DD MMMM YYYY')}`}
-          </Typography>
+          <Typography variant="caption">{`${formatDate(last7Start)} - ${formatDate(today)}`}</Typography>
         </ListItem>
       </ListItemButton>
 
       <ListItemButton onClick={() => handleTemplateRange('Last 30 Days', setTemporaryDate)}>
         <ListItem>
           <Typography mb="2px">Last 30 Days</Typography>
-          <Typography variant="caption">
-            {`${moment().subtract(30, 'days').startOf('day').format('DD MMMM YYYY')} - ${moment().format('DD MMMM YYYY')}`}
-          </Typography>
+          <Typography variant="caption">{`${formatDate(last30Start)} - ${formatDate(today)}`}</Typography>
         </ListItem>
       </ListItemButton>
 
       <ListItemButton onClick={() => handleTemplateRange('Last 60 Days', setTemporaryDate)}>
         <ListItem>
           <Typography mb="2px">Last 60 Days</Typography>
-          <Typography variant="caption">
-            {`${moment().subtract(60, 'days').startOf('day').format('DD MMMM YYYY')} - ${moment().format('DD MMMM YYYY')}`}
-          </Typography>
+          <Typography variant="caption">{`${formatDate(last60Start)} - ${formatDate(today)}`}</Typography>
         </ListItem>
       </ListItemButton>
     </List>

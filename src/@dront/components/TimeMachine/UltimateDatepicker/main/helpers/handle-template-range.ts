@@ -3,35 +3,45 @@
 */
 
 import type { Dispatch, SetStateAction } from 'react';
-import moment from 'moment';
+import { startOfDay, endOfDay, subDays } from 'date-fns';
 import type { DateValue } from '../types/date-value';
 
 const handleTemplateRange = (textContent: string, setTemporaryDate: Dispatch<SetStateAction<DateValue>>) => {
-  let startDate;
-  let endDate;
+  let startDate: Date | null = null;
+  let endDate: Date | null = null;
 
   switch (textContent) {
     case 'Today':
-      startDate = moment().startOf('day');
-      endDate = moment().endOf('day');
+      startDate = startOfDay(new Date());
+      endDate = endOfDay(new Date());
       break;
-    case 'Yesterday':
-      startDate = moment().subtract(1, 'days').startOf('day');
-      endDate = moment().subtract(1, 'days').endOf('day');
+    case 'Yesterday': {
+      const yesterday = subDays(new Date(), 1);
+
+      startDate = startOfDay(yesterday);
+      endDate = endOfDay(yesterday);
       break;
+    }
     case 'Last 7 Days':
-      startDate = moment().subtract(6, 'days').startOf('day');
-      endDate = moment().endOf('day');
+      startDate = startOfDay(subDays(new Date(), 7));
+      endDate = endOfDay(new Date());
       break;
-    case 'Last 31 Days':
-      startDate = moment().subtract(30, 'days').startOf('day');
-      endDate = moment().endOf('day');
+
+    case 'Last 30 Days':
+      startDate = startOfDay(subDays(new Date(), 30));
+      endDate = endOfDay(new Date());
       break;
+
+    case 'Last 60 Days':
+      startDate = startOfDay(subDays(new Date(), 60));
+      endDate = endOfDay(new Date());
+      break;
+
     default:
       break;
   }
 
-  setTemporaryDate([startDate?.toDate() || null, endDate?.toDate() || null]);
+  setTemporaryDate([startDate, endDate]);
 };
 
 export default handleTemplateRange;

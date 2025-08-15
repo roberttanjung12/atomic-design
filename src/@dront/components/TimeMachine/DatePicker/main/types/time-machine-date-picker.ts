@@ -1,5 +1,6 @@
 import type { MouseEvent } from 'react';
 import { type TextFieldProps } from '@mui/material';
+import type { Locale } from 'date-fns';
 import { type DatePickerProps } from 'react-datepicker';
 import type { DateValue } from './date-value';
 
@@ -24,7 +25,7 @@ export type TimeMachineDatePickerMainProps = {
   variant: 'date-picker';
   label?: string;
   showTime?: boolean;
-  locale?: 'id' | 'en';
+  locale?: Locale;
   datePickerProps?: DatePickerPropsWithCallback;
   timePickerProps?: DatePickerPropsWithCallback;
   textFieldProps?: TextFieldProps;

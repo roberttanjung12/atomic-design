@@ -1,4 +1,4 @@
-import { id } from 'date-fns/locale';
+import { id, enUS } from 'date-fns/locale';
 import { registerLocale } from 'react-datepicker';
 import { useTranslation } from 'react-i18next';
 import TimeMachineDatePicker, { type TimeMachineDatePickerProps } from './DatePicker';
@@ -8,7 +8,6 @@ import TimeMachineQuarterPicker, { type TimeMachineQuarterPickerProps } from './
 import TimeMachineTimeRange, { type TimeMachineTimeRangeProps } from './TimeRange';
 import TimeMachineUltimate, { type TimeMachineUltimateProps } from './UltimateDatepicker';
 
-import 'moment/locale/id';
 import 'react-datepicker/dist/react-datepicker.css';
 
 registerLocale('id', id);
@@ -41,7 +40,7 @@ type TimeMachineProps =
 const TimeMachine = (props: TimeMachineProps) => {
   const { '1': language } = useTranslation();
 
-  const locale = (['id', 'en'].includes(language.language) ? language.language : 'en') as 'en' | 'id';
+  const locale = language.language === 'id' ? id : enUS;
 
   if (props.variant === 'date-range') {
     return <TimeMachineDateRange locale={locale} {...props} />;

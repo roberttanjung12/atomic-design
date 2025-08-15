@@ -1,5 +1,6 @@
 import { type FC } from 'react';
 import { Box, Button } from '@mui/material';
+import { id } from 'date-fns/locale';
 import DatePicker from 'react-datepicker';
 import DateField from './components/field';
 import ModalWrapper from './components/modal-wrapper';
@@ -14,7 +15,7 @@ const TimeMachineQuarterPickerMain: FC<TimeMachineQuarterPickerMainProps> = ({
   date,
   datePickerProps,
   textFieldProps,
-  locale = 'id',
+  locale = id,
   onApply,
   onClear
 }) => {

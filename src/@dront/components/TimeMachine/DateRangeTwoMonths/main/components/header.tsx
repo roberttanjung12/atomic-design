@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { IconButton } from '@mui/material';
-import moment from 'moment';
+import { format } from 'date-fns';
 import type { Locale } from '../types/locale';
 
 interface HeaderProps {
@@ -39,7 +39,7 @@ const Header: FC<HeaderProps> = ({
         <ArrowLeftIcon fontSize="small" />
       </IconButton>
 
-      <span className="react-datepicker__current-month">{moment(monthDate).locale(locale).format('MMM YYYY')}</span>
+      <span className="react-datepicker__current-month">{format(monthDate, 'MMM yyyy', { locale })}</span>
 
       <IconButton
         disabled={nextMonthButtonDisabled}

@@ -1,6 +1,6 @@
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { Box, FormLabel, TextField } from '@mui/material';
-import moment from 'moment';
+import { endOfDay } from 'date-fns';
 import ReactDatePicker from 'react-datepicker';
 import useHandleRange from '../helpers/use-handle-range';
 import type { DateValue } from '../types/date-value';
@@ -71,7 +71,7 @@ const ManualFields: FC<ManualFieldsProps> = ({
               wrapperClassName="w-full"
               locale={locale}
               onChange={value => {
-                setTemporaryDate([startDateVal, moment(value).endOf('day').toDate()]);
+                setTemporaryDate([startDateVal, value ? endOfDay(value as Date) : null]);
               }}
             />
           </Box>

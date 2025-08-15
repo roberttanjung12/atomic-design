@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import moment from 'moment';
+import { endOfDay } from 'date-fns';
 import Header from '../components/header';
 import type { DateValue } from '../types/date-value';
 import type { UseDate, UseDateProps } from '../types/use-date';
@@ -11,7 +11,7 @@ const useDate = ({ date, onApply, locale }: UseDateProps): UseDate => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleTemporary = (values: DateValue) => {
-    const endDate = values[1] ? moment(values[1]).endOf('days').toDate() : null;
+    const endDate = values[1] ? endOfDay(values[1]) : null;
 
     setTemporaryDate([values[0], endDate]);
   };

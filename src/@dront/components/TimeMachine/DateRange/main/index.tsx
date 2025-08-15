@@ -1,5 +1,6 @@
 import { type FC } from 'react';
 import { Box, Button, Grid } from '@mui/material';
+import { id } from 'date-fns/locale';
 import DatePicker from 'react-datepicker';
 import DateRangeField from './components/field';
 import ManualFields from './components/manual-fields';
@@ -17,7 +18,7 @@ const TimeMachineDateRangeMain: FC<TimeMachineDateRangeMainProps> = ({
   datePickerProps,
   textFieldProps,
   showTime,
-  locale = 'id',
+  locale = id,
   onApply,
   onClear
 }) => {

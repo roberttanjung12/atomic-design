@@ -1,6 +1,7 @@
 import { useMemo, type FC } from 'react';
 import { Button, Grid } from '@mui/material';
 import { Box } from '@mui/system';
+import { id } from 'date-fns/locale';
 import DatePicker from 'react-datepicker';
 import DateRangeField from './components/field';
 import ModalWrapper from './components/modal-wrapper';
@@ -15,7 +16,7 @@ const TimeMachineDateRangeMain: FC<TimeMachineDateRangeTwoMonthsMainProps> = ({
   date,
   datePickerProps,
   textFieldProps,
-  locale = 'id',
+  locale = id,
   onApply,
   onClear
 }) => {

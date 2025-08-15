@@ -1,9 +1,9 @@
-import moment from 'moment';
+import { parse, format } from 'date-fns';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import TimeMachineDatePickerMain from '../main';
 import type { TimeMachineDateRangeTwoMonthsFilterProps } from './types/time-machine-date-range-filter-props';
 
-const FORMAT = 'DD-MM-YYYY HH:mm:ss';
+const FORMAT = 'dd-MM-yyyy HH:mm:ss';
 
 const TimeMachineDateRangeFilter = (props: TimeMachineDateRangeTwoMonthsFilterProps) => {
   const { filter, ...rest } = props;
@@ -14,15 +14,15 @@ const TimeMachineDateRangeFilter = (props: TimeMachineDateRangeTwoMonthsFilterPr
   const params = new URLSearchParams(searchParams);
 
   const startDateParam = searchParams.get(filter.startName);
-  const startDate = startDateParam ? moment(startDateParam, FORMAT).toDate() : null;
+  const startDate = startDateParam ? parse(startDateParam, FORMAT, new Date()) : null;
   const endDateParam = searchParams.get(filter.endName);
-  const endDate = endDateParam ? moment(endDateParam, FORMAT).toDate() : null;
+  const endDate = endDateParam ? parse(endDateParam, FORMAT, new Date()) : null;
   const date: [Date | null, Date | null] = [startDate, endDate];
 
   const handleSearch = (term: [Date | null, Date | null]) => {
     if (term[0] && term[1]) {
-      params.set(filter.startName, moment(term[0]).format(FORMAT));
-      params.set(filter.endName, moment(term[1]).format(FORMAT));
+      params.set(filter.startName, format(term[0], FORMAT));
+      params.set(filter.endName, format(term[1], FORMAT));
     }
 
     replace(`${pathname}?${params.toString()}`);

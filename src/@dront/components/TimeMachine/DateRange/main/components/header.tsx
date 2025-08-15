@@ -3,7 +3,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { IconButton, InputBase, MenuItem, Select } from '@mui/material';
-import moment from 'moment';
+import { getYear, getMonth, setMonth, format, subYears } from 'date-fns';
 import type { Locale } from '../types/locale';
 
 interface HeaderProps {
@@ -27,10 +27,16 @@ const Header: FC<HeaderProps> = ({
   nextMonthButtonDisabled,
   locale
 }) => {
-  const selectedYear = moment(date).year();
+  const selectedYear = getYear(date);
 
-  const months = Array.from({ length: 12 }, (_, index) => moment().locale(locale).month(index).format('MMMM'));
-  const years = Array.from({ length: 10 }).map((_, index) => moment().subtract(5, 'years').year() + index + 1);
+  // Generate months using date-fns and locale
+  const months = Array.from({ length: 12 }, (_, index) =>
+    format(setMonth(new Date(2000, 0, 1), index), 'LLLL', { locale })
+  );
+
+  // Generate years: 10 years range, centered around current year
+  const startYear = getYear(subYears(date, 5));
+  const years = Array.from({ length: 10 }, (_, index) => startYear + index + 1);
 
   return (
     <div style={{ margin: 10, display: 'flex' }}>
@@ -71,7 +77,7 @@ const Header: FC<HeaderProps> = ({
             paddingBottom: '1px'
           }
         }}
-        value={months[moment(date).month()]}
+        value={months[getMonth(date)]}
         onChange={({ target: { value } }) => changeMonth(months.indexOf(value))}
       >
         {months.map(option => (

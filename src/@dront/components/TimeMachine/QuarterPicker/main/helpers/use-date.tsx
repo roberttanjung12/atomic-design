@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import moment from 'moment';
+import { addMonths, subDays } from 'date-fns';
 import Header from '../components/header';
 import type { DateValue } from '../types/date-value';
 import type { UseDate, UseDateProps } from '../types/use-date';
@@ -13,7 +13,7 @@ const useDate = ({ date, onApply }: UseDateProps): UseDate => {
   const handleTemporary = (date: DateValue) => setTemporaryDate(date);
   const handleApply = () => {
     handleClose();
-    onApply([temporaryDate, moment(temporaryDate).add(3, 'M').subtract(1, 'd').toDate()]);
+    onApply([temporaryDate, subDays(addMonths(temporaryDate || '', 3), 1)]);
   };
 
   const renderTitle = (props: any) => <Header {...props} />;
