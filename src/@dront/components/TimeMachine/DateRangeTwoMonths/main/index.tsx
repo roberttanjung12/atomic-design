@@ -29,8 +29,6 @@ const TimeMachineDateRangeMain: FC<TimeMachineDateRangeTwoMonthsMainProps> = ({
   const renderedValue = formatValue(date, locale);
   const dateProps = typeof datePickerProps === 'function' ? datePickerProps(temporaryDate) : datePickerProps;
 
-  console.log(temporaryDate);
-
   const monthShown = useMemo(() => 2, []);
 
   return (
