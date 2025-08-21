@@ -54,6 +54,11 @@ const Menuitems: NavigationItem[] = [
   },
   {
     id: uniqueId(),
+    title: 'Tabs Navigator',
+    href: '/components/tabs-navigator'
+  },
+  {
+    id: uniqueId(),
     title: 'Time Machine',
     href: '/components/time-machine'
   }
