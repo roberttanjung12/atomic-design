@@ -31,3 +31,5 @@ export { default as StatusIndicator } from './StatusIndicator';
 export { default as TextHighlighter } from './TextHighlighter';
 
 export { default as TopLoader } from './TopLoader';
+
+export { default as Chip } from './Chips';
