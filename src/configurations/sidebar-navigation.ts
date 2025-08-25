@@ -29,6 +29,11 @@ const Menuitems: NavigationItem[] = [
   },
   {
     id: uniqueId(),
+    title: 'Chip',
+    href: '/components/chip'
+  },
+  {
+    id: uniqueId(),
     title: 'Field Password',
     href: '/components/field-password'
   },
