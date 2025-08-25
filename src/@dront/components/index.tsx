@@ -28,6 +28,8 @@ export { default as Section } from './Section';
 
 export { default as StatusIndicator } from './StatusIndicator';
 
+export { default as Table, type TableActions, type TableRow } from './Table';
+
 export { default as TextHighlighter } from './TextHighlighter';
 
 export { default as TopLoader } from './TopLoader';

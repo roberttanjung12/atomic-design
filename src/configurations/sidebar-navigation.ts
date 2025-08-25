@@ -54,6 +54,11 @@ const Menuitems: NavigationItem[] = [
   },
   {
     id: uniqueId(),
+    title: 'Table',
+    href: '/components/table'
+  },
+  {
+    id: uniqueId(),
     title: 'Tabs Navigator',
     href: '/components/tabs-navigator'
   },
