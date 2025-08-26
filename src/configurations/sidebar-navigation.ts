@@ -66,6 +66,11 @@ const Menuitems: NavigationItem[] = [
     id: uniqueId(),
     title: 'Time Machine',
     href: '/components/time-machine'
+  },
+  {
+    id: uniqueId(),
+    title: 'Tooltip',
+    href: '/components/tooltip'
   }
 ];
 
