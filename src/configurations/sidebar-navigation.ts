@@ -71,6 +71,11 @@ const Menuitems: NavigationItem[] = [
     id: uniqueId(),
     title: 'Tooltip',
     href: '/components/tooltip'
+  },
+  {
+    id: uniqueId(),
+    title: 'Rating',
+    href: '/components/rating'
   }
 ];
 
