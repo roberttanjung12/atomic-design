@@ -3,7 +3,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { ProgressBar } from '@/@dront/components';
 
-const ProgressBarRadiusTest: React.FC = () => {
+const ProgressBarRadiusTest = () => {
   return (
     <Stack spacing={3}>
       <Typography variant="h5" gutterBottom>

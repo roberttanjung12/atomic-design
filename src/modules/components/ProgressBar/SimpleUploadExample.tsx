@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Typography, Stack } from '@mui/material';
 import { ProgressBar } from '@/@dront/components';
 
-const SimpleUploadExample: React.FC = () => {
+const SimpleUploadExample = () => {
   return (
     <Stack spacing={4}>
       <Box>

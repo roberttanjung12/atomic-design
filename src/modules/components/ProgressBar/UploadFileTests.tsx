@@ -35,7 +35,7 @@ interface FileUploadItem {
   status: 'uploading' | 'completed' | 'error' | 'paused';
 }
 
-const UploadFileTests: React.FC = () => {
+const UploadFileTests = () => {
   const [files, setFiles] = useState<FileUploadItem[]>([
     {
       id: '1',

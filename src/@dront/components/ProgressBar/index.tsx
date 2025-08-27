@@ -308,7 +308,7 @@ const formatTime = (seconds: number): string => {
   }
 };
 
-const ProgressBar: React.FC<ProgressBarProps> = ({
+const ProgressBar = ({
   value,
   type = 'linear',
   showPercentage = true,
@@ -331,7 +331,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   showBackground = true,
   className,
   sx
-}) => {
+}: ProgressBarProps) => {
   const normalizedValue = Math.min(Math.max(value, 0), 100);
 
   const getColorValue = (colorName: string) => {
