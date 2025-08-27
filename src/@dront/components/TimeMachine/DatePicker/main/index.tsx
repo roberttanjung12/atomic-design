@@ -1,4 +1,3 @@
-import { type FC } from 'react';
 import { Box, Button } from '@mui/material';
 import { id } from 'date-fns/locale';
 import DatePicker from 'react-datepicker';
@@ -11,7 +10,7 @@ import useDate from './helpers/use-date';
 import type { DateValue } from './types/date-value';
 import type { TimeMachineDatePickerMainProps } from './types/time-machine-date-picker';
 
-const TimeMachineDatePickerMain: FC<TimeMachineDatePickerMainProps> = ({
+const TimeMachineDatePickerMain = ({
   label,
   date,
   datePickerProps,
@@ -21,7 +20,7 @@ const TimeMachineDatePickerMain: FC<TimeMachineDatePickerMainProps> = ({
   locale = id,
   onApply,
   onClear
-}) => {
+}: TimeMachineDatePickerMainProps) => {
   const { open, temporaryDate, setTemporaryDate, renderTitle, handleTemporary, handleClose, handleOpen, handleApply } =
     useDate({
       date,

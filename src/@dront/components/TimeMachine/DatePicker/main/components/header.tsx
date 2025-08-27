@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
@@ -17,7 +16,7 @@ interface HeaderProps {
   locale: Locale;
 }
 
-const Header: FC<HeaderProps> = ({
+const Header = ({
   date,
   changeYear,
   changeMonth,
@@ -26,7 +25,7 @@ const Header: FC<HeaderProps> = ({
   prevMonthButtonDisabled,
   nextMonthButtonDisabled,
   locale
-}) => {
+}: HeaderProps) => {
   const selectedYear = getYear(date);
 
   // Generate month names using date-fns

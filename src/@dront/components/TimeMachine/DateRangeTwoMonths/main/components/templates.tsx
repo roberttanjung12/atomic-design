@@ -1,10 +1,14 @@
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import { List, ListItem, ListItemButton } from '@mui/material';
 
 import handleTemplateRange from '../helpers/handle-template-range';
 import type { DateValue } from '../types/date-value';
 
-const Templates: FC<{ setTemporaryDate: Dispatch<SetStateAction<DateValue>> }> = ({ setTemporaryDate }) => {
+interface TemplatesProps {
+  setTemporaryDate: Dispatch<SetStateAction<DateValue>>;
+}
+
+const Templates = ({ setTemporaryDate }: TemplatesProps) => {
   return (
     <List>
       <ListItemButton onClick={() => handleTemplateRange('Today', setTemporaryDate)}>

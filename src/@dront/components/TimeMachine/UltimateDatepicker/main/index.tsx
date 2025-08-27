@@ -1,4 +1,3 @@
-import { type FC } from 'react';
 import { Box, Button, Divider, Grid } from '@mui/material';
 import { id } from 'date-fns/locale';
 import DatePicker from 'react-datepicker';
@@ -13,7 +12,7 @@ import formatValue from './helpers/formatValue';
 import useDate from './helpers/use-date';
 import type { TimeMachineUltimateMainProps } from './types/time-machine-date-range';
 
-const TimeMachineUltimateMain: FC<TimeMachineUltimateMainProps> = ({
+const TimeMachineUltimateMain = ({
   label,
   date,
   datePickerProps,
@@ -22,7 +21,7 @@ const TimeMachineUltimateMain: FC<TimeMachineUltimateMainProps> = ({
   locale = id,
   onApply,
   onClear
-}) => {
+}: TimeMachineUltimateMainProps) => {
   const {
     open,
     temporaryDate,

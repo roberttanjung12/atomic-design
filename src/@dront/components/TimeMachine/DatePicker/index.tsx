@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import TimeMachineDatePickerFilter from './filter';
 import type { TimeMachineDatePickerFilterProps } from './filter/types/time-machine-date-picker-filter-props';
 import TimeMachineDatePickerMain from './main';
@@ -6,7 +5,7 @@ import type { TimeMachineDatePickerMainProps } from './main/types/time-machine-d
 
 export type TimeMachineDatePickerProps = TimeMachineDatePickerMainProps | TimeMachineDatePickerFilterProps;
 
-const TimeMachineDatePicker: FC<TimeMachineDatePickerProps> = props => {
+const TimeMachineDatePicker = (props: TimeMachineDatePickerProps) => {
   if (props.isFilter) {
     return <TimeMachineDatePickerFilter {...props} />;
   }

@@ -1,8 +1,8 @@
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Card, CardContent, CardHeader, IconButton, Modal, type SxProps } from '@mui/material';
 
-interface ModalWrapper {
+interface ModalWrapperProps {
   open: boolean;
   title?: any;
   subheader?: any;
@@ -11,7 +11,7 @@ interface ModalWrapper {
   onClose: () => void;
 }
 
-const ModalWrapper: FC<ModalWrapper> = ({ open, title, subheader, sx, children, onClose }) => {
+const ModalWrapper = ({ open, title, subheader, sx, children, onClose }: ModalWrapperProps) => {
   return (
     <Modal open={open} onClose={onClose} aria-labelledby="parent-modal-title">
       <Box

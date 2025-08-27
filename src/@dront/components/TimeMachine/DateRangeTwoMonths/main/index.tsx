@@ -1,4 +1,4 @@
-import { useMemo, type FC } from 'react';
+import { useMemo } from 'react';
 import { Button, Grid } from '@mui/material';
 import { Box } from '@mui/system';
 import { id } from 'date-fns/locale';
@@ -11,7 +11,7 @@ import formatValue from './helpers/formatValue';
 import useDate from './helpers/use-date';
 import type { TimeMachineDateRangeTwoMonthsMainProps } from './types/time-machine-date-range';
 
-const TimeMachineDateRangeMain: FC<TimeMachineDateRangeTwoMonthsMainProps> = ({
+const TimeMachineDateRangeMain = ({
   label,
   date,
   datePickerProps,
@@ -19,7 +19,7 @@ const TimeMachineDateRangeMain: FC<TimeMachineDateRangeTwoMonthsMainProps> = ({
   locale = id,
   onApply,
   onClear
-}) => {
+}: TimeMachineDateRangeTwoMonthsMainProps) => {
   const { open, temporaryDate, setTemporaryDate, renderTitle, handleTemporary, handleClose, handleOpen, handleApply } =
     useDate({
       date,

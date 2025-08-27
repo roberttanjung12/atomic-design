@@ -1,4 +1,4 @@
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Box, Card, CardContent, Modal, type SxProps } from '@mui/material';
 
 interface ModalWrapper {
@@ -8,7 +8,7 @@ interface ModalWrapper {
   onClose: () => void;
 }
 
-const ModalWrapper: FC<ModalWrapper> = ({ open, sx, children, onClose }) => {
+const ModalWrapper = ({ open, sx, children, onClose }: ModalWrapper) => {
   return (
     <Modal open={open} onClose={onClose} aria-labelledby="parent-modal-title">
       <Box

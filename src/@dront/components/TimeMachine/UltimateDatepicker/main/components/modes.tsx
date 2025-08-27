@@ -1,4 +1,4 @@
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import { List, ListItem, ListItemButton } from '@mui/material';
 import type { DateValue } from '../types/date-value';
 import type { Modes } from '../types/modes';
@@ -23,7 +23,7 @@ const modes: ModeMenu[] = [
   { label: 'Yearly', mode: 'yearly' }
 ];
 
-const Modes: FC<ModesProps> = ({ mode, setMode, setTemporaryDate }) => {
+const Modes = ({ mode, setMode, setTemporaryDate }: ModesProps) => {
   const handleMode = (value: Modes) => {
     setTemporaryDate([null, null]);
     setMode(value);
