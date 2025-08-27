@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, LinearProgress, Typography, styled } from '@mui/material';
+import { Box, LinearProgress, CircularProgress, Typography, styled } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 
 export interface ProgressBarProps {
@@ -7,6 +7,11 @@ export interface ProgressBarProps {
    * The progress value (0-100)
    */
   value: number;
+  /**
+   * Type of progress indicator
+   * @default 'linear'
+   */
+  type?: 'linear' | 'circular';
   /**
    * Whether to show the percentage text
    * @default true
@@ -78,6 +83,31 @@ export interface ProgressBarProps {
    * @default undefined (no radius)
    */
   radius?: 'sm' | 'md' | 'lg' | 'xl' | number;
+  /**
+   * Size of circular progress (in pixels) - only for type='circular'
+   * @default 80
+   */
+  circularSize?: number;
+  /**
+   * Thickness of circular progress - only for type='circular'
+   * @default 4
+   */
+  thickness?: number;
+  /**
+   * Show percentage in the center of circular progress
+   * @default true for circular, false for linear
+   */
+  showCenterLabel?: boolean;
+  /**
+   * Custom label to show in center (overrides percentage)
+   * Only for type='circular'
+   */
+  centerLabel?: string;
+  /**
+   * Show background circle for circular progress
+   * @default true
+   */
+  showBackground?: boolean;
   /**
    * Additional CSS class name
    */
@@ -214,6 +244,60 @@ const StyledLinearProgress = styled(LinearProgress, {
   };
 });
 
+// Circular Progress Components
+const CircularContainer = styled(Box, {
+  shouldForwardProp: prop => prop !== 'circularSize'
+})<{
+  circularSize: number;
+}>(({ circularSize }) => ({
+  position: 'relative',
+  display: 'inline-flex',
+  width: circularSize,
+  height: circularSize
+}));
+
+const StyledCircularProgress = styled(CircularProgress, {
+  shouldForwardProp: prop => prop !== 'progressColor' && prop !== 'showBackground'
+})<{
+  progressColor: string;
+  showBackground?: boolean;
+}>(({ theme, progressColor, showBackground }) => ({
+  color: progressColor,
+  position: 'absolute',
+  left: 0,
+  ...(showBackground && {
+    '&::before': {
+      content: '""',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      borderRadius: '50%',
+      border: `inherit`,
+      borderColor: alpha(theme.palette.grey[300], 0.3),
+      zIndex: -1
+    }
+  })
+}));
+
+const CircularProgressBackground = styled(CircularProgress)(({ theme }) => ({
+  color: alpha(theme.palette.grey[300], 0.3),
+  position: 'absolute',
+  left: 0
+}));
+
+const CircularLabel = styled(Box)({
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center'
+});
+
 const formatTime = (seconds: number): string => {
   if (seconds < 60) {
     return `${Math.round(seconds)}s left`;
@@ -226,6 +310,7 @@ const formatTime = (seconds: number): string => {
 
 const ProgressBar: React.FC<ProgressBarProps> = ({
   value,
+  type = 'linear',
   showPercentage = true,
   percentageColor = 'primary',
   showEstimatedTime = false,
@@ -239,6 +324,11 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   showPercentageInside = false,
   percentagePosition = 'center',
   radius,
+  circularSize = 80,
+  thickness = 4,
+  showCenterLabel,
+  centerLabel,
+  showBackground = true,
   className,
   sx
 }) => {
@@ -259,6 +349,103 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
 
   const progressColor = getColorValue(color);
 
+  // Default showCenterLabel based on type
+  const shouldShowCenterLabel = showCenterLabel !== undefined ? showCenterLabel : type === 'circular';
+
+  // Circular progress size mapping based on size prop
+  const getCircularSizeBySize = () => {
+    const sizeMap = {
+      small: 60,
+      medium: 80,
+      large: 120
+    };
+
+    return circularSize || sizeMap[size];
+  };
+
+  const finalCircularSize = getCircularSizeBySize();
+
+  // Render circular progress
+  if (type === 'circular') {
+    return (
+      <Box className={className} sx={sx}>
+        {/* Top info row for circular */}
+        {(label || (showEstimatedTime && estimatedTimeSeconds !== undefined)) && (
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
+            {label && (
+              <Typography
+                variant={size === 'small' ? 'caption' : size === 'large' ? 'body1' : 'body2'}
+                color="text.secondary"
+                sx={{ fontWeight: 500 }}
+              >
+                {label}
+              </Typography>
+            )}
+
+            <Box sx={{ flex: 1 }} />
+
+            {showEstimatedTime && estimatedTimeSeconds !== undefined && (
+              <Typography
+                variant={size === 'small' ? 'caption' : size === 'large' ? 'body1' : 'body2'}
+                color="text.secondary"
+                sx={{ fontWeight: 500 }}
+              >
+                {formatTime(estimatedTimeSeconds)}
+              </Typography>
+            )}
+          </Box>
+        )}
+
+        {/* Circular Progress */}
+        <CircularContainer circularSize={finalCircularSize}>
+          {/* Background circle */}
+          {showBackground && (
+            <CircularProgressBackground
+              variant="determinate"
+              value={100}
+              size={finalCircularSize}
+              thickness={thickness}
+            />
+          )}
+
+          {/* Progress circle */}
+          <StyledCircularProgress
+            variant={indeterminate ? 'indeterminate' : 'determinate'}
+            value={normalizedValue}
+            size={finalCircularSize}
+            thickness={thickness}
+            progressColor={progressColor}
+            showBackground={showBackground}
+          />
+
+          {/* Center label */}
+          {shouldShowCenterLabel && (
+            <CircularLabel>
+              {centerLabel ? (
+                <Typography
+                  variant={size === 'small' ? 'caption' : size === 'large' ? 'h5' : 'body1'}
+                  color={percentageColor}
+                  sx={{ fontWeight: 600, textAlign: 'center' }}
+                >
+                  {centerLabel}
+                </Typography>
+              ) : showPercentage ? (
+                <Typography
+                  variant={size === 'small' ? 'caption' : size === 'large' ? 'h5' : 'body1'}
+                  color={percentageColor}
+                  sx={{ fontWeight: 600 }}
+                >
+                  {Math.round(normalizedValue)}%
+                </Typography>
+              ) : null}
+            </CircularLabel>
+          )}
+        </CircularContainer>
+      </Box>
+    );
+  }
+
+  // Render linear progress (existing logic)
   return (
     <StyledProgressContainer size={size} height={height} radius={radius} className={className} sx={sx}>
       {/* Top info row */}
