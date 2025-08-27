@@ -1,4 +1,4 @@
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import { List, ListItem, ListItemButton, Typography } from '@mui/material';
 
 import { format, startOfDay, subDays } from 'date-fns';
@@ -8,10 +8,12 @@ import type { Modes } from '../types/modes';
 
 const formatDate = (date: Date) => format(date, 'dd MMMM yyyy');
 
-const Templates: FC<{
+interface TemplatesProps {
   setTemporaryDate: Dispatch<SetStateAction<DateValue>>;
   setMode: Dispatch<SetStateAction<Modes>>;
-}> = ({ setTemporaryDate, setMode }) => {
+}
+
+const Templates = ({ setTemporaryDate, setMode }: TemplatesProps) => {
   const today = startOfDay(new Date());
   const yesterday = startOfDay(subDays(new Date(), 1));
   const last7Start = startOfDay(subDays(new Date(), 7));
