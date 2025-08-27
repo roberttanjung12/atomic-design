@@ -29,6 +29,11 @@ const Menuitems: NavigationItem[] = [
   },
   {
     id: uniqueId(),
+    title: 'Button',
+    href: '/components/button'
+  },
+  {
+    id: uniqueId(),
     title: 'Chip',
     href: '/components/chip'
   },
