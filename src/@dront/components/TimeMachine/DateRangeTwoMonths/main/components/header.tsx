@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { IconButton } from '@mui/material';
@@ -17,7 +16,7 @@ interface HeaderProps {
   locale: Locale;
 }
 
-const Header: FC<HeaderProps> = ({
+const Header = ({
   monthDate,
   customHeaderCount,
   decreaseMonth,
@@ -25,7 +24,7 @@ const Header: FC<HeaderProps> = ({
   prevMonthButtonDisabled,
   nextMonthButtonDisabled,
   locale
-}) => {
+}: HeaderProps) => {
   return (
     <div style={{ margin: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <IconButton

@@ -29,6 +29,11 @@ const Menuitems: NavigationItem[] = [
   },
   {
     id: uniqueId(),
+    title: 'Chip',
+    href: '/components/chip'
+  },
+  {
+    id: uniqueId(),
     title: 'Field Password',
     href: '/components/field-password'
   },
@@ -49,6 +54,16 @@ const Menuitems: NavigationItem[] = [
   },
   {
     id: uniqueId(),
+    title: 'Progress Bar',
+    href: '/components/progress-bar'
+  },
+  {
+    id: uniqueId(),
+    title: 'Progress Circular',
+    href: '/components/progress-circular'
+  },
+  {
+    id: uniqueId(),
     title: 'Status Indicator',
     href: '/components/status-indicator'
   },
@@ -66,6 +81,16 @@ const Menuitems: NavigationItem[] = [
     id: uniqueId(),
     title: 'Time Machine',
     href: '/components/time-machine'
+  },
+  {
+    id: uniqueId(),
+    title: 'Tooltip',
+    href: '/components/tooltip'
+  },
+  {
+    id: uniqueId(),
+    title: 'Rating',
+    href: '/components/rating'
   }
 ];
 

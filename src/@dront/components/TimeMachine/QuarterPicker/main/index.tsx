@@ -1,4 +1,3 @@
-import { type FC } from 'react';
 import { Box, Button } from '@mui/material';
 import { id } from 'date-fns/locale';
 import DatePicker from 'react-datepicker';
@@ -10,7 +9,7 @@ import useDate from './helpers/use-date';
 import type { DateValue } from './types/date-value';
 import type { TimeMachineQuarterPickerMainProps } from './types/time-machine-quarter-picker';
 
-const TimeMachineQuarterPickerMain: FC<TimeMachineQuarterPickerMainProps> = ({
+const TimeMachineQuarterPickerMain = ({
   label,
   date,
   datePickerProps,
@@ -18,7 +17,7 @@ const TimeMachineQuarterPickerMain: FC<TimeMachineQuarterPickerMainProps> = ({
   locale = id,
   onApply,
   onClear
-}) => {
+}: TimeMachineQuarterPickerMainProps) => {
   const { open, temporaryDate, setTemporaryDate, renderTitle, handleTemporary, handleClose, handleOpen, handleApply } =
     useDate({
       date,

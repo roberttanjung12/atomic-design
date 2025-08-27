@@ -1,4 +1,4 @@
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import { Box, FormLabel, TextField } from '@mui/material';
 import { endOfDay } from 'date-fns';
 import ReactDatePicker from 'react-datepicker';
@@ -16,14 +16,14 @@ interface ManualFieldsProps {
   locale: Locale;
 }
 
-const ManualFields: FC<ManualFieldsProps> = ({
+const ManualFields = ({
   startDateVal,
   endDateVal,
   setTemporaryDate,
   showTimeFields,
   mode,
   locale
-}) => {
+}: ManualFieldsProps) => {
   useHandleRange({ startDateVal, endDateVal, setTemporaryDate });
 
   const isCustomRange = mode === 'custom-range';

@@ -1,8 +1,8 @@
 import type { KeyboardEvent, MouseEvent } from 'react';
 import { type TextFieldProps } from '@mui/material';
-import type { Locale } from 'date-fns';
 import { type DatePickerProps } from 'react-datepicker';
 import type { DateValue } from './date-value';
+import type { Locale } from './locale';
 
 type DateTimePickerProps = Omit<DatePickerProps, 'onChange' | 'selectsRange'> & {
   selectsRange?: never;

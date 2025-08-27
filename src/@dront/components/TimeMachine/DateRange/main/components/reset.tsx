@@ -1,4 +1,4 @@
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { Box, Button } from '@mui/material';
 import type { DateValue } from '../types/date-value';
@@ -7,7 +7,7 @@ interface ResetProps {
   setTemporaryDate: Dispatch<SetStateAction<DateValue>>;
 }
 
-const Reset: FC<ResetProps> = ({ setTemporaryDate }) => {
+const Reset = ({ setTemporaryDate }: ResetProps) => {
   return (
     <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
       <Button

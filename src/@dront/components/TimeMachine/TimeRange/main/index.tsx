@@ -1,5 +1,5 @@
-import { type FC } from 'react';
 import { Box, Button, FormLabel, Grid, TextField } from '@mui/material';
+import { enUS } from 'date-fns/locale';
 import ReactDatePicker from 'react-datepicker';
 import TimeField from './components/field';
 import ModalWrapper from './components/modal-wrapper';
@@ -8,16 +8,16 @@ import formatValue from './helpers/formatValue';
 import useDate from './helpers/use-date';
 import type { TimeMachineTimeRangeMainProps } from './types/time-machine-time-range';
 
-const TimeMachineTimeRangeMain: FC<TimeMachineTimeRangeMainProps> = ({
+const TimeMachineTimeRangeMain = ({
   label,
   date,
   startTimeProps,
   endTimeProps,
   textFieldProps,
-  locale = 'en',
+  locale = enUS,
   onApply,
   onClear
-}) => {
+}: TimeMachineTimeRangeMainProps) => {
   const { open, temporaryDate, setTemporaryDate, handleClose, handleOpen, handleApply } = useDate({
     date,
     locale,
