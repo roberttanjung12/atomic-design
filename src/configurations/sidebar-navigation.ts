@@ -59,6 +59,11 @@ const Menuitems: NavigationItem[] = [
   },
   {
     id: uniqueId(),
+    title: 'Progress Circular',
+    href: '/components/progress-circular'
+  },
+  {
+    id: uniqueId(),
     title: 'Status Indicator',
     href: '/components/status-indicator'
   },
