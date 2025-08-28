@@ -39,3 +39,5 @@ export { default as TextHighlighter } from './TextHighlighter';
 export { default as TopLoader } from './TopLoader';
 
 export { default as Chip } from './Chips';
+
+export { LineChart, BarChart, DonutChart } from './Chart';
