@@ -1,5 +1,4 @@
 import { type SxProps, type Theme } from '@mui/material/styles';
-import type { SystemStyleObject } from '@mui/system';
 
 /**
  * Normalizes the `sx` prop into an array form to ensure consistent usage.
@@ -10,7 +9,7 @@ import type { SystemStyleObject } from '@mui/system';
  * @param {SxProps<Theme> | undefined} sx - The style configuration(s) for a component.
  * Can be a single style object, a function returning styles, or an array of such values.
  *
- * @returns {SystemStyleObject[]} Always returns an array of `sx` props for consistent iteration or spreading.
+ * @returns {any[]} Always returns an array of `sx` props for consistent iteration or spreading.
  *
  * @example
  * ```tsx
@@ -21,6 +20,6 @@ import type { SystemStyleObject } from '@mui/system';
  * export default MyBox;
  * ```
  */
-const parseSx = (sx?: SxProps<Theme>): SystemStyleObject[] => (Array.isArray(sx) ? sx : [sx]);
+const parseSx = (sx?: SxProps<Theme>): any[] => (Array.isArray(sx) ? sx : [sx]);
 
 export default parseSx;
