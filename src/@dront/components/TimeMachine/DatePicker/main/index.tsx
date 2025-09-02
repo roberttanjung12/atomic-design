@@ -47,6 +47,11 @@ const TimeMachineDatePickerMain = ({
           value: renderedValue,
           onChange: handleOpen,
           onClick: handleOpen,
+          onKeyDown: e => {
+            if (e.key === 'Enter') {
+              handleOpen();
+            }
+          },
           ...textFieldProps
         }}
         onClear={onClear}

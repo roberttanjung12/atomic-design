@@ -36,6 +36,11 @@ const TimeMachineTimeRangeMain = ({
           value: renderedValue,
           onChange: handleOpen,
           onClick: handleOpen,
+          onKeyDown: e => {
+            if (e.key === 'Enter') {
+              handleOpen();
+            }
+          },
           ...textFieldProps
         }}
         setTemporaryDate={setTemporaryDate}
