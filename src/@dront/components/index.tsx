@@ -28,6 +28,8 @@ export { default as PageID } from './PageID';
 
 export { default as ProgressBar } from './ProgressBar';
 
+export { default as PropsDocTable } from './PropsDocTable';
+
 export { default as Section } from './Section';
 
 export { default as StatusIndicator } from './StatusIndicator';
