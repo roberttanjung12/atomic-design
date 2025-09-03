@@ -1,8 +1,10 @@
 import { Fragment } from 'react';
-import { Typography } from '@mui/material';
+import type { SxProps, Theme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
-interface TextHighlighterProps {
+export interface TextHighlighterProps {
   text: string;
+  sx?: SxProps<Theme>;
 }
 
 /**
@@ -15,11 +17,11 @@ interface TextHighlighterProps {
  * // Example usage:
  * <TextHighlighter text="This is `highlighted` text." />
  */
-const TextHighlighter = ({ text }: TextHighlighterProps) => {
+const TextHighlighter = ({ text, sx }: TextHighlighterProps) => {
   const parts = text.split(/(`[^`]+`)/g);
 
   return (
-    <Typography>
+    <Typography sx={sx}>
       {parts.map((part, index) =>
         part.startsWith('`') && part.endsWith('`') ? (
           <Typography
