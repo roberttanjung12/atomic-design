@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined');
+
+.viewerOverlay {
+  --viewer-color-black-50-Opacity: rgba(0, 0, 0, 0.5);
+  --viewer-color-black-80-Opacity: rgba(0, 0, 0, 0.8);
+  --viewer-color-white: #fff;
+  --viewer-close-btn-size: 80px;
+  --viewer-control-btn-size: 34px;
+  --viewer-mobile-control-btn-size: 28px;
+  --viewer-icon-font-size: 24px;
+  --viewer-mobile-icon-font-size: 18px;
+  --viewer-max-height: 80vh;
+  --viewer-mobile-viewer-max-height: 70vh;
+  --viewer-transition-duration: 0.15s;
+
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--viewer-color-black-50-Opacity);
+  display: flex;
+  align-items: center;
+  z-index: 100000;
+  overflow: hidden;
+}
+
+.viewerHeader {
+  z-index: 100001;
+  width: 100%;
+  padding: 10px;
+  background-color: var(--viewer-color-black-50-Opacity);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  user-select: none;
+}
+
+.viewerHeader button {
+  background: none;
+  color: var(--viewer-color-white);
+  border: none;
+  cursor: pointer;
+}
+
+.viewerFooter {
+  z-index: 1001;
+  padding: 10px 15px 15px;
+  width: 100%;
+}
+
+.viewerFooter :global(.viewer__title) {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  color: var(--viewer-color-white);
+}
+
+.viewerControls {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.viewerControls button {
+  border: none;
+  color: var(--viewer-color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--viewer-color-black-50-Opacity);
+  border-radius: 50%;
+  cursor: pointer;
+  height: var(--viewer-control-btn-size);
+  width: var(--viewer-control-btn-size);
+  transition: background-color var(--viewer-transition-duration);
+  user-select: none;
+}
+
+.viewerControls :global(.material-symbols-outlineds) {
+  font-size: var(--viewer-icon-font-size);
+}
+
+.viewerControls button:hover {
+  background-color: var(--viewer-color-black-80-Opacity);
+}
+
+.viewerClose {
+  border: none;
+  color: var(--viewer-color-white);
+  background-color: var(--viewer-color-black-50-Opacity);
+  border-radius: 50%;
+  cursor: pointer;
+  height: var(--viewer-close-btn-size);
+  position: absolute;
+  right: calc(-1 * var(--viewer-close-btn-size) / 2);
+  top: calc(-1 * var(--viewer-close-btn-size) / 2);
+  transition: background-color var(--viewer-transition-duration);
+  width: var(--viewer-close-btn-size);
+  padding-right: 35px;
+  padding-top: 35px;
+}
+
+.viewerClose:active {
+  background-color: var(--viewer-color-black-50-Opacity);
+}
+
+.imageContainer {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 10px;
+  box-sizing: border-box;
+  transition: transform 0.2s ease;
+}
+
+.viewerImage {
+  max-width: 100%;
+  max-height: var(--viewer-max-height);
+  transition: transform 0.3s ease;
+}
+
+/* Responsive adjustments for mobile controls - buttons larger and stacked vertically */
+@media (max-width: 600px) {
+  .viewerControls button {
+    height: var(--viewer-mobile-control-btn-size);
+    width: var(--viewer-mobile-control-btn-size);
+  }
+
+  .viewerControls :global(.material-symbols-outlined) {
+    font-size: var(--viewer-mobile-icon-font-size);
+  }
+}
+
+@media (max-width: 768px) {
+  .viewerImage {
+    max-width: 100%;
+    max-height: var(--viewer-mobile-viewer-max-height);
+  }
+}
