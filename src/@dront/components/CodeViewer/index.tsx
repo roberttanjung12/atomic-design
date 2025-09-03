@@ -5,7 +5,7 @@ import { Code, CodeOff, ContentCopy } from '@mui/icons-material';
 import { Card, CardActions, CardContent, Collapse, IconButton, Stack, Tooltip } from '@mui/material';
 import CodeSnippet from '../CodeSnippet';
 
-interface CodeViewerProps {
+export interface CodeViewerProps {
   /** ReactNode content to display above the code snippet. */
   children: ReactNode;
   /** The code snippet to display and copy. */
