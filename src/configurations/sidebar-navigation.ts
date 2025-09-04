@@ -99,6 +99,11 @@ const Menuitems: NavigationItem[] = [
   },
   {
     id: uniqueId(),
+    title: 'Upload Image',
+    href: '/components/upload-image'
+  },
+  {
+    id: uniqueId(),
     title: 'Rating',
     href: '/components/rating'
   }
