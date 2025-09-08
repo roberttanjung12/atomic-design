@@ -8,7 +8,7 @@ const AccordionWithActions = () => {
       detail:
         'A comprehensive web application for managing customer relationships and sales pipelines. This project includes user authentication, dashboard analytics, and reporting features.',
       actions: (
-        <ButtonGroup variant="outlined" size="small">
+        <ButtonGroup variant="contained" size="small">
           <Button>Edit</Button>
           <Button>View</Button>
           <Button color="error">Delete</Button>
@@ -20,7 +20,7 @@ const AccordionWithActions = () => {
       detail:
         'Mobile application development project focused on creating a cross-platform solution for inventory management and tracking.',
       actions: (
-        <ButtonGroup variant="outlined" size="small">
+        <ButtonGroup variant="contained" size="small">
           <Button>Edit</Button>
           <Button>View</Button>
           <Button color="error">Delete</Button>
@@ -32,7 +32,7 @@ const AccordionWithActions = () => {
       detail:
         'Data analytics platform that processes large datasets and provides real-time insights through interactive visualizations and automated reporting.',
       actions: (
-        <ButtonGroup variant="outlined" size="small">
+        <ButtonGroup variant="contained" size="small">
           <Button>Edit</Button>
           <Button>View</Button>
           <Button color="error">Delete</Button>
@@ -41,7 +41,7 @@ const AccordionWithActions = () => {
     }
   ];
 
-  return <Accordion id="actions-accordion" list={accordionItems} variant="contained" />;
+  return <Accordion id="actions-accordion" list={accordionItems} variant="outlined" />;
 };
 
 export default AccordionWithActions;
