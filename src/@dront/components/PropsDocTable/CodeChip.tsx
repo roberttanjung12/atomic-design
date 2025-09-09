@@ -24,12 +24,17 @@ const CodeChip = styled(props => <Typography {...props} component="code" />, {
     primary: theme.palette.primary.light,
     secondary: theme.palette.secondary.light
   };
+  const textColor = {
+    primary: theme.palette.mode === 'light' ? theme.palette.grey[600] : theme.palette.grey[100],
+    secondary: theme.palette.grey[600]
+  };
 
   return {
     display: 'inline-block',
     fontFamily: 'monospace',
     fontSize: theme.typography.caption.fontSize,
     background: backgroundColor[variant],
+    color: textColor[variant],
     borderRadius: theme.shape.borderRadius,
     padding: '2px 6px'
   };
