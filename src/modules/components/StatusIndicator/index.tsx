@@ -1,4 +1,4 @@
-import { DocView } from '@/@dront/components';
+import { DocView, StatusIndicator } from '@/@dront/components';
 import BasicExample from './StatusIndicatorBasic';
 import basicExampleCode from './StatusIndicatorBasic?raw';
 import ColorExample from './StatusIndicatorColor';
@@ -41,6 +41,39 @@ const StatusIndicatorModule = () => {
           exampleCode: tooltipExampleCode
         }
       ]}
+      propsDoc={{
+        component: StatusIndicator,
+        propDefinitions: {
+          color: {
+            type: `'success' | 'error' | 'warning' | 'info' | 'secondary'`,
+            default: `'success'`,
+            description: 'The color of the status indicator.'
+          },
+          label: {
+            type: 'ReactNode',
+            description:
+              'The label text displayed next to the status dot. If not provided, it will default to the capitalized color name.'
+          },
+          size: {
+            type: 'number',
+            default: '12',
+            description: 'The size (diameter) of the status dot in pixels.'
+          },
+          slotProps: {
+            type: '{ root?: BoxProps }',
+            description: 'Slot props for customizing components of the StatusIndicator.'
+          },
+          tooltip: {
+            type: 'string | ReactNode',
+            description: 'Tooltip text to be shown on hover/tap'
+          },
+          variant: {
+            type: `'outlined' | 'contained' | 'text'`,
+            default: `'text'`,
+            description: 'The style variant of the status indicator.'
+          }
+        }
+      }}
     />
   );
 };
