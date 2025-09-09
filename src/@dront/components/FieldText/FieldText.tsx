@@ -3,29 +3,65 @@
 import FormControl, { type FormControlProps } from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import { styled } from '@mui/material/styles';
-import TextField, { type TextFieldProps } from '@mui/material/TextField';
+import TextField, { type TextFieldVariants, type TextFieldProps } from '@mui/material/TextField';
 import FieldLabel from './FieldLabel';
 
 /**
- * Props for the FieldText component, extends from `TextFieldProps`
+ * Props for the FieldText component, extends from `TextFieldProps`.
  */
-export interface FieldTextProps extends Omit<TextFieldProps, 'label'> {
+export interface FieldTextProps<TVariant extends TextFieldVariants = TextFieldVariants> {
   /**
-   * The label for the text field.
+   * The visible label rendered above the field.
    */
   label: string;
 
   /**
-   * The name attribute for the text field.
+   * The input name attribute. Also used as htmlFor on the label.
    */
   name: string;
 
   /**
-   * The error message to display if validation fails.
+   * Helper text displayed beneath the field when there is no error.
    */
-  errorMessage?: string;
+  helperText?: TextFieldProps<TVariant>['helperText'];
 
-  FormControlProps?: FormControlProps;
+  /**
+   * Whether the field should take the full width of its container.
+   * Defaults to true in the component implementation.
+   * @default true
+   */
+  fullWidth?: FormControlProps['fullWidth'];
+
+  /**
+   * Visual style variant of the MUI TextField / FormControl.
+   * @default 'outlined'
+   */
+  variant?: FormControlProps['variant'];
+
+  /**
+   * Error message. Presence of a value toggles error state.
+   * When provided, overrides helperText.
+   */
+  errorMessage?: React.ReactNode;
+
+  /**
+   * Placeholder text shown when the input is empty.
+   */
+  placeholder?: TextFieldProps<TVariant>['placeholder'];
+
+  /**
+   * Slot props to customize internal subcomponents.
+   */
+  slotProps?: {
+    /**
+     * Props spread to MUI FormControl root.
+     */
+    root?: Omit<FormControlProps, 'error' | 'fullWidth'>;
+    /**
+     * Props spread to the underlying MUI TextField.
+     */
+    textField?: Omit<TextFieldProps<TVariant>, 'name' | 'error' | 'placeholder' | 'variant'>;
+  };
 }
 
 /**
@@ -51,21 +87,29 @@ const TextFieldStyled = styled(TextField)(({ theme: { palette } }) => ({
  * @param {FieldTextProps} props - The props for the FieldText component.
  * @returns {JSX.Element} The rendered FieldText component.
  */
-const FieldText = ({
+const FieldText = <TVariant extends TextFieldVariants = TextFieldVariants>({
+  errorMessage,
+  fullWidth = true,
+  helperText: initialHelperText,
   label,
   name,
-  errorMessage,
-  helperText: initialHelperText,
-  FormControlProps,
-  ...rest
-}: FieldTextProps) => {
+  placeholder,
+  slotProps,
+  variant
+}: FieldTextProps<TVariant>) => {
   const error = !!errorMessage;
   const helperText = errorMessage || initialHelperText;
 
   return (
-    <FormControl fullWidth error={error} {...FormControlProps}>
+    <FormControl fullWidth={fullWidth} error={error} {...slotProps?.root}>
       <FieldLabel htmlFor={name}>{label}</FieldLabel>
-      <TextFieldStyled name={name} error={error} {...rest} />
+      <TextFieldStyled
+        name={name}
+        error={error}
+        placeholder={placeholder}
+        variant={variant}
+        {...slotProps?.textField}
+      />
       <FormHelperText>{helperText ?? ' '}</FormHelperText>
     </FormControl>
   );
