@@ -44,6 +44,11 @@ const Menuitems: NavigationItem[] = [
   },
   {
     id: uniqueId(),
+    title: 'Checkbox',
+    href: '/components/checkbox'
+  },
+  {
+    id: uniqueId(),
     title: 'Field Password',
     href: '/components/field-password'
   },
