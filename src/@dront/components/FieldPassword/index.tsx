@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Visibility as VisibilityIcon, VisibilityOff as VisibilityOffIcon } from '@mui/icons-material';
+import type { TextFieldVariants } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import FieldText, { type FieldTextProps } from '../FieldText';
@@ -11,7 +12,10 @@ import FieldText, { type FieldTextProps } from '../FieldText';
  *
  * Extends `FieldTextProps`, omitting `type` and `variant`, which are internally controlled.
  */
-export type FieldPasswordProps = Omit<FieldTextProps, 'type' | 'variant'>;
+export type FieldPasswordProps<TVariant extends TextFieldVariants = TextFieldVariants> = Omit<
+  FieldTextProps<TVariant>,
+  'type'
+>;
 
 /**
  * `FieldPassword` is a password input field built on top of `FieldText`, with built-in visibility toggling.
@@ -32,32 +36,42 @@ export type FieldPasswordProps = Omit<FieldTextProps, 'type' | 'variant'>;
  * />
  * ```
  */
-const FieldPassword = (props: FieldPasswordProps) => {
+const FieldPassword = ({ label: initialLabel, slotProps, ...rest }: FieldPasswordProps) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const label = props.label?.toLowerCase() ?? '';
+  const label = initialLabel?.toLowerCase() ?? '';
   const title = showPassword ? `Hide ${label}` : `Show ${label}`;
-  const type = showPassword ? 'text' : 'password';
+  const type: React.HTMLInputTypeAttribute = showPassword ? 'text' : 'password';
 
   const handleShowPassword = () => {
     setShowPassword(prev => !prev);
   };
 
+  const endAdornment = (
+    <InputAdornment position="end">
+      <IconButton edge="end" aria-label={title} title={title} onClick={handleShowPassword}>
+        {showPassword ? <VisibilityIcon fontSize="small" /> : <VisibilityOffIcon fontSize="small" />}
+      </IconButton>
+    </InputAdornment>
+  );
+
   return (
     <FieldText
+      {...rest}
       type={type}
-      variant="outlined"
+      label={label}
       slotProps={{
-        input: {
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton edge="end" aria-label={title} title={title} onClick={handleShowPassword}>
-                {showPassword ? <VisibilityIcon fontSize="small" /> : <VisibilityOffIcon fontSize="small" />}
-              </IconButton>
-            </InputAdornment>
-          )
+        ...slotProps,
+        textField: {
+          ...slotProps?.textField,
+          slotProps: {
+            ...slotProps?.textField?.slotProps,
+            input: {
+              ...slotProps?.textField?.slotProps?.input,
+              endAdornment
+            }
+          }
         }
       }}
-      {...props}
     />
   );
 };
