@@ -1,4 +1,4 @@
-import type { ChangeEvent, JSX } from 'react';
+import type { ChangeEvent, ReactNode } from 'react';
 import {
   FormControlLabel,
   type FormControlLabelProps,
@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 
 interface RadioOption {
-  label: string | JSX.Element;
+  label: string | ReactNode;
   value: string;
   disabled?: boolean;
 }

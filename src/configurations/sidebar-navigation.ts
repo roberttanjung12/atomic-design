@@ -104,6 +104,11 @@ const Menuitems: NavigationItem[] = [
   },
   {
     id: uniqueId(),
+    title: 'Toggle',
+    href: '/components/toggle'
+  },
+  {
+    id: uniqueId(),
     title: 'Tooltip',
     href: '/components/tooltip'
   },
