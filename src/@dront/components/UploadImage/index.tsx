@@ -1,8 +1,9 @@
 import { type ReactNode, forwardRef, useState } from 'react';
 import { FormHelperText, FormLabel } from '@mui/material';
+import type { FileRejection } from 'react-dropzone';
 import DraggableUploadImage from './drag-and-drop';
 import Preview from './preview';
-import { initialAcceptTypes } from './upload-image.constants';
+import { acceptTypes } from './upload-image.constants';
 import type { IPreview } from './upload-image.type';
 
 /**
@@ -21,25 +22,31 @@ interface UploadImageProps {
    */
   preview: IPreview;
   /**
-   * Callback function that will be called during the compression process.
-   */
-  onCompress: (progress: number) => void;
-  /**
    * Callback function called when a file is successfully selected or changed.
    * Returns a File object and potential errors.
    */
-  onChange: (file: File, errors?: unknown) => void;
+  onChange: (file?: File, errors?: FileRejection[]) => void;
+  /**
+   * Callback function that will be called during the compression process.
+   */
+  onCompress: (progress: number) => void;
   /**
    * Callback function called when the image preview is removed by the user.
    */
   onRemove: () => void;
 
   /**
+   * Determines the style variant of the component.
+   * @default 'standard'
+   */
+  variant?: 'standard' | 'progress';
+  /**
    * Maximum allowed file size in bytes.
    */
   maxInBytes?: number;
   /**
    * If `true`, the component will be displayed in an error state (e.g., label and helper text turn red).
+   * @default 1_000_000
    */
   error?: boolean;
   /**
@@ -64,20 +71,9 @@ interface UploadImageProps {
    */
   disabled?: boolean;
   /**
-   * If `true`, enables the crop feature after an image is selected.
-   */
-  isCrop?: boolean;
-  /**
-   * Specifies the aspect ratio for the crop tool. Only applies if `isCrop` is `true`.
-   * @default 16/9
+   * Specifies the aspect ratio for the crop tool`.
    */
   aspectRatio?: number;
-  /**
-   * List of file types accepted by the component.
-   * @default initialAcceptTypes
-   * @type {AcceptedFileType[]}
-   */
-  acceptTypes?: { input: string; mime: string }[];
   /**
    * if true, shows the image preview after selection
    * @default true
@@ -100,6 +96,7 @@ const UploadImage = forwardRef<HTMLInputElement, UploadImageProps>((props, ref) 
     onChange,
     onCompress,
     onRemove,
+    variant = 'standard',
 
     error,
     helperText,
@@ -108,9 +105,7 @@ const UploadImage = forwardRef<HTMLInputElement, UploadImageProps>((props, ref) 
     maxInBytes,
     required,
     disabled,
-    isCrop,
-    aspectRatio = 16 / 9,
-    acceptTypes = initialAcceptTypes,
+    aspectRatio,
     showPreview = true
   } = props;
 
@@ -125,12 +120,13 @@ const UploadImage = forwardRef<HTMLInputElement, UploadImageProps>((props, ref) 
         error={error}
         htmlFor={id}
         required={required}
-        sx={{ display: 'block', mb: '8px', color: ({ palette }) => palette.common.black }}
+        sx={{ display: 'block', mb: '8px', color: ({ palette }) => palette.text.primary }}
       >
         {label}
       </FormLabel>
 
       <DraggableUploadImage
+        variant={variant}
         maxInBytes={maxInBytes}
         onCompress={onCompress}
         id={id}
@@ -139,18 +135,12 @@ const UploadImage = forwardRef<HTMLInputElement, UploadImageProps>((props, ref) 
         onChange={onChange}
         disabled={disabled}
         setIsCompressed={setIsCompressed}
-        isCrop={isCrop}
         aspectRatio={aspectRatio}
         acceptTypes={acceptTypes}
       >
         {({ getInputProps }) => {
           return (
-            <input
-              ref={ref}
-              accept={initialAcceptTypes.map(type => type.input).join(', ')}
-              {...getInputProps()}
-              id={id}
-            />
+            <input ref={ref} accept={acceptTypes.map(type => type.input).join(', ')} {...getInputProps()} id={id} />
           );
         }}
       </DraggableUploadImage>
@@ -159,13 +149,14 @@ const UploadImage = forwardRef<HTMLInputElement, UploadImageProps>((props, ref) 
         loadingInfo={loadingInfo}
         name={name}
         process={process}
-        removePreview={onRemove}
         size={size}
         url={url}
         isCompressed={isCompressed}
         disabled={disabled}
-        setIsCompressed={setIsCompressed}
         showPreview={showPreview}
+        variant={variant}
+        removePreview={onRemove}
+        setIsCompressed={setIsCompressed}
       />
 
       <FormHelperText error={error} id={`${id}-helper-text`}>

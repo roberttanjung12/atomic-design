@@ -6,7 +6,7 @@ import Image from 'next/image';
 import formatSizeUnits from '../helpers/format-size-units';
 import ImageViewer from './image-viewer/ImageViewer';
 
-interface ReviewDetailProps {
+interface ReviewDetailProgressProps {
   url: string;
   name: string;
   variant?: 'standard' | 'error';
@@ -27,7 +27,7 @@ const config = {
   }
 };
 
-const ReviewDetail = ({
+const ReviewDetailProgress = ({
   url,
   name,
   variant = 'standard',
@@ -36,7 +36,7 @@ const ReviewDetail = ({
   showPreview,
   onRemove,
   setIsCompressed
-}: ReviewDetailProps) => {
+}: ReviewDetailProgressProps) => {
   const { containerSx } = config[variant];
   const [isShowImage, setIsShowImage] = useState<boolean>(false);
 
@@ -134,4 +134,4 @@ const ReviewDetail = ({
   );
 };
 
-export default ReviewDetail;
+export default ReviewDetailProgress;

@@ -1,5 +1,5 @@
 import { type ReactNode, type Dispatch, type SetStateAction, useCallback, useState } from 'react';
-import { alpha, Button, Typography } from '@mui/material';
+import { alpha, Box, Button, Typography } from '@mui/material';
 import { type DropEvent, type FileRejection, useDropzone } from 'react-dropzone';
 import { handleChange } from '../actions';
 import callbackChildren from '../helpers/callback-children';
@@ -9,15 +9,15 @@ import { DragWrapper } from '../upload-image.styled';
 interface UploadImageProps {
   id?: string;
   children: ReactNode | ((params: any) => ReactNode);
-  onChange: (file: File, errors?: unknown) => void;
+  variant: 'standard' | 'progress';
+  onChange: (file: File, errors?: FileRejection[]) => void;
   onCompress: (progress: number) => void;
   setIsCompressed: Dispatch<SetStateAction<boolean>>;
   isShowField: boolean;
   error?: boolean;
   disabled?: boolean;
-  isCrop?: boolean;
   maxInBytes?: number;
-  aspectRatio: number;
+  aspectRatio?: number;
   acceptTypes: { input: string; mime: string }[];
 }
 
@@ -26,10 +26,10 @@ type OnDrop = <T extends File>(acceptedFiles: T[], fileRejections: FileRejection
 const DraggableUploadImage = ({
   id,
   children,
+  variant,
   isShowField,
   error,
   disabled,
-  isCrop,
   aspectRatio,
   acceptTypes,
   maxInBytes,
@@ -54,13 +54,13 @@ const DraggableUploadImage = ({
 
   const onDrop = useCallback<OnDrop>(
     async (files, errors) => {
-      if (isCrop) {
+      if (aspectRatio) {
         setCroppedImage(files[0]);
       } else {
         handleDrop(files[0], errors);
       }
     },
-    [handleDrop, isCrop]
+    [handleDrop, aspectRatio]
   );
 
   const handleCrop = (file: File) => {
@@ -87,12 +87,14 @@ const DraggableUploadImage = ({
 
   return (
     <>
-      <MediaCropper
-        aspectRatio={aspectRatio}
-        imageFile={croppedImage}
-        onCropped={handleCrop}
-        onClose={handleCancelCrop}
-      />
+      {aspectRatio && (
+        <MediaCropper
+          aspectRatio={aspectRatio}
+          imageFile={croppedImage}
+          onCropped={handleCrop}
+          onClose={handleCancelCrop}
+        />
+      )}
 
       <DragWrapper
         sx={{
@@ -103,11 +105,20 @@ const DraggableUploadImage = ({
           }' stroke-width='3' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");`
         }}
         {...getRootProps()}
+        variantUpload={variant}
       >
         {isDragActive ? (
           <Typography>Drop Here</Typography>
         ) : (
-          <>
+          <Box
+            display="flex"
+            flexDirection="row"
+            flexWrap="wrap"
+            width="min(280px, 100%)"
+            justifyContent="center"
+            alignItems="center"
+            gap={1}
+          >
             <Button
               size="small"
               sx={{ width: 'min(140px, 100%)' }}
@@ -119,7 +130,7 @@ const DraggableUploadImage = ({
               Browse
             </Button>
             <Typography>or Drop files here</Typography>
-          </>
+          </Box>
         )}
 
         {callbackChildren(children, { getInputProps })}
