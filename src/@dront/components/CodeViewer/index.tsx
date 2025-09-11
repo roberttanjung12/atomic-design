@@ -1,11 +1,12 @@
 'use client';
 
 import { useRef, useState, type ReactNode } from 'react';
-import { Code, CodeOff, ContentCopy } from '@mui/icons-material';
+import { Code, CodeOff, ContentCopy, Replay } from '@mui/icons-material';
 import { Card, CardActions, CardContent, Collapse, IconButton, Stack, Tooltip } from '@mui/material';
+import uniqueId from 'lodash/uniqueId';
 import CodeSnippet from '../CodeSnippet';
 
-interface CodeViewerProps {
+export interface CodeViewerProps {
   /** ReactNode content to display above the code snippet. */
   children: ReactNode;
   /** The code snippet to display and copy. */
@@ -27,6 +28,7 @@ interface CodeViewerProps {
 const CodeViewer = ({ children, code }: CodeViewerProps) => {
   const [expanded, setExpanded] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [key, setKey] = useState(uniqueId());
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleExpandClick = () => {
@@ -51,8 +53,12 @@ const CodeViewer = ({ children, code }: CodeViewerProps) => {
     }
   };
 
+  const handleResetKey = () => {
+    setKey(uniqueId());
+  };
+
   return (
-    <Stack>
+    <Stack key={key}>
       <Card
         variant="outlined"
         sx={{ mx: 'auto', borderBottom: 'none', borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }}
@@ -79,6 +85,12 @@ const CodeViewer = ({ children, code }: CodeViewerProps) => {
         <Tooltip title={copied ? 'Copied!' : 'Copy code'}>
           <IconButton size="small" onClick={handleCopy}>
             <ContentCopy />
+          </IconButton>
+        </Tooltip>
+
+        <Tooltip title="Reset demo">
+          <IconButton size="small" onClick={handleResetKey}>
+            <Replay />
           </IconButton>
         </Tooltip>
       </CardActions>

@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 /**
  * Props for the Section component.
  */
-interface SectionProps {
+export interface SectionProps {
   /**
    * The content to be rendered inside the section.
    */

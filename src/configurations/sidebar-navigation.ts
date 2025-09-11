@@ -44,6 +44,11 @@ const Menuitems: NavigationItem[] = [
   },
   {
     id: uniqueId(),
+    title: 'Checkbox',
+    href: '/components/checkbox'
+  },
+  {
+    id: uniqueId(),
     title: 'Field Password',
     href: '/components/field-password'
   },
@@ -74,6 +79,11 @@ const Menuitems: NavigationItem[] = [
   },
   {
     id: uniqueId(),
+    title: 'Radio Button',
+    href: '/components/radio-button'
+  },
+  {
+    id: uniqueId(),
     title: 'Status Indicator',
     href: '/components/status-indicator'
   },
@@ -91,6 +101,11 @@ const Menuitems: NavigationItem[] = [
     id: uniqueId(),
     title: 'Time Machine',
     href: '/components/time-machine'
+  },
+  {
+    id: uniqueId(),
+    title: 'Toggle',
+    href: '/components/toggle'
   },
   {
     id: uniqueId(),

@@ -6,6 +6,8 @@ export { default as CodeSnippet } from './CodeSnippet';
 
 export { default as CodeViewer } from './CodeViewer';
 
+export { default as DocView } from './DocView';
+
 export { default as Drogo } from './Drogo';
 
 export { default as DynamicAlert } from './DynamicAlert';
