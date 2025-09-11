@@ -1,8 +1,8 @@
-import type { ChangeEvent, JSX } from 'react';
+import type { ChangeEvent, ReactNode } from 'react';
 import { Checkbox, FormControlLabel, type FormControlLabelProps, type CheckboxProps, styled } from '@mui/material';
 
 interface CheckboxesProps {
-  label?: JSX.Element | string;
+  label?: ReactNode | string;
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
   checked: boolean;
   disabled?: boolean;
