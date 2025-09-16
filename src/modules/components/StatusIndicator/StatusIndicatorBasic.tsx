@@ -1,16 +1,7 @@
-import { StatusIndicator } from '@/@dront/components';
+import { StatusIndicator } from '@dront/ui';
 
 const StatusBasic = () => {
-  return (
-    <StatusIndicator
-      label="Success"
-      slotProps={{
-        root: {
-          className: 'asdasds'
-        }
-      }}
-    />
-  );
+  return <StatusIndicator label="Success" />;
 };
 
 export default StatusBasic;
