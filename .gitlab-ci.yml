@@ -1,0 +1,31 @@
+stages:
+  - install
+  - build
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+    - .next/cache/
+
+install:
+  stage: install
+  image: oven/bun:1
+  script:
+    - echo "@dront:registry=https://${CI_SERVER_HOST}/api/v4/projects/2172/packages/npm/" >> .npmrc
+    - echo "//${CI_SERVER_HOST}/api/v4/projects/2172/packages/npm/:_authToken=${DORNT_AUTH_TOKEN}" >> .npmrc
+    - bun install
+    - rm -f .npmrc
+  only:
+    - development
+
+build:
+  stage: build
+  image: node:22-alpine
+  variables:
+    NODE_ENV: production
+    NEXT_TELEMETRY_DISABLED: 1
+  script:
+    - npm run build
+  only:
+    - development
