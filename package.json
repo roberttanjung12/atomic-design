@@ -17,6 +17,7 @@
     "test": "jest --coverage"
   },
   "dependencies": {
+    "@dront/ui": "^1.0.0-alpha.2",
     "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "@emotion/server": "^11.11.0",

@@ -1,4 +1,4 @@
-import { StatusIndicator } from '@/@dront/components';
+import { StatusIndicator } from '@dront/ui';
 
 const StatusTooltip = () => {
   return <StatusIndicator label="Success" tooltip="Transaction success" />;

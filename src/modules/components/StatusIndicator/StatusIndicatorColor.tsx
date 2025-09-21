@@ -1,5 +1,5 @@
+import { StatusIndicator } from '@dront/ui';
 import { Stack } from '@mui/material';
-import { StatusIndicator } from '@/@dront/components';
 
 const StatusColor = () => {
   return (
