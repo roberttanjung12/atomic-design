@@ -1,4 +1,4 @@
-import { type ReactNode, forwardRef, useRef, useState } from 'react';
+import { type Dispatch, type SetStateAction, type ReactNode, forwardRef, useRef, useState } from 'react';
 import { FormHelperText, FormLabel } from '@mui/material';
 import DraggableUploadImage from './drag-and-drop';
 import Preview from './preview';
@@ -19,12 +19,12 @@ interface UploadImageProps {
    * Object containing the state of the image preview (URL, name, size, etc.).
    * This controls what is displayed in the preview component.
    */
-  preview: IPreview | null;
+  preview?: IPreview;
   /**
    * Callback function called when a file is successfully selected or changed.
    * Returns a File object and potential errors.
    */
-  onChange?: (preview: IPreview | null) => void;
+  onChange?: (preview?: IPreview) => void;
   /**
    * Callback function called when an error occurs during the upload process.
    */
@@ -37,7 +37,7 @@ interface UploadImageProps {
   /**
    * Function that generates the text displayed when an image has been compressed.
    * @param {string} size - The size of the compressed image in a human-readable format (e.g., '200 KB').
-   * @default (size) => `The image has been compressed to ${size}. Please review the compressed image to ensure it meets the required quality standards before proceeding`
+   * @default (size) => `The image has been compressed to ${size}`
    */
   compressedText?: ((size: string) => ReactNode) | string | ReactNode;
   /**
@@ -60,6 +60,7 @@ interface UploadImageProps {
   label?: ReactNode;
   /**
    * Text displayed while the image is being compressed.
+   * @default 'Compressing...'
    */
   loadingInfo?: string;
   /**
@@ -92,6 +93,32 @@ interface UploadImageProps {
    * Callback function that will be called during the compression process.
    */
   onCompressing?: (progress: number) => void;
+  /**
+   * Optional function to manually trigger the upload process.
+   * This can be useful if you want to control when the upload happens,
+   * rather than it occurring automatically upon file selection.
+   *
+   * @param {Object} params - The parameters for the upload function.
+   * @param {IPreview | undefined} params.preview - The current image preview object, containing file info and preview URL.
+   * @param {Dispatch<SetStateAction<string>>} params.setLoadingInfo - Function to update the loading information text during upload.
+   * @param {Dispatch<SetStateAction<number>>} params.setProcess - Function to update the upload progress (0-100).
+   * @param {Dispatch<SetStateAction<'static' | 'progress'>>} params.setLoaderType - Function to set the loader type ('static' for indeterminate, 'progress' for determinate).
+   * @returns {Promise<void>} A promise that resolves when the upload process is complete.
+   *
+   * The upload function allows you to handle custom upload logic, such as uploading to a server or cloud storage.
+   * You can use the provided setters to update the UI state (progress, loading text, loader type) as needed.
+   */
+  upload?: ({
+    preview,
+    setLoadingInfo,
+    setProcess,
+    setLoaderType
+  }: {
+    preview: IPreview | undefined;
+    setLoadingInfo: Dispatch<SetStateAction<string>>;
+    setProcess: Dispatch<SetStateAction<number>>;
+    setLoaderType: Dispatch<SetStateAction<'static' | 'progress'>>;
+  }) => Promise<void>;
 }
 
 /**
@@ -117,22 +144,25 @@ const UploadImage = forwardRef<HTMLInputElement, UploadImageProps>((props, ref) 
     id = 'image-upload',
     helperText,
     label,
-    loadingInfo = 'Compressing...',
+    loadingInfo: loadingInfoProp = 'Compressing...',
     maxInMB = 1,
     onCompressing = () => {},
     required,
-    showPreview = true
+    showPreview = true,
+    upload
   } = props;
 
   const [isCompressed, setIsCompressed] = useState<boolean>(false);
+  const [loadingInfo, setLoadingInfo] = useState<string>(loadingInfoProp);
   const [process, setProcess] = useState<number>(0);
+  const [loaderType, setLoaderType] = useState<'static' | 'progress'>('progress');
 
   const isShowField = !!process || !!preview;
 
   const compressionControllerRef = useRef<AbortController | null>(null);
 
   const handleCompressing = (progress: number) => {
-    setProcess(progress);
+    setProcess(Math.round(progress * 0.99));
     onCompressing(progress);
   };
 
@@ -141,6 +171,33 @@ const UploadImage = forwardRef<HTMLInputElement, UploadImageProps>((props, ref) 
     setProcess(0);
     setIsCompressed(false);
     onRemove();
+  };
+
+  const handleChange = async (newPreview?: IPreview) => {
+    if (!upload) {
+      onChange(newPreview);
+
+      return;
+    }
+
+    try {
+      setLoaderType('static');
+      setProcess(1);
+      await upload({ preview: newPreview, setLoadingInfo, setProcess, setLoaderType });
+    } catch (error: unknown) {
+      setProcess(0);
+      onChange(undefined);
+      onError({ code: (error as any)?.code || '500', message: 'Upload failed. Please try again.', data: error });
+    } finally {
+      setLoadingInfo(loadingInfoProp);
+      setLoaderType('progress');
+    }
+  };
+
+  const handleError = (errors?: ErrorUpload) => {
+    setProcess(0);
+    setIsCompressed(false);
+    onError(errors);
   };
 
   return (
@@ -161,8 +218,8 @@ const UploadImage = forwardRef<HTMLInputElement, UploadImageProps>((props, ref) 
         id={id}
         error={error}
         isShowField={isShowField}
-        onChange={onChange}
-        onError={onError}
+        onChange={handleChange}
+        onError={handleError}
         disabled={disabled}
         setIsCompressed={setIsCompressed}
         aspectRatio={aspectRatio}
@@ -185,6 +242,7 @@ const UploadImage = forwardRef<HTMLInputElement, UploadImageProps>((props, ref) 
         showPreview={showPreview}
         variant={variant}
         compressedText={compressedText}
+        isStaticLoader={loaderType === 'static'}
         removePreview={handleRemove}
         setIsCompressed={setIsCompressed}
       />

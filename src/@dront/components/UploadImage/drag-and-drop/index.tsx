@@ -11,7 +11,7 @@ interface UploadImageProps {
   id?: string;
   children: ReactNode | ((params: any) => ReactNode);
   variant: 'standard' | 'progress';
-  onChange: (preview: IPreview | null) => void;
+  onChange: (preview?: IPreview) => void;
   onError: (errors?: ErrorUpload) => void;
   onCompressing: (progress: number) => void;
   setIsCompressed: Dispatch<SetStateAction<boolean>>;
@@ -73,7 +73,7 @@ const DraggableUploadImage = ({
 
           onChange(preview);
         } else {
-          onChange(null);
+          onChange(undefined);
         }
 
         if (errors && errors.length > 0) {
@@ -166,6 +166,7 @@ const DraggableUploadImage = ({
             justifyContent="center"
             alignItems="center"
             gap={1}
+            px={2}
           >
             <Button
               size="small"

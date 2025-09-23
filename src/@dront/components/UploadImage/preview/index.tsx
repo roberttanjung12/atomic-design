@@ -1,7 +1,7 @@
 import { type ReactNode, type SetStateAction, type Dispatch } from 'react';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, CircularProgress, IconButton, Skeleton, useTheme } from '@mui/material';
+import { Box, CircularProgress, IconButton, LinearProgress, Skeleton, useTheme } from '@mui/material';
 import formatSizeUnits from '../helpers/format-size-units';
 import { PreviewWrapper, ProcessCompress } from '../upload-image.styled';
 import type { IPreview } from '../upload-image.type';
@@ -16,11 +16,12 @@ const previewImageStyling: Record<string | number, string> = {
 };
 
 interface PreviewProps {
-  preview: IPreview | null;
+  preview?: IPreview;
   process: number;
   loadingInfo?: string;
   disabled?: boolean;
   isCompressed?: boolean;
+  isStaticLoader: boolean;
   showPreview?: boolean;
   variant: 'standard' | 'progress';
   compressedText?: ((size: string) => ReactNode | string) | string | ReactNode;
@@ -34,6 +35,7 @@ const Preview = ({
   loadingInfo,
   disabled,
   isCompressed,
+  isStaticLoader,
   showPreview,
   variant,
   compressedText,
@@ -115,14 +117,26 @@ const Preview = ({
               {isUploaded && <CheckCircleIcon fill={theme.palette.success.main} />}
             </Box>
 
-            <ProcessCompress>
-              <Box sx={{ width: `${process}%`, background: ({ palette }) => palette.primary.main }} />
-            </ProcessCompress>
+            {isStaticLoader ? (
+              <>
+                <LinearProgress />
 
-            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-              <Box>{loadingInfo}</Box>
-              <Box>{process}%</Box>
-            </Box>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <Box>{loadingInfo}</Box>
+                </Box>
+              </>
+            ) : (
+              <>
+                <ProcessCompress>
+                  <Box sx={{ width: `${process}%`, background: ({ palette }) => palette.primary.main }} />
+                </ProcessCompress>
+
+                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <Box>{loadingInfo}</Box>
+                  <Box>{process}%</Box>
+                </Box>
+              </>
+            )}
           </Box>
 
           <IconButton size="small" color="error">

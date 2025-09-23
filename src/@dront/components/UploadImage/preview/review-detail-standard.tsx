@@ -98,7 +98,7 @@ const ReviewDetailStandard = ({
       <Box
         sx={{
           aspectRatio: '4 / 4',
-          width: '200px',
+          width: { xs: '160px', sm: '200px' },
           backgroundColor: theme => theme.palette.grey[100],
           position: 'relative',
           overflow: 'hidden',
@@ -142,7 +142,20 @@ const ReviewDetailStandard = ({
               gap: 1
             }}
           >
-            <Typography component="span">{name} </Typography>
+            <Typography
+              component="span"
+              sx={{
+                maxWidth: '100px',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                display: 'inline-block',
+                verticalAlign: 'middle'
+              }}
+              title={name}
+            >
+              {name}
+            </Typography>
             {size && (
               <Typography variant="caption" sx={{ display: 'block', mt: 0.5 }}>
                 {formatSizeUnits(Number(size))}
