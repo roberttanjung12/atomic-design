@@ -1,10 +1,9 @@
-import { type ReactNode, forwardRef, useState } from 'react';
+import { type ReactNode, forwardRef, useRef, useState } from 'react';
 import { FormHelperText, FormLabel } from '@mui/material';
-import type { FileRejection } from 'react-dropzone';
 import DraggableUploadImage from './drag-and-drop';
 import Preview from './preview';
 import { acceptTypes } from './upload-image.constants';
-import type { IPreview } from './upload-image.type';
+import type { ErrorUpload, IPreview } from './upload-image.type';
 
 /**
  * @typedef {object} AcceptedFileType
@@ -20,39 +19,49 @@ interface UploadImageProps {
    * Object containing the state of the image preview (URL, name, size, etc.).
    * This controls what is displayed in the preview component.
    */
-  preview: IPreview;
+  preview: IPreview | null;
   /**
    * Callback function called when a file is successfully selected or changed.
    * Returns a File object and potential errors.
    */
-  onChange: (file?: File, errors?: FileRejection[]) => void;
+  onChange?: (preview: IPreview | null) => void;
   /**
-   * Callback function that will be called during the compression process.
+   * Callback function called when an error occurs during the upload process.
    */
-  onCompress: (progress: number) => void;
+  onError?: (errors?: ErrorUpload) => void;
   /**
    * Callback function called when the image preview is removed by the user.
    */
-  onRemove: () => void;
+  onRemove?: () => void;
 
+  /**
+   * Function that generates the text displayed when an image has been compressed.
+   * @param {string} size - The size of the compressed image in a human-readable format (e.g., '200 KB').
+   * @default (size) => `The image has been compressed to ${size}. Please review the compressed image to ensure it meets the required quality standards before proceeding`
+   */
+  compressedText?: ((size: string) => ReactNode) | string | ReactNode;
   /**
    * Determines the style variant of the component.
    * @default 'standard'
    */
   variant?: 'standard' | 'progress';
   /**
-   * Maximum allowed file size in bytes.
+   * Maximum allowed file size in megabytes.
+   * @default 1
    */
-  maxInBytes?: number;
+  maxInMB?: number;
   /**
    * If `true`, the component will be displayed in an error state (e.g., label and helper text turn red).
-   * @default 1_000_000
    */
   error?: boolean;
   /**
    * Content to be displayed as the label for the input field.
    */
   label?: ReactNode;
+  /**
+   * Text displayed while the image is being compressed.
+   */
+  loadingInfo?: string;
   /**
    * Unique ID for the input element, used for accessibility.
    * @default 'image-upload'
@@ -79,6 +88,10 @@ interface UploadImageProps {
    * @default true
    */
   showPreview?: boolean;
+  /**
+   * Callback function that will be called during the compression process.
+   */
+  onCompressing?: (progress: number) => void;
 }
 
 /**
@@ -92,30 +105,46 @@ interface UploadImageProps {
  */
 const UploadImage = forwardRef<HTMLInputElement, UploadImageProps>((props, ref) => {
   const {
+    onChange = () => {},
+    onError = () => {},
+    onRemove = () => {},
     preview,
-    onChange,
-    onCompress,
-    onRemove,
     variant = 'standard',
-
+    aspectRatio,
+    compressedText = (size: string) => `The image has been compressed to ${size}`,
+    disabled,
     error,
+    id = 'image-upload',
     helperText,
     label,
-    id = 'image-upload',
-    maxInBytes,
+    loadingInfo = 'Compressing...',
+    maxInMB = 1,
+    onCompressing = () => {},
     required,
-    disabled,
-    aspectRatio,
     showPreview = true
   } = props;
 
   const [isCompressed, setIsCompressed] = useState<boolean>(false);
-  const { url, name, size, process, loadingInfo } = preview;
+  const [process, setProcess] = useState<number>(0);
 
-  const isShowField = !!process;
+  const isShowField = !!process || !!preview;
+
+  const compressionControllerRef = useRef<AbortController | null>(null);
+
+  const handleCompressing = (progress: number) => {
+    setProcess(progress);
+    onCompressing(progress);
+  };
+
+  const handleRemove = () => {
+    if (compressionControllerRef?.current) compressionControllerRef.current.abort();
+    setProcess(0);
+    setIsCompressed(false);
+    onRemove();
+  };
 
   return (
-    <>
+    <div style={{ position: 'relative' }}>
       <FormLabel
         error={error}
         htmlFor={id}
@@ -127,16 +156,18 @@ const UploadImage = forwardRef<HTMLInputElement, UploadImageProps>((props, ref) 
 
       <DraggableUploadImage
         variant={variant}
-        maxInBytes={maxInBytes}
-        onCompress={onCompress}
+        maxInBytes={maxInMB * 1024 * 1024}
+        onCompressing={handleCompressing}
         id={id}
         error={error}
         isShowField={isShowField}
         onChange={onChange}
+        onError={onError}
         disabled={disabled}
         setIsCompressed={setIsCompressed}
         aspectRatio={aspectRatio}
         acceptTypes={acceptTypes}
+        compressionControllerRef={compressionControllerRef}
       >
         {({ getInputProps }) => {
           return (
@@ -147,22 +178,21 @@ const UploadImage = forwardRef<HTMLInputElement, UploadImageProps>((props, ref) 
 
       <Preview
         loadingInfo={loadingInfo}
-        name={name}
         process={process}
-        size={size}
-        url={url}
+        preview={preview}
         isCompressed={isCompressed}
         disabled={disabled}
         showPreview={showPreview}
         variant={variant}
-        removePreview={onRemove}
+        compressedText={compressedText}
+        removePreview={handleRemove}
         setIsCompressed={setIsCompressed}
       />
 
       <FormHelperText error={error} id={`${id}-helper-text`}>
         {helperText}
       </FormHelperText>
-    </>
+    </div>
   );
 });
 

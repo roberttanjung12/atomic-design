@@ -4,24 +4,26 @@ import compressImage from './upload-image.compressor';
 interface HandleChangeParams {
   file: File | null;
   maxInBytes?: number;
-  onCompress: (percent: number) => void;
+  signal: AbortSignal;
+  onCompressing: (percent: number) => void;
   setIsCompressed: Dispatch<SetStateAction<boolean>>;
 }
 
 export const handleChange = async ({
   file,
   maxInBytes,
-  onCompress,
+  signal,
+  onCompressing,
   setIsCompressed
 }: HandleChangeParams): Promise<File | null> => {
   if (!file) return file;
 
-  onCompress(1);
-
   try {
-    const compressed = await compressImage({ file, onCompress, maxInBytes });
+    onCompressing(1);
 
-    onCompress(100);
+    const compressed = await compressImage({ file, onCompressing, maxInBytes, signal });
+
+    onCompressing(100);
 
     const isCompressed = compressed.size < file.size;
 

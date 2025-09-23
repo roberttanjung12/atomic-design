@@ -1,17 +1,19 @@
-import { type ReactNode, type Dispatch, type SetStateAction, useCallback, useState } from 'react';
+import { type ReactNode, type Dispatch, type SetStateAction, useCallback, useState, type RefObject } from 'react';
 import { alpha, Box, Button, Typography } from '@mui/material';
 import { type DropEvent, type FileRejection, useDropzone } from 'react-dropzone';
 import { handleChange } from '../actions';
 import callbackChildren from '../helpers/callback-children';
 import MediaCropper from '../upload-image.cropper';
 import { DragWrapper } from '../upload-image.styled';
+import type { ErrorUpload, IPreview } from '../upload-image.type';
 
 interface UploadImageProps {
   id?: string;
   children: ReactNode | ((params: any) => ReactNode);
   variant: 'standard' | 'progress';
-  onChange: (file: File, errors?: FileRejection[]) => void;
-  onCompress: (progress: number) => void;
+  onChange: (preview: IPreview | null) => void;
+  onError: (errors?: ErrorUpload) => void;
+  onCompressing: (progress: number) => void;
   setIsCompressed: Dispatch<SetStateAction<boolean>>;
   isShowField: boolean;
   error?: boolean;
@@ -19,6 +21,7 @@ interface UploadImageProps {
   maxInBytes?: number;
   aspectRatio?: number;
   acceptTypes: { input: string; mime: string }[];
+  compressionControllerRef: RefObject<AbortController | null>;
 }
 
 type OnDrop = <T extends File>(acceptedFiles: T[], fileRejections: FileRejection[], event: DropEvent) => void;
@@ -33,23 +36,68 @@ const DraggableUploadImage = ({
   aspectRatio,
   acceptTypes,
   maxInBytes,
+  compressionControllerRef,
   onChange,
-  onCompress,
+  onCompressing,
+  onError,
   setIsCompressed
 }: UploadImageProps) => {
   const [croppedImage, setCroppedImage] = useState<File | null>(null);
 
   const handleDrop = useCallback(
     async (file: File, errors?: FileRejection[]) => {
-      const response: any = await handleChange({ file: file || null, maxInBytes, onCompress, setIsCompressed });
+      try {
+        compressionControllerRef.current = new AbortController();
+        const signal = compressionControllerRef.current.signal;
 
-      if (response instanceof File) {
-        onChange(response as unknown as File, errors);
-      } else {
-        onChange(file as unknown as File, errors);
+        const response: any = await handleChange({
+          file: file || null,
+          maxInBytes,
+          signal,
+          onCompressing: (process: number) => {
+            if (signal.aborted) return;
+            onCompressing(process);
+          },
+          setIsCompressed
+        });
+
+        if (response instanceof File && response?.name) {
+          const url = URL.createObjectURL(response);
+
+          const preview = {
+            name: response.name,
+            size: response.size,
+            file: response,
+            url
+          };
+
+          onChange(preview);
+        } else {
+          onChange(null);
+        }
+
+        if (errors && errors.length > 0) {
+          const errorPayload: ErrorUpload = {
+            code: '400',
+            message:
+              'The uploaded file should be an image and must be one of the types: ' +
+              acceptTypes.map(type => type.mime).join(', '),
+            data: errors
+          };
+
+          onError?.(errorPayload);
+        }
+      } catch (error: any) {
+        const errorPayload: ErrorUpload = {
+          code: error?.code || '500',
+          message: error?.message || 'An unexpected error occurred during the upload process.',
+          data: error.data || null
+        };
+
+        onError(errorPayload);
       }
     },
-    [maxInBytes, onChange, onCompress, setIsCompressed]
+    [compressionControllerRef, maxInBytes, acceptTypes, onChange, onCompressing, setIsCompressed, onError]
   );
 
   const onDrop = useCallback<OnDrop>(

@@ -1,19 +1,19 @@
-import { type Dispatch, type SetStateAction, useState } from 'react';
+import { type Dispatch, type ReactNode, type SetStateAction } from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { Alert, Box, Button, IconButton, Typography, type Theme } from '@mui/material';
-import Image from 'next/image';
 import formatSizeUnits from '../helpers/format-size-units';
-import ImageViewer from './image-viewer/ImageViewer';
+import imageViewer from './image-viewer';
 
 interface ReviewDetailProgressProps {
   url: string;
   name: string;
   variant?: 'standard' | 'error';
   showRemoveButton?: boolean;
-  size: number | string;
+  size?: number | string;
   isCompressed?: boolean;
   showPreview?: boolean;
+  compressedText: string | ReactNode | number;
   onRemove: () => void;
   setIsCompressed: Dispatch<SetStateAction<boolean>>;
 }
@@ -34,11 +34,12 @@ const ReviewDetailProgress = ({
   size,
   isCompressed,
   showPreview,
+  showRemoveButton,
+  compressedText,
   onRemove,
   setIsCompressed
 }: ReviewDetailProgressProps) => {
   const { containerSx } = config[variant];
-  const [isShowImage, setIsShowImage] = useState<boolean>(false);
 
   const handleCloseAlert = () => {
     setIsCompressed(false);
@@ -47,17 +48,18 @@ const ReviewDetailProgress = ({
   const renderThumbnail = () => {
     if (url && showPreview) {
       return (
-        <Image
-          alt={name}
-          height={40}
-          src={url}
-          style={{
+        <Box
+          sx={{
             width: '56px',
             height: '56px',
-            objectFit: 'cover',
-            borderRadius: '8px'
+            borderRadius: '8px',
+            backgroundImage: `url(${url})`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            objectFit: 'cover'
           }}
-          width={40}
+          aria-label={name}
         />
       );
     }
@@ -68,7 +70,7 @@ const ReviewDetailProgress = ({
   const renderButtonView = () => {
     if (url && showPreview) {
       return (
-        <Button size="small" variant="outlined" onClick={() => setIsShowImage(true)}>
+        <Button size="small" variant="outlined" onClick={() => imageViewer.open({ url, title: name })}>
           See
         </Button>
       );
@@ -78,6 +80,8 @@ const ReviewDetailProgress = ({
   };
 
   const renderButtonDelete = () => {
+    if (!showRemoveButton) return null;
+
     if (showPreview) {
       return (
         <IconButton color="error" size="small" onClick={onRemove}>
@@ -112,9 +116,11 @@ const ReviewDetailProgress = ({
           <Typography sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '600px' }}>
             {name}
           </Typography>
-          <Typography variant="body2" color="grey.400" mt={1}>
-            {formatSizeUnits(size as number)}
-          </Typography>
+          {size && (
+            <Typography variant="body2" color="grey.400" mt={1}>
+              {formatSizeUnits(size as number)}
+            </Typography>
+          )}
         </Box>
 
         <Box sx={{ display: 'flex', gap: '8px' }}>
@@ -125,11 +131,9 @@ const ReviewDetailProgress = ({
 
       {isCompressed && (
         <Alert severity="warning" onClose={handleCloseAlert} sx={{ mt: 1 }}>
-          {`The image has been compressed to ${formatSizeUnits(size as number)}. Please review the compressed image to ensure it meets the required quality standards before proceeding.`}
+          {compressedText}
         </Alert>
       )}
-
-      <ImageViewer open={isShowImage} setOpen={setIsShowImage} title={name} url={url} />
     </>
   );
 };

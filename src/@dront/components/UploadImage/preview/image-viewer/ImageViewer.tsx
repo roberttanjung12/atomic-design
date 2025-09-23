@@ -148,16 +148,6 @@ const ImageViewer = ({ open, setOpen, url, title }: ImageViewerProps) => {
     document.removeEventListener('touchend', handleDragEnd as unknown as EventListener, false);
   };
 
-  const toggleBodyOverflow = (hidden = false) => {
-    const { body } = document;
-
-    if (hidden) {
-      body.style.overflow = 'hidden';
-    } else {
-      body.style.removeProperty('overflow');
-    }
-  };
-
   useEffect(() => {
     if (isDragging) {
       addDragEvents();
@@ -172,21 +162,13 @@ const ImageViewer = ({ open, setOpen, url, title }: ImageViewerProps) => {
   }, [isDragging]);
 
   useEffect(() => {
-    const sidebar = document.querySelector('.desktop-sidebar') as HTMLElement | null;
-
     if (open) {
-      if (sidebar) sidebar.style.zIndex = '1';
-
-      toggleBodyOverflow(true);
       window.addEventListener('wheel', handleWheel as unknown as EventListener, { passive: false });
     } else {
-      if (sidebar) sidebar.style.zIndex = '10';
       document.body.style.overflow = '';
-      toggleBodyOverflow();
     }
 
     return () => {
-      toggleBodyOverflow();
       window.removeEventListener('wheel', handleWheel as unknown as EventListener);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

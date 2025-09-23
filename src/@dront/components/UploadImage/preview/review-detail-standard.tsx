@@ -1,17 +1,17 @@
-import { type Dispatch, type SetStateAction, useState } from 'react';
+import { type Dispatch, type ReactNode, type SetStateAction } from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
 import { Alert, Box, Button, IconButton, Typography } from '@mui/material';
-import Image from 'next/image';
 import formatSizeUnits from '../helpers/format-size-units';
-import ImageViewer from './image-viewer/ImageViewer';
+import imageViewer from './image-viewer';
 
 interface ReviewDetailStandardProps {
   url: string;
   name: string;
   showRemoveButton?: boolean;
-  size: number | string;
+  size?: number | string;
   isCompressed?: boolean;
   showPreview?: boolean;
+  compressedText: string | ReactNode;
   onRemove: () => void;
   setIsCompressed: Dispatch<SetStateAction<boolean>>;
 }
@@ -22,11 +22,11 @@ const ReviewDetailStandard = ({
   size,
   isCompressed,
   showPreview,
+  compressedText,
+  showRemoveButton,
   onRemove,
   setIsCompressed
 }: ReviewDetailStandardProps) => {
-  const [isShowImage, setIsShowImage] = useState<boolean>(false);
-
   const handleCloseAlert = () => {
     setIsCompressed(false);
   };
@@ -34,17 +34,16 @@ const ReviewDetailStandard = ({
   const renderThumbnail = () => {
     if (url && showPreview) {
       return (
-        <Image
-          alt={name}
-          height={40}
-          src={url}
-          style={{
+        <Box
+          sx={{
             width: '100%',
             height: '100%',
-            objectFit: 'cover',
-            borderRadius: '8px'
+            borderRadius: '8px',
+            backgroundImage: `url(${url})`,
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat'
           }}
-          width={40}
+          aria-label={name}
         />
       );
     }
@@ -53,7 +52,7 @@ const ReviewDetailStandard = ({
       <Box sx={{ p: 2, display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
         <Box textAlign="center">
           <Typography sx={{ mb: 0.1, fontWeight: 'medium' }}>{name}</Typography>
-          <Typography variant="caption">{formatSizeUnits(Number(size))}</Typography>
+          {size && <Typography variant="caption">{formatSizeUnits(Number(size))}</Typography>}
         </Box>
       </Box>
     );
@@ -62,7 +61,12 @@ const ReviewDetailStandard = ({
   const renderButtonView = () => {
     if (url && showPreview) {
       return (
-        <Button size="small" sx={{ width: '160px' }} variant="contained" onClick={() => setIsShowImage(true)}>
+        <Button
+          size="small"
+          sx={{ width: '160px' }}
+          variant="contained"
+          onClick={() => imageViewer.open({ url, title: name })}
+        >
           See
         </Button>
       );
@@ -72,6 +76,8 @@ const ReviewDetailStandard = ({
   };
 
   const renderButtonDelete = () => {
+    if (!showRemoveButton) return null;
+
     if (showPreview) {
       return (
         <Button size="small" sx={{ width: '160px' }} color="error" onClick={onRemove}>
@@ -92,7 +98,7 @@ const ReviewDetailStandard = ({
       <Box
         sx={{
           aspectRatio: '4 / 4',
-          maxWidth: '240px',
+          width: '200px',
           backgroundColor: theme => theme.palette.grey[100],
           position: 'relative',
           overflow: 'hidden',
@@ -106,14 +112,13 @@ const ReviewDetailStandard = ({
         <Box
           className="review-detail-actions"
           sx={{
-            background: 'rgba(255,255,255,0.3)',
+            background: 'rgba(255,255,255,0.6)',
             position: 'absolute',
             inset: 0,
             display: 'flex',
-            justifyContent: 'center',
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
             alignItems: 'center',
-            alignContent: 'center',
-            flexWrap: 'wrap',
             gap: 1,
             p: 1,
             opacity: 0,
@@ -121,18 +126,37 @@ const ReviewDetailStandard = ({
             transition: 'opacity 0.2s'
           }}
         >
-          {renderButtonView()}
-          {renderButtonDelete()}
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mb: 4 }}>
+            {renderButtonView()}
+            {renderButtonDelete()}
+          </Box>
+          <Box
+            sx={{
+              borderRadius: 1,
+              width: '100%',
+              textAlign: 'center',
+              p: 0.5,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: 1
+            }}
+          >
+            <Typography component="span">{name} </Typography>
+            {size && (
+              <Typography variant="caption" sx={{ display: 'block', mt: 0.5 }}>
+                {formatSizeUnits(Number(size))}
+              </Typography>
+            )}
+          </Box>
         </Box>
       </Box>
 
       {isCompressed && (
-        <Alert severity="warning" onClose={handleCloseAlert} sx={{ mt: 1, maxWidth: '240px' }}>
-          {`The image has been compressed to ${formatSizeUnits(size as number)}. Please review the compressed image to ensure it meets the required quality standards before proceeding.`}
+        <Alert severity="warning" onClose={handleCloseAlert} sx={{ mt: 1, maxWidth: '200px' }}>
+          {compressedText}
         </Alert>
       )}
-
-      <ImageViewer open={isShowImage} setOpen={setIsShowImage} title={name} url={url} />
     </>
   );
 };

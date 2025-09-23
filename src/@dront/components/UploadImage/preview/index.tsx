@@ -1,8 +1,10 @@
-import { type SetStateAction, type Dispatch } from 'react';
+import { type ReactNode, type SetStateAction, type Dispatch } from 'react';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { Box, CircularProgress, Skeleton, useTheme } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { Box, CircularProgress, IconButton, Skeleton, useTheme } from '@mui/material';
 import formatSizeUnits from '../helpers/format-size-units';
 import { PreviewWrapper, ProcessCompress } from '../upload-image.styled';
+import type { IPreview } from '../upload-image.type';
 import ReviewDetailProgress from './review-detail-progress';
 import ReviewDetailStandard from './review-detail-standard';
 
@@ -14,49 +16,50 @@ const previewImageStyling: Record<string | number, string> = {
 };
 
 interface PreviewProps {
-  url: string;
-  name: string;
-  size: number;
+  preview: IPreview | null;
   process: number;
   loadingInfo?: string;
   disabled?: boolean;
   isCompressed?: boolean;
   showPreview?: boolean;
   variant: 'standard' | 'progress';
+  compressedText?: ((size: string) => ReactNode | string) | string | ReactNode;
   removePreview: () => void;
   setIsCompressed: Dispatch<SetStateAction<boolean>>;
 }
 
 const Preview = ({
-  url,
-  name,
-  size,
+  preview,
   process,
   loadingInfo,
   disabled,
   isCompressed,
   showPreview,
   variant,
+  compressedText,
   removePreview,
   setIsCompressed
 }: PreviewProps) => {
   const theme = useTheme();
 
-  const isUploaded = process >= 100;
-
-  if (!process) return null;
+  const isUploaded = !!preview?.url;
 
   if (isUploaded && variant === 'standard') {
     return (
       <ReviewDetailStandard
         showPreview={showPreview}
-        name={name}
-        url={url}
+        name={preview.name}
+        url={preview.url}
         onRemove={removePreview}
-        size={size}
+        size={preview.size}
         isCompressed={isCompressed}
         showRemoveButton={!disabled}
         setIsCompressed={setIsCompressed}
+        compressedText={
+          typeof compressedText === 'function'
+            ? compressedText(formatSizeUnits(preview.size ? preview.size : 0))
+            : compressedText
+        }
       />
     );
   }
@@ -65,28 +68,50 @@ const Preview = ({
     return (
       <ReviewDetailProgress
         showPreview={showPreview}
-        name={name}
-        url={url}
+        name={preview.name}
+        url={preview.url}
         onRemove={removePreview}
-        size={size}
+        size={preview.size}
         isCompressed={isCompressed}
         showRemoveButton={!disabled}
         setIsCompressed={setIsCompressed}
+        compressedText={
+          typeof compressedText === 'function'
+            ? compressedText(formatSizeUnits(preview.size ? preview.size : 0))
+            : compressedText
+        }
       />
     );
   }
 
+  if (!process) return null;
+
   return (
     <PreviewWrapper variantUpload={variant} onClick={event => event.stopPropagation()} sx={{}}>
       {variant === 'standard' ? (
-        <CircularProgress disableShrink />
+        <Box
+          height="100%"
+          width="100%"
+          position="relative"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          gap="12px"
+          padding="8px"
+        >
+          <IconButton sx={{ position: 'absolute', top: 0, right: 0 }} size="small" color="error">
+            <CloseIcon onClick={removePreview} fontSize="small" />
+          </IconButton>
+
+          <CircularProgress disableShrink />
+        </Box>
       ) : (
         <>
           <Skeleton sx={previewImageStyling} variant="rectangular" />
 
           <Box sx={{ flexGrow: 1, width: '0%' }}>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{name} </div>{' '}
+              <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{preview?.name} </div>{' '}
               {isUploaded && <CheckCircleIcon fill={theme.palette.success.main} />}
             </Box>
 
@@ -95,10 +120,14 @@ const Preview = ({
             </ProcessCompress>
 
             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-              <Box>{isUploaded ? `${formatSizeUnits(size)}` : loadingInfo}</Box>
+              <Box>{loadingInfo}</Box>
               <Box>{process}%</Box>
             </Box>
           </Box>
+
+          <IconButton size="small" color="error">
+            <CloseIcon onClick={removePreview} fontSize="small" />
+          </IconButton>
         </>
       )}
     </PreviewWrapper>
