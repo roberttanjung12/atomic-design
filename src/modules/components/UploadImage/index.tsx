@@ -1,7 +1,11 @@
 import { DocView } from '@/@dront/components';
 import UploadImage from '@/@dront/components/UploadImage';
+import UploadImageAsynchronous from './UploadImageAsynchronous';
+import UploadImageAsynchronousCode from './UploadImageAsynchronous?raw';
 import UploadImageBasic from './UploadImageBasic';
 import uploadImageBasicCode from './UploadImageBasic?raw';
+import UploadImageDisabledState from './UploadImageDisabledState';
+import uploadImageDisabledStateCode from './UploadImageDisabledState?raw';
 import UploadImageHandleFileRejection from './UploadImageHandleFileRejection';
 import uploadImageHandleFileRejectionCode from './UploadImageHandleFileRejection?raw';
 import UploadImageHidePreview from './UploadImageHidePreview';
@@ -14,7 +18,7 @@ import uploadImageWithCropperCode from './UploadImageWithCropper?raw';
 const UploadImageModule = () => {
   return (
     <DocView
-      contributors={['Agmar Putra']}
+      contributors={['Agmar Putra', 'Erghi Imannur Ichsan']}
       overview={
         'The `UploadImage` component provides a Material UI-based image upload interface with drag-and-drop support, preview, and cropping functionality. Useful for forms, media uploads, and image management.'
       }
@@ -32,6 +36,13 @@ const UploadImageModule = () => {
             'This example showcases the `UploadImage` component using the `progress` variant. It provides a visual representation of the upload and compression process, displaying a progress bar to indicate the current status. This variant is particularly useful for enhancing user experience during image uploads.',
           example: <UploadImageProgressVariant />,
           exampleCode: uploadImageProgressVariantCode
+        },
+        {
+          title: 'Asynchronous Example',
+          descriptions:
+            'This example demonstrates how to use the `UploadImage` component with asynchronous file uploads. This example demonstrates the ability to upload to an API.',
+          example: <UploadImageAsynchronous />,
+          exampleCode: UploadImageAsynchronousCode
         },
         {
           title: 'With Cropper',
@@ -53,6 +64,13 @@ const UploadImageModule = () => {
             'The `showPreview` prop can be set to `false` to hide the image preview after selection, useful for scenarios where a preview is not necessary.',
           example: <UploadImageHidePreview />,
           exampleCode: uploadImageHidePreviewCode
+        },
+        {
+          title: 'Disabled State',
+          descriptions:
+            'The `disabled` prop can be set to `true` to disable the upload input, preventing user interaction.',
+          example: <UploadImageDisabledState />,
+          exampleCode: uploadImageDisabledStateCode
         }
       ]}
       propsDoc={{
@@ -63,13 +81,9 @@ const UploadImageModule = () => {
             description: 'Configuration for image preview.'
           },
           onChange: {
-            type: '(file?: File, errors?: FileRejection[]) => void',
+            type: '(preview?: IPreview) => void',
             description:
-              'Callback function called when a file is successfully selected or changed. Returns a File object and potential errors'
-          },
-          onCompress: {
-            type: '(progress: number) => void',
-            description: 'Callback function that will be called during the compression process.'
+              'Callback function called when a file is successfully selected or changed. Returns a Preview object containing image details otherwise undefined.'
           },
           onRemove: {
             type: '() => void',
@@ -79,6 +93,11 @@ const UploadImageModule = () => {
           aspectRatio: {
             type: 'number',
             description: 'Specifies the aspect ratio for the crop tool. Example: 4/4 for square, 16/9 for widescreen.'
+          },
+          compressedText: {
+            type: '((size: string) => ReactNode) | string | ReactNode',
+            description:
+              'Function that generates the text displayed when an image has been compressed. It can be a string, ReactNode, or a function that takes the size of the compressed image as an argument and returns a ReactNode.'
           },
           disabled: {
             type: 'boolean',
@@ -102,11 +121,38 @@ const UploadImageModule = () => {
             type: 'string | React.ReactNode',
             description: 'Content to be displayed as the label for the input field.'
           },
-          maxInBytes: {
+          loadingInfo: {
+            type: 'string',
+            description: 'Text displayed while the image is being compressed.',
+            default: 'Compressing...'
+          },
+          maxInMB: {
             type: 'number',
             description:
-              'Maximum allowed file size in bytes. If the uploaded file exceeds this size, it will be compressed automatically.',
-            default: '1_000_000'
+              'Maximum allowed file size in megabytes. If the uploaded file exceeds this size, it will be compressed automatically.',
+            default: '1'
+          },
+          onCompressing: {
+            type: '(progress: number) => void',
+            description: 'Callback function that will be called during the compression process.'
+          },
+          onError: {
+            type: '(errors?: ErrorUpload) => void',
+            description: (
+              <div>
+                Callback function called when an error occurs during the upload process.
+                <br />
+                <br />
+                <pre>
+                  {`
+ @property code - The error code.
+   - '400': The uploaded file does not meet the required specifications.
+   - '500': An undefined server error occurred.
+ @property data - Additional data related to the error.
+`}
+                </pre>
+              </div>
+            )
           },
           required: {
             type: 'boolean',
@@ -116,6 +162,11 @@ const UploadImageModule = () => {
             type: 'boolean',
             description: 'if true, shows the image preview after selection',
             default: 'true'
+          },
+          upload: {
+            type: '(newPreview?: IPreview, setLoadingInfo: Dispatch<SetStateAction<string>>) => Promise<void>',
+            description:
+              'Optional function to manually trigger the upload process. This can be useful if you want to control when the upload happens, rather than it occurring automatically upon file selection.'
           },
           variant: {
             type: `'standard' | 'progress'`,
