@@ -2,6 +2,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import uniqueId from 'lodash/uniqueId';
 import { CodeViewer, PropsDocTable, Section, TextHighlighter } from '@/@dront/components';
+import ApiDocTable, { type ApiDocTableProps } from '../ApiDocTable';
 import type { CodeViewerProps } from '../CodeViewer';
 import type { PropsDocTableProps } from '../PropsDocTable';
 import type { SectionProps } from '../Section';
@@ -59,6 +60,12 @@ interface DocViewProps<TComponent = any> {
    * Used by `PropsDocTable` to render the list of available props.
    */
   propsDoc?: PropsDocTableProps<TComponent>;
+
+  /**
+   * The API documentation of the target component.
+   * Used by `ApiDocTable` to render the list of available API methods and properties.
+   */
+  apiDoc?: ApiDocTableProps;
 
   /**
    * A list of contributors for the documented component.
@@ -135,6 +142,7 @@ const DocView = <TComponent extends object>({
   contributors,
   overview,
   propsDoc,
+  apiDoc,
   sections
 }: DocViewProps<TComponent>) => {
   return (
@@ -154,6 +162,7 @@ const DocView = <TComponent extends object>({
       })}
 
       {propsDoc && <PropsDocTable component={propsDoc.component} propDefinitions={propsDoc.propDefinitions} />}
+      {apiDoc && <ApiDocTable docType={apiDoc.docType} name={apiDoc.name} definitions={apiDoc.definitions} />}
 
       <Stack direction="row" spacing={1} alignItems="center">
         <Typography fontWeight={700}>Contributors:</Typography>
