@@ -31,7 +31,9 @@ export interface AlertProps {
   /**
    * Additional props to pass to the underlying MUI Alert component.
    */
-  muiAlertProps?: Omit<MuiAlertProps, 'severity'>;
+  slotProps?: {
+    alert?: Omit<MuiAlertProps, 'severity'>;
+  };
 }
 
 type VariantStyles = {
@@ -48,7 +50,7 @@ type VariantStyles = {
  * @property {string} [variant] - The visual variant of the alert ('standard' or 'snackbar'). Defaults to 'standard'.
  * @property {string} title - Title to display at the top of the alert.
  * @property {string | ReactNode} [message] - The main message content of the alert. Can be a string or a React node.
- * @property {Omit<MuiAlertProps, 'severity'>} [muiAlertProps] - Additional props to pass to the underlying MUI Alert component.
+ * @property {object} [slotProps] - Additional props to pass to the underlying MUI Alert component.
  *
  * @example
  * <Alert
@@ -56,10 +58,10 @@ type VariantStyles = {
  *   variant="snackbar"
  *   title="Error"
  *   message="Something went wrong."
- *   muiAlertProps={{ onClose: handleClose }}
+ *   slotProps={{ alert: { onClose: () => console.log('Alert closed') } }}
  * />
  */
-const Alert = ({ severity = 'info', variant = 'standard', title, message, muiAlertProps }: AlertProps) => {
+const Alert = ({ severity = 'info', variant = 'standard', title, message, slotProps }: AlertProps) => {
   const { palette } = useTheme();
 
   const variantConfig: Record<'standard' | 'snackbar', VariantStyles> = {
@@ -94,14 +96,14 @@ const Alert = ({ severity = 'info', variant = 'standard', title, message, muiAle
       <MuiAlert
         severity={severity}
         variant={selectedVariant.muiVariant}
-        {...muiAlertProps}
+        {...slotProps?.alert}
         sx={[
           {
             minWidth: 320,
             borderRadius: 2
           },
           ...(Array.isArray(selectedVariant.sx) ? selectedVariant.sx : [selectedVariant.sx]),
-          ...(Array.isArray(muiAlertProps?.sx) ? muiAlertProps.sx : [muiAlertProps?.sx])
+          ...(Array.isArray(slotProps?.alert?.sx) ? slotProps.alert.sx : [slotProps?.alert?.sx])
         ]}
       >
         {title && <AlertTitle>{title}</AlertTitle>}
