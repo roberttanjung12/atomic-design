@@ -29,6 +29,11 @@ const Menuitems: NavigationItem[] = [
   },
   {
     id: uniqueId(),
+    title: 'Alert (Floating)',
+    href: '/components/alert-floating'
+  },
+  {
+    id: uniqueId(),
     title: 'Button',
     href: '/components/button'
   },
