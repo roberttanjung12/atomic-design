@@ -11,8 +11,7 @@ const CallAlert = forwardRef(({ handleClose }: { handleClose: (callback: () => a
     duration: 3000,
     severity: 'info',
     title: '',
-    message: '',
-    muiAlertProps: {}
+    message: ''
   });
 
   useImperativeHandle(ref, () => ({
@@ -32,7 +31,7 @@ const CallAlert = forwardRef(({ handleClose }: { handleClose: (callback: () => a
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, options.duration]);
 
-  return open && <Alert {...options} muiAlertProps={{ onClose: () => handleClose(() => setOpen(false)) }} />;
+  return open && <Alert {...options} slotProps={{ alert: { onClose: () => handleClose(() => setOpen(false)) } }} />;
 });
 
 export default CallAlert;
