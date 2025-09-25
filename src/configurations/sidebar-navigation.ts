@@ -104,6 +104,11 @@ const Menuitems: NavigationItem[] = [
   },
   {
     id: uniqueId(),
+    title: 'Theme Manager',
+    href: '/components/theme-manager'
+  },
+  {
+    id: uniqueId(),
     title: 'Time Machine',
     href: '/components/time-machine'
   },
