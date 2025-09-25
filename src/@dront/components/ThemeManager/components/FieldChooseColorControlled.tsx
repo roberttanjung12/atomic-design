@@ -7,10 +7,7 @@ interface FieldChooseColorControlledProps {
   label: string;
 }
 
-const FieldChooseColorControlled: React.FC<FieldChooseColorControlledProps> = ({
-  name,
-  label
-}): Readonly<ReactNode> => {
+const FieldChooseColorControlled = ({ name, label }: FieldChooseColorControlledProps): Readonly<ReactNode> => {
   const { control } = useFormContext();
 
   return (

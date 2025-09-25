@@ -32,11 +32,7 @@ interface FieldChooseColorFieldProps {
  * @param {FieldChooseColorFieldProps} props - The props for the component.
  * @returns {React.ReactElement} The rendered color picker field.
  */
-const FieldChooseColorField: React.FC<FieldChooseColorFieldProps> = ({
-  onClose,
-  defaultValue,
-  onApply
-}): Readonly<ReactNode> => {
+const FieldChooseColorField = ({ onClose, defaultValue, onApply }: FieldChooseColorFieldProps): Readonly<ReactNode> => {
   const [hex, setHex] = useState<string>(defaultValue);
 
   const isValidHex = /^#[0-9A-F]{6}$/i.test(hex);
