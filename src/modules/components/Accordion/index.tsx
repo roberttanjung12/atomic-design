@@ -1,5 +1,5 @@
+import Accordion from '@dront/ui/Accordion';
 import { DocView } from '@/@dront/components';
-import Accordion from '@/@dront/components/Accordion';
 import AccordionBasic from './AccordionBasic';
 import accordionBasicCode from './AccordionBasic?raw';
 import AccordionOutlined from './AccordionOutlined';
