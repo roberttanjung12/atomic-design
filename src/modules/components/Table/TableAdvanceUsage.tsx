@@ -1,12 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Table, { type TableActions, type TableRow } from '@dront/ui/Table';
 import ContentCopy from '@mui/icons-material/ContentCopy';
 import Delete from '@mui/icons-material/Delete';
 import Edit from '@mui/icons-material/Edit';
 import Visibility from '@mui/icons-material/Visibility';
 import Paper from '@mui/material/Paper';
-import { Table, type TableActions, type TableRow } from '@/@dront/components';
 
 interface Users {
   id: number;
