@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import Link from 'next/link';
-import { DocView, TextHighlighter } from '@/@dront/components';
+import { CodeSnippet, DocView, TextHighlighter } from '@/@dront/components';
 import ThemeManager from '@/@dront/components/ThemeManager';
 import ThemeManagerAsyncPublishExample from './ThemeManagerAsyncPublishExample';
 import themeManagerAsyncPublishExampleCode from './ThemeManagerAsyncPublishExample?raw';
@@ -17,6 +17,40 @@ const ThemeManagerModule = () => {
       contributors={['Agmar Putra']}
       overview="The `ThemeManager` is a comprehensive, real-time tool for customizing and previewing Material-UI theme settings. It provides a user-friendly interface with a header for actions, a sidebar with theme controls (e.g., color palette pickers), and a live preview area, making it an ideal developer tool for designing and establishing an application's visual identity."
       sections={[
+        {
+          title: 'Important: Standalone Usage',
+          descriptions: (
+            <TextHighlighter text="The `ThemeManager` is designed as a `full-page` component and includes its own header and sidebar layout. To avoid UI conflicts, it should `not` be nested inside your application's main layout. Instead, render it on a dedicated route without any surrounding layout components." />
+          )
+        },
+        {
+          title: 'Integration with Next.js App Router',
+          descriptions: (
+            <>
+              <TextHighlighter text="Because `ThemeManager` includes its own full-page layout (header and sidebar), it must not be nested within your application's root `layout.tsx`. To achieve this, use a Next.js Route Group to apply your main layout only to the pages that need it, leaving the `theme-manager` route outside of this group." />
+              <CodeSnippet
+                language="tsx"
+                code={`// Incorrect Structure ❌
+// This will cause a layout conflict because the root layout wraps every page.
+app
+├── theme-manager/
+│   └── page.tsx      // ThemeManager page (conflicts with root layout)
+├── layout.tsx        // Root layout applied to ALL pages
+└── page.tsx          // Your main homepage
+
+// Correct Structure ✅
+// Using a Route Group to isolate the ThemeManager from the main layout.
+app
+├── theme-manager/
+│   └── page.tsx      // Standalone ThemeManager page (no conflict)
+└── (main)/           // Route Group for your main application
+    ├── layout.tsx    // Layout ONLY for pages inside (main)
+    └── page.tsx      // Your main homepage
+`}
+              />
+            </>
+          )
+        },
         {
           title: 'Basic Usage & Layouts',
           descriptions: (
