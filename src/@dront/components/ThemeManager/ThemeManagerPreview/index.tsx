@@ -10,7 +10,6 @@ import {
   CardHeader,
   Chip,
   CircularProgress,
-  Divider,
   Fab,
   IconButton,
   LinearProgress,
@@ -138,26 +137,26 @@ const ThemeManagerPreview = ({ position }: { position: 'fixed' | 'static' }) => 
       >
         <Alert
           severity="success"
-          sx={{ background: alpha(watch('palette.success.light'), 0.2), color: watch('palette.success.main') }}
+          sx={{ background: alpha(watch('palette.success.light') ?? '', 0.2), color: watch('palette.success.main') }}
           onClose={() => {}}
         >
           This is a success alert — check it out!
         </Alert>
         <Alert
           severity="info"
-          sx={{ background: alpha(watch('palette.info.light'), 0.2), color: watch('palette.info.main') }}
+          sx={{ background: alpha(watch('palette.info.light') ?? '', 0.2), color: watch('palette.info.main') }}
         >
           This is an info alert.
         </Alert>
         <Alert
           severity="warning"
-          sx={{ background: alpha(watch('palette.warning.light'), 0.2), color: watch('palette.warning.main') }}
+          sx={{ background: alpha(watch('palette.warning.light') ?? '', 0.2), color: watch('palette.warning.main') }}
         >
           This is a warning alert.
         </Alert>
         <Alert
           severity="error"
-          sx={{ background: alpha(watch('palette.error.light'), 0.2), color: watch('palette.error.main') }}
+          sx={{ background: alpha(watch('palette.error.light') ?? '', 0.2), color: watch('palette.error.main') }}
         >
           This is an error alert.
         </Alert>
@@ -235,15 +234,6 @@ const ThemeManagerPreview = ({ position }: { position: 'fixed' | 'static' }) => 
 
             <Typography variant="body2" sx={{ color: watch('palette.text.disabled'), mt: 1 }}>
               This is the disabled text color, used for inactive or placeholder text.
-            </Typography>
-
-            <Box sx={{ display: 'flex', alignItems: 'center', my: 2 }}>
-              <Typography sx={{ color: watch('palette.text.divider'), mr: 1 }}>Before</Typography>
-              <Divider sx={{ flexGrow: 1, color: 'red' }} />
-              <Typography sx={{ color: watch('palette.text.divider'), ml: 1 }}>After</Typography>
-            </Box>
-            <Typography variant="caption" sx={{ color: watch('palette.text.secondary') }}>
-              The line above is a Divider component, which uses the 'divider' color from the palette.
             </Typography>
           </CardContent>
         </Card>
