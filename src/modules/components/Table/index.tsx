@@ -1,4 +1,5 @@
-import { DocView, Table } from '@/@dront/components';
+import Table from '@dront/ui/Table';
+import { DocView } from '@/@dront/components';
 import TableActions from './TableActions';
 import tableActionsCode from './TableActions?raw';
 import TableActionsMore from './TableActionsMore';
