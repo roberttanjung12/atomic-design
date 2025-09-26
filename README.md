@@ -1,58 +1,64 @@
-# DRONT V5 Atomic Design
+# DRONT Atomic Design
 
-![DRONT V5 Atomic Design](https://davidrivaldy.fcbayernfan.id/images/DRONT-V5.png)
+![DRONT Atomic Design](https://davidrivaldy.fcbayernfan.id/images/DRONT-V5.png)
 
-The ultimate SPE Front End Department boilerplate with latest version of [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+A comprehensive documentation portal for [Dront UI](https://gitlab.spesolution.net/front-end/dront/dront-ui) - the official UI component library for the **SPE Front End Department**. Built with [Next.js](https://nextjs.org/) and [MUI Material](https://nextjs.org/) for styling.
 
-## Getting Started
+## 📖 Documentation Features
 
-First, run the development server:
+### Interactive Component Showcase
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+- **Live Examples**: View `Dront UI` components in action.
+- **Code Snippets**: Copy-paste ready code examples.
+- **Responsive Testing**: Test components across different screen sizes.
 
-Open [http://localhost:1515](http://localhost:1515) with your browser to see the result.
+### API Documentation
 
-## Visual Studio Code
+- **Component Props**: Detailed prop tables with types and descriptions.
+- **Usage Examples**: Multiple use cases for each component.
+- **Best Practices**: Guidelines for optimal component usage.
 
-Add file ==settings.json== to ==.vscode== folder
+### Design System Guidelines
 
-```json
-{
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "debug.javascript.terminalOptions": {},
-  "editor.accessibilitySupport": "off",
-  "editor.codeActionsOnSave": {
-    "source.fixAll": "always",
-    "source.fixAll.eslint": "always"
-  },
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true,
-  "editor.largeFileOptimizations": false,
-  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
-  "javascript.updateImportsOnFileMove.enabled": "always",
-  "jsannotations.fontWeight": "100",
-  "mdb.confirmRunAll": false,
-  "prettier.singleQuote": true,
-  "workbench.editor.enablePreview": false,
-  "workbench.settings.applyToAllProfiles": [],
-  "workbench.startupEditor": "none",
-  "typescript.updateImportsOnFileMove.enabled": "always"
+- **Design Tokens**: Colors, typography, spacing documentation.
+- **Component Composition**: Building complex UIs with atomic components.
+- **Theming Guide**: Customizing the design system.
+
+## 🎨 Dront UI Integration
+
+This documentation portal is tightly integrated with the `Dront UI` package.
+
+All examples are powered by the actual `Dront UI` components:
+
+```jsx
+import { FieldText, FieldPassword } from '@dront/ui';
+import { Button, Stack } from '@mui/material';
+
+function LoginForm() {
+  return (
+    <Stack spacing={2}>
+      <FieldText label="Username" name="username" />
+      <FieldPassword label="Password" name="password" />
+      <Button variant="contained">Login</Button>
+    </Stack>
+  )
 }
 ```
 
-## Learn More
+## 🤝 Contributing
 
-To learn more about Next.js, take a look at the following resources:
+Please see our [contribution guidelines](CONTRIBUTING.md) before contributing to the project.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📄 Licensing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+This project is licensed under [All Rights Reserved](LICENSE).
+
+## 🙏 Acknowledgments
+
+- **@dront/ui Team**: For creating and maintaining the component library
+- **SPE Front End Department**: For design system standards and guidelines
+- **Community Contributors**: For improving documentation and examples
+
+---
+
+Built with ❤️ by the SPE Front End Department | Powered by [Dront Atomic Design](https://gitlab.spesolution.net/front-end/dront/dront-v5-atomic-design)
