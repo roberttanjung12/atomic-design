@@ -126,6 +126,11 @@ const Menuitems: NavigationItem[] = [
     id: uniqueId(),
     title: 'Rating',
     href: '/components/rating'
+  },
+  {
+    id: uniqueId(),
+    title: 'Document File Type',
+    href: '/components/document-file-type'
   }
 ];
 

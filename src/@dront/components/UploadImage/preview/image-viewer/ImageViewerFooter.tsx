@@ -11,7 +11,7 @@ type ImageViewerFooterProps = {
   handleZoomOut: () => void;
 };
 
-const ImageViewerFooter: React.FC<ImageViewerFooterProps> = ({
+const ImageViewerFooter = ({
   imageName,
   setRotation,
   setFlipHorizontal,
@@ -19,7 +19,7 @@ const ImageViewerFooter: React.FC<ImageViewerFooterProps> = ({
   resetTransforms,
   handleZoomIn,
   handleZoomOut
-}) => {
+}: ImageViewerFooterProps) => {
   const handleRotateLeft = () => {
     setRotation(prevRotation => prevRotation - 90);
   };

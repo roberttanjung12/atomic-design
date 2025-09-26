@@ -1,5 +1,5 @@
+import Accordion from '@dront/ui/Accordion';
 import { Button, ButtonGroup } from '@mui/material';
-import { Accordion } from '@/@dront/components';
 
 const AccordionWithActions = () => {
   const accordionItems = [
