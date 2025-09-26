@@ -1,4 +1,4 @@
-import { Accordion } from '@/@dront/components';
+import Accordion from '@dront/ui/Accordion';
 
 const AccordionBasic = () => {
   const accordionItems = [
