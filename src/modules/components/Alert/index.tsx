@@ -30,7 +30,7 @@ const AlertModule = () => {
         {
           title: 'Alert with Action',
           descriptions:
-            'You can add interactive elements like buttons to an alert by passing them through the `muiAlertProps` prop. This is useful for actions like "Undo" or "Retry".',
+            'You can add interactive elements like buttons to an alert by passing them through the `slotProps.alert.action` prop. This is useful for actions like "Undo" or "Retry".',
           example: <AlertActionExample />,
           exampleCode: alertActionExampleCode
         }
