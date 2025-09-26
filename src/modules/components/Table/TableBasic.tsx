@@ -1,7 +1,7 @@
 'use client';
 
+import Table from '@dront/ui/Table';
 import Paper from '@mui/material/Paper';
-import { Table } from '@/@dront/components';
 
 const TableBasic = () => {
   return (

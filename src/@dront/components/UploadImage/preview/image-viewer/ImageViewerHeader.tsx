@@ -8,7 +8,7 @@ interface ImageViewerHeaderProps {
   url: string;
 }
 
-const ImageViewerHeader: React.FC<ImageViewerHeaderProps> = ({ setOpen, url }) => {
+const ImageViewerHeader = ({ setOpen, url }: ImageViewerHeaderProps) => {
   /**
    * Closes the image viewer.
    */

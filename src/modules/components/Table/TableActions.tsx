@@ -1,9 +1,9 @@
 'use client';
 
+import Table from '@dront/ui/Table';
 import Delete from '@mui/icons-material/Delete';
 import Visibility from '@mui/icons-material/Visibility';
 import Paper from '@mui/material/Paper';
-import { Table } from '@/@dront/components';
 
 const TableBasic = () => {
   return (

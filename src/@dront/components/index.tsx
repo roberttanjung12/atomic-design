@@ -1,5 +1,3 @@
-export { default as Accordion } from './Accordion';
-
 export { default as Button } from './Button';
 
 export { default as CodeSnippet } from './CodeSnippet';
@@ -33,8 +31,6 @@ export { default as ProgressBar } from './ProgressBar';
 export { default as PropsDocTable } from './PropsDocTable';
 
 export { default as Section } from './Section';
-
-export { default as Table, type TableActions, type TableRow } from './Table';
 
 export { default as TextHighlighter } from './TextHighlighter';
 
