@@ -70,8 +70,7 @@ export const defaultTheme: IThemeManager = {
     text: {
       primary: '#212121', // Neutral 900 [cite: 135]
       secondary: '#616161', // Neutral 700 [cite: 133]
-      disabled: '#9E9E9E', // Neutral 500 [cite: 132]
-      divider: '#EEEEEE' // Neutral 200 [cite: 129]
+      disabled: '#BDBDBD' // Neutral 400 [cite: 131]
     },
     background: {
       paper: '#FFFFFF',

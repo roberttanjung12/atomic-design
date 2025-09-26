@@ -81,7 +81,6 @@ const FormPalette = () => {
           <FieldChooseColorControlled label="Primary" name="palette.text.primary" />
           <FieldChooseColorControlled label="Secondary" name="palette.text.secondary" />
           <FieldChooseColorControlled label="Disabled" name="palette.text.disabled" />
-          <FieldChooseColorControlled label="Divider" name="palette.text.divider" />
         </List>
       </AccordionContainer>
 
