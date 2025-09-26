@@ -31,20 +31,18 @@ const CustomAppPreview = () => (
  */
 const ThemeManagerCustomPreviewExample = () => {
   return (
-    <Box sx={{ maxHeight: '480px', overflow: 'auto', border: '1px solid #eee' }}>
-      <ThemeManager layoutPosition="static">
-        {({ values }) => {
-          // Create a theme on-the-fly from the values in the editor
-          const liveTheme = createTheme(values);
+    <ThemeManager>
+      {({ values }) => {
+        // Create a theme on-the-fly from the values in the editor
+        const liveTheme = createTheme(values);
 
-          return (
-            <ThemeProvider theme={liveTheme}>
-              <CustomAppPreview />
-            </ThemeProvider>
-          );
-        }}
-      </ThemeManager>
-    </Box>
+        return (
+          <ThemeProvider theme={liveTheme}>
+            <CustomAppPreview />
+          </ThemeProvider>
+        );
+      }}
+    </ThemeManager>
   );
 };
 
