@@ -7,7 +7,7 @@ interface CheckboxesProps {
   checked: boolean;
   disabled?: boolean;
   slotProps?: {
-    root?: FormControlLabelProps;
+    root?: Partial<FormControlLabelProps>;
     checkBox?: CheckboxProps;
   };
 }

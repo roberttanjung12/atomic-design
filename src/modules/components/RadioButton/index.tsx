@@ -5,33 +5,36 @@ import radioButtonBasicCode from './RadioButtonBasic?raw';
 import RadioButtonDisabled from './RadioButtonDisabled';
 import radioButtonDisabledCode from './RadioButtonDisabled?raw';
 import RadioButtonProps from './RadioButtonProps';
-import adioButtonPropsCode from './RadioButtonProps?raw';
+import radioButtonPropsCode from './RadioButtonProps?raw';
 
 const RadioButtonModule = () => {
   return (
     <DocView
       contributors={['Agung Laksono Hartadi']}
       overview={
-        'The `RadioButton` component provides a Material UI-based radio group with customizable options, value, and slotProps for advanced customization. Useful for forms and selection groups where only one option can be selected.'
+        'The `RadioButton` component is a customizable Material UI-based radio group designed for single-choice selections. It supports labels, disabled states, and advanced customization via `slotProps`. Commonly used in forms, surveys, settings, and anywhere users must pick exactly one option from a list.'
       }
       sections={[
         {
           title: 'Basic',
-          descriptions: 'A simple radio button group.',
+          descriptions:
+            'A simple radio button group with multiple options, where only one can be selected at a time. This is the most common use case, useful for preferences, forms, or single-choice questions.',
           example: <RadioButtonBasic />,
           exampleCode: radioButtonBasicCode
         },
         {
           title: 'Disabled',
-          descriptions: 'Radio buttons with disabled option.',
+          descriptions:
+            'Radio buttons can be disabled to indicate unavailable options. This is helpful when certain choices are not applicable, restricted by conditions, or temporarily inactive.',
           example: <RadioButtonDisabled />,
           exampleCode: radioButtonDisabledCode
         },
         {
           title: 'Slot Props',
-          descriptions: 'Customize the root, form, and radio props using slotProps.',
+          descriptions:
+            'Advanced customization example using `slotProps`. Developers can override the default props of the `RadioGroup`, `FormControlLabel`, and `Radio` components, making it flexible for custom styling, layouts, or interaction behavior.',
           example: <RadioButtonProps />,
-          exampleCode: adioButtonPropsCode
+          exampleCode: radioButtonPropsCode
         }
       ]}
       propsDoc={{
@@ -39,19 +42,22 @@ const RadioButtonModule = () => {
         propDefinitions: {
           options: {
             type: 'Array<{ label: string | React.ReactNode; value: string; disabled?: boolean; }>',
-            description: 'Array of radio options to display.'
+            description:
+              'Array of radio options to display. Each option includes a label, a unique value, and an optional disabled state.'
           },
           value: {
             type: 'string | number',
-            description: 'The currently selected value.'
+            description: 'The currently selected value. Controls which radio option appears active in the group.'
           },
           handleChange: {
             type: '(event: ChangeEvent<HTMLInputElement>) => void',
-            description: 'Callback fired when the selected value changes.'
+            description:
+              'Callback fired when the selected value changes. Use this to update form state or trigger actions based on user selection.'
           },
           slotProps: {
             type: '{ root?: RadioGroupProps; form?: FormControlLabelProps; radio?: RadioProps; }',
-            description: 'Props to customize the root RadioGroup, FormControlLabel, and Radio components.'
+            description:
+              'Provides fine-grained customization of the internal components. `root` modifies the `RadioGroup`, `form` modifies each `FormControlLabel`, and `radio` modifies the underlying `Radio` components.'
           }
         }
       }}
