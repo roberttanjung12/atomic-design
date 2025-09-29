@@ -1,8 +1,8 @@
-import { type ReactNode, useEffect, useState } from 'react';
+import type { ReactNode, Dispatch, SetStateAction } from 'react';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Accordion, AccordionDetails, AccordionSummary, Box, Collapse, Typography } from '@mui/material';
-import { useFormContext } from 'react-hook-form';
 import PencilWithRulerIcon from '../components/PencilWithRulerIcon';
+import FormLogo from './forms/FormLogo';
 import FormPalette from './forms/FormPalette';
 
 type Content = {
@@ -13,31 +13,37 @@ type Content = {
 
 const contents: Content[] = [
   {
+    id: 'logo',
+    title: 'Logo',
+    form: <FormLogo />
+  },
+  {
     id: 'palette',
     title: 'Palette',
     form: <FormPalette />
   }
 ];
 
-const SidebarContent = (): Readonly<ReactNode> => {
-  const [focusContent, setFocusContent] = useState<string>('');
-  const { formState } = useFormContext();
+interface SidebarContentProps {
+  focusSidebar: string;
+  setFocusSidebar: Dispatch<SetStateAction<string>>;
+}
 
-  const handleFocusContent = (panel: string) => (_: React.SyntheticEvent, isExpanded: boolean) => {
-    setFocusContent(isExpanded ? panel : '');
+/**
+ * Renders the sidebar content for the Theme Manager, including collapsible panels for customizing website design.
+ *
+ * @param focusSidebar - The currently focused sidebar panel's identifier, or an empty string if none is focused.
+ * @param setFocusSidebar - Callback to update the focused sidebar panel.
+ * @returns The sidebar content as a readonly ReactNode, including introductory information and a list of collapsible accordions for theme customization.
+ */
+const SidebarContent = ({ focusSidebar, setFocusSidebar }: SidebarContentProps): Readonly<ReactNode> => {
+  const handleFocusSidebar = (panel: string) => (_: React.SyntheticEvent, isExpanded: boolean) => {
+    setFocusSidebar(isExpanded ? panel : '');
   };
-
-  useEffect(() => {
-    const isErrorBankInfo = formState.errors.email || formState.errors.bankName || formState.errors.contact;
-
-    if (isErrorBankInfo && focusContent !== 'bank-information') {
-      setFocusContent('bank-information');
-    }
-  }, [formState.errors, focusContent]);
 
   return (
     <>
-      <Collapse in={!focusContent}>
+      <Collapse in={!focusSidebar}>
         <Box sx={{ p: 2 }}>
           <PencilWithRulerIcon />
 
@@ -52,20 +58,20 @@ const SidebarContent = (): Readonly<ReactNode> => {
 
       <Box sx={{ background: 'salmon', mb: 8 }}>
         {contents.map((content, index) => (
-          <Collapse key={content.id} in={focusContent === content.id || !focusContent}>
+          <Collapse key={content.id} in={focusSidebar === content.id || !focusSidebar}>
             <Accordion
               square
               elevation={0}
-              expanded={focusContent === content.id}
+              expanded={focusSidebar === content.id}
               id={`${content.id}-accordion`}
-              onChange={handleFocusContent(content.id)}
+              onChange={handleFocusSidebar(content.id)}
             >
               <AccordionSummary
                 expandIcon={<ChevronRightIcon />}
                 sx={({ palette }) => ({
                   backgroundColor: 'grey.100',
                   border: `1px solid ${palette.divider}`,
-                  borderBottom: contents.length !== index + 1 && !focusContent ? 'none' : `1px solid ${palette.divider}`
+                  borderBottom: contents.length !== index + 1 && !focusSidebar ? 'none' : `1px solid ${palette.divider}`
                 })}
               >
                 {content.title}
