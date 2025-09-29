@@ -22,12 +22,13 @@ interface ModalUploadImageProps {
  * When clicked, it opens a popover containing a file upload field.
  * If a default preview image is provided, it is shown as a thumbnail; otherwise, an add icon is displayed.
  *
- * @param {string} id - Unique identifier for the component and popover.
- * @param {string} label - Label text displayed in the list item.
- * @param {string} name - Name attribute for the file input field.
- * @param {object} [defaultPreview] - Optional object containing the preview image URL.
- * @param {(file: File) => void} onApply - Callback invoked when a file is selected and applied.
- * @param {string[]} [fileFormat] - Optional array of accepted file formats.
+ * @param {ModalUploadImageProps} props
+ * @param {string} props.id - Unique identifier for the component and popover.
+ * @param {string} props.label - Label text displayed in the list item.
+ * @param {string} props.name - Name attribute for the file input field.
+ * @param {object} [props.defaultPreview] - Optional object containing the preview image URL.
+ * @param {(file: File) => void} props.onApply - Callback invoked when a file is selected and applied.
+ * @param {string[]} [props.fileFormat] - Optional array of accepted file formats.
  *
  * @returns {JSX.Element} The rendered ModalUploadImage component.
  */
