@@ -16,6 +16,11 @@ interface PropMeta {
    */
   default?: string;
   /**
+   * Indicates whether the prop is required.
+   * @default false
+   */
+  required?: boolean;
+  /**
    * Description of the prop usage.
    */
   description?: React.ReactNode;
@@ -31,7 +36,7 @@ type PropsDefinition<T> = {
 /**
  * Props for the `PropsDocTable` component.
  */
-export interface PropsDocTableProps<T> {
+interface PropsDocTableProps<T> {
   /**
    * Target component to be documented.
    */
@@ -59,9 +64,10 @@ export interface PropsDocTableProps<T> {
  * />
  * ```
  */
-const PropsDocTable = <T extends object>({ propDefinitions }: PropsDocTableProps<T>) => {
+const PropsDocTable = <T extends object>({ component, propDefinitions }: PropsDocTableProps<T>) => {
   const keys = Object.keys(propDefinitions) as (keyof T)[];
-  const description = `Props for the component are available.`;
+  const componentName = (component as any).displayName || component.name || 'Component';
+  const description = `Props for the \`${componentName}\` component are available.`;
 
   return (
     <Section title="Props">
@@ -80,6 +86,7 @@ const PropsDocTable = <T extends object>({ propDefinitions }: PropsDocTableProps
               <TableCell>Name</TableCell>
               <TableCell>Type</TableCell>
               <TableCell>Default</TableCell>
+              <TableCell align="center">Required</TableCell>
               <TableCell>Description</TableCell>
             </TableRow>
           </TableHead>
@@ -95,6 +102,9 @@ const PropsDocTable = <T extends object>({ propDefinitions }: PropsDocTableProps
                   </TableCell>
                   <TableCell>
                     <CodeChip variant="secondary">{meta?.default ?? 'undefined'}</CodeChip>
+                  </TableCell>
+                  <TableCell align="center">
+                    <CodeChip variant="secondary">{meta?.required ? 'true' : 'false'}</CodeChip>
                   </TableCell>
                   <TableCell>{meta?.description}</TableCell>
                 </TableRow>
