@@ -3,6 +3,7 @@
 import {
   Controller,
   useFormContext,
+  type PathValue,
   type Control,
   type FieldValues,
   type Path,
@@ -27,7 +28,7 @@ interface FieldTextValidationProps<FieldTextValidationValues extends FieldValues
   /**
    * Default value for the field.
    */
-  defaultValue?: any;
+  defaultValue?: PathValue<FieldTextValidationValues, Path<FieldTextValidationValues>>;
 
   /**
    * Optional react-hook-form control.
