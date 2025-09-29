@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { Visibility as VisibilityIcon, VisibilityOff as VisibilityOffIcon } from '@mui/icons-material';
-import type { TextFieldVariants } from '@mui/material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
+import type { TextFieldVariants } from '@mui/material/TextField';
 import FieldText, { type FieldTextProps } from '../FieldText';
 
 /**
