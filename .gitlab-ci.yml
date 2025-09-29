@@ -17,11 +17,10 @@ release:
     - git remote set-url origin https://oauth2:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git
   script:
     - npx -p semantic-release@24 -p @semantic-release/changelog@6 -p @semantic-release/git@10 -p conventional-changelog-conventionalcommits@9 semantic-release
-  only:
-    - main
-    - release/beta
-    - release/alpha
-    - merge_requests
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && ($CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "release/beta" || $CI_COMMIT_BRANCH == "release/alpha")'
+      when: manual
+    - when: never
 
 install:
   stage: install
