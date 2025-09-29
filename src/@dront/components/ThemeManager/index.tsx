@@ -10,9 +10,36 @@ import ThemeManagerSidebar from './ThemeManagerSidebar';
  * @constant {IThemeManager} defaultTheme
  * @description Provides the default theme configuration for the ThemeManager.
  * This object is used as the initial state if no `defaultTheme` prop is provided.
+ * It includes default logos for light and dark modes, as well as a comprehensive color palette.
  * The color palette is based on a specific design system (e.g., Material Design color palette).
  */
 export const defaultTheme: IThemeManager = {
+  logo: {
+    dark: {
+      url: '/logo/atomic-design/Atomic Design - Main.png',
+      file: null
+    },
+    darkHorizontal: {
+      url: '/logo/atomic-design/Atomic Design - Main - Horizontal.png',
+      file: null
+    },
+    darkVertical: {
+      url: '/logo/atomic-design/Atomic Design - Main - Vertical.png',
+      file: null
+    },
+    light: {
+      url: '/logo/atomic-design/Atomic Design - Light.png',
+      file: null
+    },
+    lightHorizontal: {
+      url: '/logo/atomic-design/Atomic Design - Light- Horizontal.png',
+      file: null
+    },
+    lightVertical: {
+      url: '/logo/atomic-design/Atomic Design - Light- Vertical.png',
+      file: null
+    }
+  },
   palette: {
     primary: {
       main: '#0052CC', // Brandeis Blue DB 500 (Base) [cite: 11]
@@ -85,13 +112,13 @@ export const defaultTheme: IThemeManager = {
  */
 interface ThemeManagerProps {
   /**
-   * @property {ReactNode | ((props: { values: IThemeManager }) => ReactNode)} [children]
+   * @property {ReactNode | ((props: { values: IThemeManager, focusSidebar: string }) => ReactNode)} [children]
    * @description The content to be displayed within the theme manager's preview area.
-   * It can be a standard ReactNode or a render prop function that receives the current theme values.
+   * It can be a standard ReactNode or a render prop function that receives the current theme values and the focused sidebar state.
    * This allows the preview content to be dynamically styled by the theme being edited.
    * If not provided, a default preview component (`ThemeManagerPreview`) is rendered.
    */
-  children?: ReactNode | ((props: { values: IThemeManager }) => ReactNode);
+  children?: ReactNode | ((props: { values: IThemeManager; focusSidebar: string }) => ReactNode);
   /**
    * @property {IThemeManager} [defaultTheme]
    * @description An object representing the initial theme values. If not provided,
@@ -163,6 +190,7 @@ const ThemeManager = ({
   const methods = useForm({ defaultValues: initialValues || defaultTheme });
 
   const [openSidebar, setOpenSidebar] = useState<boolean>(true);
+  const [focusSidebar, setFocusSidebar] = useState<string>('');
 
   const handleToggleSidebar = () => {
     setOpenSidebar(!openSidebar);
@@ -170,7 +198,7 @@ const ThemeManager = ({
 
   const renderChildren = () => {
     if (typeof children === 'function') {
-      return children({ values: methods.watch() });
+      return children({ values: methods.watch(), focusSidebar });
     }
 
     return children;
@@ -193,11 +221,17 @@ const ThemeManager = ({
               position={layoutPosition}
               openSidebar={openSidebar}
               handleToggleSidebar={handleToggleSidebar}
+              focusSidebar={focusSidebar}
+              setFocusSidebar={setFocusSidebar}
             />
           </Grid>
 
           <Grid size={{ xs: 12, md: 9 }}>
-            {children ? renderChildren() : <ThemeManagerPreview position={layoutPosition} />}
+            {children ? (
+              renderChildren()
+            ) : (
+              <ThemeManagerPreview focusSidebar={focusSidebar} position={layoutPosition} />
+            )}
           </Grid>
         </Grid>
       ) : (
@@ -206,10 +240,16 @@ const ThemeManager = ({
             position={layoutPosition}
             openSidebar={openSidebar}
             handleToggleSidebar={handleToggleSidebar}
+            focusSidebar={focusSidebar}
+            setFocusSidebar={setFocusSidebar}
           />
 
           <Box sx={{ ml: { xs: 0, md: '180px', lg: '240px' }, mt: 8 }}>
-            {children ? renderChildren() : <ThemeManagerPreview position={layoutPosition} />}
+            {children ? (
+              renderChildren()
+            ) : (
+              <ThemeManagerPreview focusSidebar={focusSidebar} position={layoutPosition} />
+            )}
           </Box>
         </>
       )}

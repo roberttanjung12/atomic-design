@@ -15,7 +15,7 @@ const ThemeManagerModule = () => {
   return (
     <DocView
       contributors={['Agmar Putra']}
-      overview="The `ThemeManager` is a comprehensive, real-time tool for customizing and previewing Material-UI theme settings. It provides a user-friendly interface with a header for actions, a sidebar with theme controls (e.g., color palette pickers), and a live preview area, making it an ideal developer tool for designing and establishing an application's visual identity."
+      overview="The `ThemeManager` is a comprehensive, real-time tool for customizing and previewing Material-UI theme settings and any style like logo. It provides a user-friendly interface with a header for actions, a sidebar with theme controls (e.g., color palette pickers, logo), and a live preview area, making it an ideal developer tool for designing and establishing an application's visual identity."
       sections={[
         {
           title: 'Important: Standalone Usage',
@@ -56,7 +56,7 @@ app
           descriptions: (
             <>
               <TextHighlighter
-                text=" This is the default implementation of the ThemeManager. It renders in a `static` position, meaning it is
+                text="This is the default implementation of the ThemeManager. It renders in a `static` position, meaning it is
               part of the normal document flow and will scroll with the page. For a fixed overlay experience that stays
               visible during scroll, change the `layoutPosition` prop to `'fixed'`. To see the full effect of the fixed
               layout, please view the example on a full page."
@@ -133,9 +133,9 @@ app
         component: ThemeManager,
         propDefinitions: {
           children: {
-            type: 'ReactNode | ((props: { values: IThemeManager }) => ReactNode)',
+            type: 'ReactNode | ((props: { values: IThemeManager, focusSidebar: string }) => ReactNode)',
             description:
-              'The content for the preview area. Can be a standard ReactNode or a render prop function that receives the current theme values for dynamic styling.'
+              'The content for the preview area. Can be a standard ReactNode or a render prop function that receives the current theme values and the focused sidebar section for dynamic styling.'
           },
           defaultTheme: {
             type: 'IThemeManager',

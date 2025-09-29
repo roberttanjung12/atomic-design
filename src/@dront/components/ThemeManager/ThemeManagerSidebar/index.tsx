@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { Dispatch, ReactNode, SetStateAction } from 'react';
 import { Close } from '@mui/icons-material';
 import { Drawer, IconButton, useMediaQuery, useTheme } from '@mui/material';
 import SidebarContainer from './SidebarContainer';
@@ -8,21 +8,29 @@ interface ThemeManagerSidebarProps {
   openSidebar: boolean;
   handleToggleSidebar: () => void;
   position: 'fixed' | 'static';
+  focusSidebar: string;
+  setFocusSidebar: Dispatch<SetStateAction<string>>;
 }
 
 /**
- * Renders a sidebar for theme management that adapts its layout based on the viewport size.
- * - On medium screens and up, displays a fixed sidebar.
- * - On smaller screens, displays a drawer that can be toggled open or closed.
+ * Renders a responsive sidebar for theme management.
  *
- * @param openSidebar - Boolean indicating whether the sidebar drawer is open (for small screens).
- * @param handleToggleSidebar - Callback function to toggle the sidebar's open state.
- * @returns The sidebar component, either as a fixed sidebar or a drawer, depending on the screen size.
+ * - On medium and larger screens, displays a persistent sidebar.
+ * - On smaller screens, displays a Drawer with a close button.
+ *
+ * @param focusSidebar - Indicates whether the sidebar is focused.
+ * @param handleToggleSidebar - Callback to toggle the sidebar open/close state.
+ * @param openSidebar - Boolean indicating if the sidebar is open (for Drawer).
+ * @param position - The position of the sidebar (used for SidebarContainer).
+ * @param setFocusSidebar - Callback to set the focus state of the sidebar.
+ * @returns A readonly ReactNode representing the sidebar UI.
  */
 const ThemeManagerSidebar = ({
-  openSidebar,
+  focusSidebar,
   handleToggleSidebar,
-  position
+  openSidebar,
+  position,
+  setFocusSidebar
 }: ThemeManagerSidebarProps): Readonly<ReactNode> => {
   const { breakpoints } = useTheme();
   const isUpMd = useMediaQuery(breakpoints.up('md'));
@@ -30,7 +38,7 @@ const ThemeManagerSidebar = ({
   if (isUpMd) {
     return (
       <SidebarContainer position={position}>
-        <SidebarContent />
+        <SidebarContent focusSidebar={focusSidebar} setFocusSidebar={setFocusSidebar} />
       </SidebarContainer>
     );
   }
@@ -46,7 +54,7 @@ const ThemeManagerSidebar = ({
         <Close />
       </IconButton>
 
-      <SidebarContent />
+      <SidebarContent focusSidebar={focusSidebar} setFocusSidebar={setFocusSidebar} />
     </Drawer>
   );
 };

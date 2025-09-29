@@ -1,4 +1,5 @@
 stages:
+  - release
   - install
   - build
 
@@ -8,15 +9,31 @@ cache:
     - node_modules/
     - .next/cache/
 
+release:
+  stage: release
+  image: node:22-alpine
+  before_script:
+    - apk add --no-cache git
+    - git remote set-url origin https://oauth2:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git
+  script:
+    - npx -p semantic-release@24 -p @semantic-release/changelog@6 -p @semantic-release/git@10 -p conventional-changelog-conventionalcommits@9 semantic-release
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && ($CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "release/beta" || $CI_COMMIT_BRANCH == "release/alpha")'
+      when: manual
+    - when: never
+
 install:
   stage: install
-  image: oven/bun:1
+  image: oven/bun:1-alpine
   script:
     - echo "@dront:registry=https://${CI_SERVER_HOST}/api/v4/projects/2172/packages/npm/" >> .npmrc
     - echo "//${CI_SERVER_HOST}/api/v4/projects/2172/packages/npm/:_authToken=${DORNT_AUTH_TOKEN}" >> .npmrc
     - bun install
     - rm -f .npmrc
   only:
+    - main
+    - release/beta
+    - release/alpha
     - development
 
 build:
@@ -28,4 +45,7 @@ build:
   script:
     - npm run build
   only:
+    - main
+    - release/beta
+    - release/alpha
     - development

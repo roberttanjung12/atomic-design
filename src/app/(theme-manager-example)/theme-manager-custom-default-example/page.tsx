@@ -4,6 +4,14 @@ import ThemeManager from '@/@dront/components/ThemeManager';
 
 // Define a custom theme to be used as the default
 const myCustomTheme = {
+  logo: {
+    dark: null,
+    darkHorizontal: null,
+    darkVertical: null,
+    light: null,
+    lightHorizontal: null,
+    lightVertical: null
+  },
   palette: {
     primary: {
       main: '#673AB7', // Deep Purple 500
