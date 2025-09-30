@@ -11,7 +11,7 @@ interface DraggableFileUploaderProps {
   id: string;
   draggable: boolean;
   children: React.ReactNode | (({ getInputProps }: { getInputProps: () => any }) => React.ReactNode);
-  onChange?: (event: any, errors?: any) => void;
+  onChange?: ((file: File | undefined) => void) | ((event: any, errors?: any) => void);
   setPreview: React.Dispatch<React.SetStateAction<FilePreview>>;
   isShowField: boolean;
   error?: boolean;
@@ -64,6 +64,21 @@ const DraggableFileUploader = ({
     }
   };
 
+  const handleOnChange = useCallback(
+    (event: any, errors?: any) => {
+      if (onChange) {
+        if (onChange.length === 1) {
+          const file = event?.target?.files?.[0];
+
+          (onChange as (file: File | undefined) => void)(file);
+        } else {
+          (onChange as (event: any, errors?: any) => void)(event, errors);
+        }
+      }
+    },
+    [onChange]
+  );
+
   const onDrop = useCallback(
     async (files: File[], errors: any) => {
       if (breakChange({ target: { files } })) return;
@@ -71,12 +86,12 @@ const DraggableFileUploader = ({
       if (files.length > 0) {
         const compressed = await handleChange(files[0], setPreview);
 
-        onChange?.({ target: { files: [compressed, ...files] } }, errors);
+        handleOnChange({ target: { files: [compressed, ...files] } }, errors);
       } else {
-        onChange?.({ target: { files } }, errors);
+        handleOnChange({ target: { files } }, errors);
       }
     },
-    [onChange, setPreview, breakChange]
+    [handleOnChange, setPreview, breakChange]
   );
 
   const { getRootProps, getInputProps, open, isDragActive } = useDropzone({

@@ -27,7 +27,9 @@ export interface UploadFileProps {
   showPreview?: boolean;
   showViewButton?: boolean;
   readOnly?: boolean;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>, response?: FileChangeResponse) => void;
+  onChange?:
+    | ((file: File | undefined) => void)
+    | ((event: React.ChangeEvent<HTMLInputElement>, response?: FileChangeResponse) => void);
   breakChange?: (event: React.ChangeEvent<HTMLInputElement>) => boolean;
   fileTypes?: FileType;
   required?: boolean;

@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useState, useCallback } from 'react';
 import { FormHelperText, FormLabel, TextField } from '@mui/material';
 
 import { handleChange, removePreview } from './actions';
@@ -40,6 +40,20 @@ const FileUploader = forwardRef<HTMLInputElement, UploadFileProps>((props, ref) 
   const getAcceptTypes = (): string => {
     return FILE_TYPES[fileTypes] || FILE_TYPES.ALL;
   };
+
+  const handleOnChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>, response: { file?: File; error?: Error }) => {
+      if (onChange.length === 1) {
+        (onChange as (file: File | undefined) => void)(response.file);
+      } else {
+        (onChange as (event: React.ChangeEvent<HTMLInputElement>, response?: { file?: File; error?: Error }) => void)(
+          event,
+          response
+        );
+      }
+    },
+    [onChange]
+  );
 
   return (
     <>
@@ -86,7 +100,7 @@ const FileUploader = forwardRef<HTMLInputElement, UploadFileProps>((props, ref) 
                   const file = files[0];
                   const response = await handleChange(file, handlePreview);
 
-                  onChange(event as React.ChangeEvent<HTMLInputElement>, {
+                  handleOnChange(event as React.ChangeEvent<HTMLInputElement>, {
                     file: response instanceof Error ? undefined : response,
                     error: response instanceof Error ? response : undefined
                   });
