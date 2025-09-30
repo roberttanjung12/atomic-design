@@ -50,11 +50,31 @@ const Button = ({
   );
 
   const startIconElement = !loading && startIcon && (
-    <span style={{ fontSize: sizeStyles.iconSize, marginRight: sizeStyles.iconSpacing }}>{startIcon}</span>
+    <span
+      style={{
+        fontSize: sizeStyles.iconSize,
+        marginRight: sizeStyles.iconSpacing,
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
+    >
+      {startIcon}
+    </span>
   );
 
   const endIconElement = !loading && endIcon && (
-    <span style={{ fontSize: sizeStyles.iconSize, marginLeft: sizeStyles.iconSpacing }}>{endIcon}</span>
+    <span
+      style={{
+        fontSize: sizeStyles.iconSize,
+        marginLeft: sizeStyles.iconSpacing,
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
+    >
+      {endIcon}
+    </span>
   );
 
   return (
