@@ -36,7 +36,7 @@ type PropsDefinition<T> = {
 /**
  * Props for the `PropsDocTable` component.
  */
-interface PropsDocTableProps<T> {
+export interface PropsDocTableProps<T> {
   /**
    * Target component to be documented.
    */
