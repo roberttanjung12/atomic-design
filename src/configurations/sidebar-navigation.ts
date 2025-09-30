@@ -84,6 +84,11 @@ const Menuitems: NavigationItem[] = [
   },
   {
     id: uniqueId(),
+    title: 'Progress Tracker',
+    href: '/components/progress-tracker'
+  },
+  {
+    id: uniqueId(),
     title: 'Radio Button',
     href: '/components/radio-button'
   },
