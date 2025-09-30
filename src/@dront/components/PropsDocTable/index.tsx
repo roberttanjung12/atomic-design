@@ -64,10 +64,9 @@ export interface PropsDocTableProps<T> {
  * />
  * ```
  */
-const PropsDocTable = <T extends object>({ component, propDefinitions }: PropsDocTableProps<T>) => {
+const PropsDocTable = <T extends object>({ propDefinitions }: PropsDocTableProps<T>) => {
   const keys = Object.keys(propDefinitions) as (keyof T)[];
-  const componentName = (component as any).displayName || component.name || 'Component';
-  const description = `Props for the \`${componentName}\` component are available.`;
+  const description = `Props for the component are available.`;
 
   return (
     <Section title="Props">
