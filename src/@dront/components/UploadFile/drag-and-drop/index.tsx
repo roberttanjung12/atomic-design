@@ -19,7 +19,7 @@ interface DraggableFileUploaderProps {
   acceptTypes?: FileType;
 }
 
-const DraggableFileUploader: React.FC<DraggableFileUploaderProps> = ({
+const DraggableFileUploader = ({
   id,
   draggable,
   children,
@@ -29,7 +29,7 @@ const DraggableFileUploader: React.FC<DraggableFileUploaderProps> = ({
   error,
   breakChange,
   acceptTypes = 'ALL'
-}) => {
+}: DraggableFileUploaderProps) => {
   const getAcceptTypes = () => {
     switch (acceptTypes) {
       case 'PDF_ONLY':

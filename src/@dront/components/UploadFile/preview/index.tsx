@@ -24,7 +24,7 @@ interface PreviewProps {
   readOnly?: boolean;
 }
 
-const Preview: React.FC<PreviewProps> = ({
+const Preview = ({
   name,
   size,
   process,
@@ -34,7 +34,7 @@ const Preview: React.FC<PreviewProps> = ({
   url,
   showViewButton = true,
   readOnly = false
-}) => {
+}: PreviewProps) => {
   const theme = useTheme();
   const isUploaded = process >= 100;
   const isImage = type && type.startsWith('image/');
