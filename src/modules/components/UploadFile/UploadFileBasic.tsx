@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FileUploader, type FileChangeResponse } from '@/@dront/components/UploadFile';
+import { FileUploader } from '@/@dront/components/UploadFile';
 
 const UploadFileBasic = () => {
   const [, setFile] = useState<File | undefined>(undefined);
@@ -11,11 +11,7 @@ const UploadFileBasic = () => {
       id="upload-file-basic"
       label="Select File"
       helperText="Select any file type"
-      onChange={(event: React.ChangeEvent<HTMLInputElement>, response?: FileChangeResponse) => {
-        if (response?.file) {
-          setFile(response.file);
-        }
-      }}
+      onChange={setFile}
       onRemove={() => {
         setFile(undefined);
       }}

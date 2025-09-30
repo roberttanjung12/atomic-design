@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FileUploader, type FileChangeResponse } from '@/@dront/components/UploadFile';
+import { FileUploader } from '@/@dront/components/UploadFile';
 
 const UploadFileDocumentOnly = () => {
   const [, setFile] = useState<File | undefined>(undefined);
@@ -12,11 +12,7 @@ const UploadFileDocumentOnly = () => {
       label="Select Document File"
       helperText="PDF, Word, and Excel files are allowed"
       fileTypes="DOCUMENT"
-      onChange={(event: React.ChangeEvent<HTMLInputElement>, response?: FileChangeResponse) => {
-        if (response?.file) {
-          setFile(response.file);
-        }
-      }}
+      onChange={setFile}
       onRemove={() => {
         setFile(undefined);
       }}
