@@ -11,7 +11,7 @@ const RadioButtonDisabled = () => {
   return (
     <RadioButton
       value={value}
-      handleChange={handleChange}
+      onChange={handleChange}
       options={[
         { label: 'Disabled Activated', value: '1', disabled: true },
         { label: 'Disabled', value: '2', disabled: true }
