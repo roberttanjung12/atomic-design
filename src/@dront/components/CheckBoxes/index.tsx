@@ -2,8 +2,8 @@ import type { ChangeEvent, ReactNode } from 'react';
 import { Checkbox, FormControlLabel, type FormControlLabelProps, type CheckboxProps, styled } from '@mui/material';
 
 interface CheckboxesProps {
-  label?: ReactNode | string;
-  handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  label?: string | ReactNode;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   checked: boolean;
   disabled?: boolean;
   slotProps?: {
@@ -37,19 +37,19 @@ const CustomFormControlLabel = styled(FormControlLabel)(({ theme }) => ({
  * @param {string | React.ReactNode} props.label - The label to display next to the checkbox.
  * @param {boolean} props.checked - Whether the checkbox is checked.
  * @param {boolean} [props.disabled] - Whether the checkbox is disabled.
- * @param {(event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void} props.handleChange - Callback fired when the checkbox state changes.
+ * @param {(event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void} props.onChange - Callback fired when the checkbox state changes.
  * @param {Object} [props.slotProps] - Additional props for customizing the root and checkbox elements.
  * @param {Object} [props.slotProps.root] - Props to spread onto the root element.
  * @param {Object} [props.slotProps.checkBox] - Props to spread onto the checkbox element.
  * @returns {JSX.Element} The rendered checkbox component.
  */
-const Checkboxes = ({ label, checked, disabled, handleChange, slotProps }: CheckboxesProps) => {
+const Checkboxes = ({ label, checked, disabled, onChange, slotProps }: CheckboxesProps) => {
   const { ...rootProps } = slotProps?.root ?? {};
   const { ...checkBoxProps } = slotProps?.checkBox ?? {};
 
   return (
     <CustomFormControlLabel
-      control={<CustomCheckbox checked={checked} onChange={handleChange} disabled={disabled} {...checkBoxProps} />}
+      control={<CustomCheckbox checked={checked} onChange={onChange} disabled={disabled} {...checkBoxProps} />}
       label={label}
       disabled={disabled}
       {...rootProps}

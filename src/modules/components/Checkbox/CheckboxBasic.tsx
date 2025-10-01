@@ -8,7 +8,7 @@ const CheckboxBasic = () => {
     setChecked(event.target.checked);
   };
 
-  return <Checkboxes handleChange={handleChange} checked={checked} />;
+  return <Checkboxes onChange={handleChange} checked={checked} />;
 };
 
 export default CheckboxBasic;
