@@ -15,7 +15,7 @@ import FieldText, { type FieldTextProps } from '../FieldText';
  */
 export type FieldPasswordProps<TVariant extends TextFieldVariants = TextFieldVariants> = Omit<
   FieldTextProps<TVariant>,
-  'type'
+  'type' | 'inputMode'
 >;
 
 /**
