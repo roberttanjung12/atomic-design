@@ -1,10 +1,14 @@
 import { DocView } from '@/@dront/components';
 import Chart from '@/@dront/components/Chart';
 
+import ChartArea from './ChartArea';
+import areaExampleCode from './ChartArea?raw';
 import ChartBar from './ChartBar';
 import barExampleCode from './ChartBar?raw';
 import ChartDonut from './ChartDonut';
 import donutExampleCode from './ChartDonut?raw';
+import ChartHeatmap from './ChartHeatmap';
+import heatmapExampleCode from './ChartHeatmap?raw';
 import ChartLine from './ChartLine';
 import lineExampleCode from './ChartLine?raw';
 import ChartRadar from './ChartRadar';
@@ -69,13 +73,34 @@ magnitude, making it easy to identify dominant contributors. Perfect for mapping
 paths, or material flows through a process.`,
           example: <ChartSankey />,
           exampleCode: sankeyExampleCode
+        },
+        {
+          title: 'Heatmap Chart',
+          descriptions: `Heatmap charts are powerful visualizations for displaying data density and patterns across two categorical 
+dimensions. Each cell's color intensity represents a value, making it easy to spot trends and outliers. 
+They're ideal for displaying time-based patterns, correlation matrices, or any data where you need to show 
+relationships between two categorical variables. The color gradient provides an intuitive way to interpret 
+relative values across your dataset. You can customize the color scheme using theme colors (primary, secondary, 
+success, info, warning, error) or your own custom color codes.`,
+          example: <ChartHeatmap />,
+          exampleCode: heatmapExampleCode
+        },
+        {
+          title: 'Area Chart',
+          descriptions: `Area charts are excellent for visualizing cumulative totals and proportions over time. By filling the
+area beneath the line, they emphasize volume and help visualize the magnitude of trends. They're particularly
+effective for showing how multiple data series contribute to an overall total, making them ideal for
+displaying data with stacked or layered components. Area charts enhance the perception of continuity in data
+and are perfect for representing time series data, market share evolution, or cumulative growth patterns.`,
+          example: <ChartArea />,
+          exampleCode: areaExampleCode
         }
       ]}
       propsDoc={{
         component: Chart,
         propDefinitions: {
           type: {
-            type: "'bar' | 'line' | 'donut' | 'sunburst' | 'radar' | 'sankey'",
+            type: "'area' | 'bar' | 'line' | 'donut' | 'sunburst' | 'radar' | 'sankey' | 'heatmap'",
             description: 'Specifies the chart visualization type'
           },
           data: {
@@ -85,6 +110,11 @@ paths, or material flows through a process.`,
           title: {
             type: 'string',
             description: 'Optional title displayed at the top of the chart'
+          },
+          color: {
+            type: "'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'error' | string",
+            description:
+              'Color for gradient-based charts (used by heatmap). Can be a theme color key or a custom color code'
           },
           height: {
             type: 'string | number',
