@@ -33,7 +33,7 @@ const FieldPasswordModule = () => {
             description: 'Wheter the label is displayed in an error state'
           },
           errorMessage: {
-            type: 'ReactNode',
+            type: 'ReactNode | string',
             description: 'Error message. Presence of a value toggles error state. When provided, overrides helperText.'
           },
           fullWidth: {
@@ -43,16 +43,11 @@ const FieldPasswordModule = () => {
               'Whether the field should take the full width of its container. Defaults to true in the component implementation.'
           },
           helperText: {
-            type: 'ReactNode',
+            type: 'ReactNode | string',
             description: 'Helper text displayed beneath the field when there is no error.'
           },
-          inputMode: {
-            type: `'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search'`,
-            description:
-              'Hints at the type of data that might be entered by the user while editing the element or its contents.'
-          },
           label: {
-            type: 'string',
+            type: 'ReactNode | string',
             description: 'The visible label rendered above the field.'
           },
           name: {
