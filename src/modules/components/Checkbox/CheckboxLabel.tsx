@@ -9,7 +9,7 @@ const CheckboxLabel = () => {
     setChecked(event.target.checked);
   };
 
-  return <Checkboxes handleChange={handleChange} checked={checked} label={<Typography>Label</Typography>} />;
+  return <Checkboxes onChange={handleChange} checked={checked} label={<Typography>Label</Typography>} />;
 };
 
 export default CheckboxLabel;

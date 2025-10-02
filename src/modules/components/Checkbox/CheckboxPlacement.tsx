@@ -12,7 +12,7 @@ const CheckboxPlacement = () => {
   return (
     <FormGroup aria-label="position" row>
       <Checkboxes
-        handleChange={handleChange}
+        onChange={handleChange}
         checked={checked}
         label="End"
         slotProps={{
@@ -22,7 +22,7 @@ const CheckboxPlacement = () => {
         }}
       />
       <Checkboxes
-        handleChange={handleChange}
+        onChange={handleChange}
         checked={checked}
         label="Start"
         slotProps={{
@@ -32,7 +32,7 @@ const CheckboxPlacement = () => {
         }}
       />
       <Checkboxes
-        handleChange={handleChange}
+        onChange={handleChange}
         checked={checked}
         label="Top"
         slotProps={{
@@ -42,7 +42,7 @@ const CheckboxPlacement = () => {
         }}
       />
       <Checkboxes
-        handleChange={handleChange}
+        onChange={handleChange}
         checked={checked}
         label="Bottom"
         slotProps={{

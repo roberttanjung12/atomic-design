@@ -12,7 +12,7 @@ const RadioButtonProps = () => {
   return (
     <RadioButton
       value={value}
-      handleChange={handleChange}
+      onChange={handleChange}
       options={[
         { label: 'Option 1', value: '1' },
         { label: 'Option 2', value: '2' },

@@ -43,16 +43,19 @@ const RadioButtonModule = () => {
           options: {
             type: 'Array<{ label: string | React.ReactNode; value: string; disabled?: boolean; }>',
             description:
-              'Array of radio options to display. Each option includes a label, a unique value, and an optional disabled state.'
+              'Array of radio options to display. Each option includes a label, a unique value, and an optional disabled state.',
+            required: true
           },
           value: {
             type: 'string | number',
-            description: 'The currently selected value. Controls which radio option appears active in the group.'
+            description: 'The currently selected value. Controls which radio option appears active in the group.',
+            required: true
           },
-          handleChange: {
+          onChange: {
             type: '(event: ChangeEvent<HTMLInputElement>) => void',
             description:
-              'Callback fired when the selected value changes. Use this to update form state or trigger actions based on user selection.'
+              'Callback fired when the selected value changes. Use this to update form state or trigger actions based on user selection.',
+            required: true
           },
           slotProps: {
             type: '{ root?: RadioGroupProps; form?: FormControlLabelProps; radio?: RadioProps; }',
