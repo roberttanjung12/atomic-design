@@ -34,6 +34,16 @@ const FieldPasswordValidationModule = () => {
       propsDoc={{
         component: FieldPasswordValidation,
         propDefinitions: {
+          name: {
+            type: 'Path<FieldPasswordValidationValues>',
+            description: 'The input name attribute. Also used as htmlFor on the label.',
+            required: true
+          },
+          label: {
+            type: 'ReactNode | string',
+            description: 'The visible label rendered above the field.',
+            required: true
+          },
           control: {
             type: 'Control<FieldPasswordValidationValues>',
             description: 'Optional react-hook-form control. Required only when not used within a FormProvider.'
@@ -58,14 +68,6 @@ const FieldPasswordValidationModule = () => {
           helperText: {
             type: 'ReactNode | string',
             description: 'The helper text content displayed below the input field.'
-          },
-          label: {
-            type: 'string',
-            description: 'The visible label rendered above the field.'
-          },
-          name: {
-            type: 'Path<FieldPasswordValidationValues>',
-            description: 'The input name attribute. Also used as htmlFor on the label.'
           },
           placeholder: {
             type: 'string',

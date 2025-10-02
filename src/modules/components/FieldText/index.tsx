@@ -28,8 +28,18 @@ const FieldTextModule = () => {
       propsDoc={{
         component: FieldText,
         propDefinitions: {
+          name: {
+            type: 'string',
+            description: 'The input name attribute. Also used as htmlFor on the label.',
+            required: true
+          },
+          label: {
+            type: 'ReactNode | string',
+            description: 'The visible label rendered above the field.',
+            required: true
+          },
           errorMessage: {
-            type: 'ReactNode',
+            type: 'ReactNode | string',
             description: 'Error message. Presence of a value toggles error state. When provided, overrides helperText.'
           },
           fullWidth: {
@@ -39,16 +49,8 @@ const FieldTextModule = () => {
               'Whether the field should take the full width of its container. Defaults to true in the component implementation.'
           },
           helperText: {
-            type: 'ReactNode',
+            type: 'ReactNode | string',
             description: 'Helper text displayed beneath the field when there is no error.'
-          },
-          label: {
-            type: 'string',
-            description: 'The visible label rendered above the field.'
-          },
-          name: {
-            type: 'string',
-            description: 'The input name attribute. Also used as htmlFor on the label.'
           },
           placeholder: {
             type: 'string',
