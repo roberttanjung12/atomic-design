@@ -42,7 +42,7 @@ const AccordionModule = () => {
         propDefinitions: {
           id: {
             type: 'string',
-            default: '',
+            default: 'accordion',
             description: 'Unique id for the accordion.'
           },
           list: {
