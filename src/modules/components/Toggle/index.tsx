@@ -1,18 +1,20 @@
 import { DocView } from '@/@dront/components';
-import Toogle from '@/@dront/components/Toogle';
+import Toggle from '@/@dront/components/Toggle';
 import ToggleBasic from './ToggleBasic';
 import toggleBasicCode from './ToggleBasic?raw';
+import ToggleLabel from './ToggleLabel';
+import toggleLabelCode from './ToggleLabel?raw';
 import ToggleOnOff from './ToggleOnOff';
 import toggleOnOffCode from './ToggleOnOff?raw';
-import ToogleLabel from './ToogleLabel';
-import toogleLabelCode from './ToogleLabel?raw';
+import TogglePlacement from './TogglePlacement';
+import togglePlacementCode from './TogglePlacement?raw';
 
 const ToggleModule = () => {
   return (
     <DocView
       contributors={['Agung Laksono Hartadi']}
       overview={
-        'The `Toogle` component is a reusable Material UI-based switch (toggle) designed for handling on/off states in forms, settings, and interactive UI elements. It supports labels, state-based color changes, and advanced customization through `slotProps`. This makes it flexible for various use cases, from simple boolean toggles to more descriptive on/off controls in dashboards, user preferences, or feature settings.'
+        'The `Toggle` component is a reusable Material UI-based switch (toggle) designed for handling on/off states in forms, settings, and interactive UI elements. It supports labels, state-based color changes, and advanced customization through `slotProps`. This makes it flexible for various use cases, from simple boolean toggles to more descriptive on/off controls in dashboards, user preferences, or feature settings.'
       }
       sections={[
         {
@@ -26,8 +28,14 @@ const ToggleModule = () => {
           title: 'Label',
           descriptions:
             'Toggle with a label displayed next to it. Ideal for cases where the toggle needs to be self-explanatory, such as enabling notifications, dark mode, or other named features.',
-          example: <ToogleLabel />,
-          exampleCode: toogleLabelCode
+          example: <ToggleLabel />,
+          exampleCode: toggleLabelCode
+        },
+        {
+          title: 'Label Placement',
+          descriptions: 'You can change the placement of the label:',
+          example: <TogglePlacement />,
+          exampleCode: togglePlacementCode
         },
         {
           title: 'Active/Inactive',
@@ -38,25 +46,42 @@ const ToggleModule = () => {
         }
       ]}
       propsDoc={{
-        component: Toogle,
+        component: Toggle,
         propDefinitions: {
           checked: {
             type: 'boolean',
-            description: 'If true, the component is checked (on). Controls the toggle state.'
+            description: 'If true, the component is checked (on). Controls the toggle state.',
+            required: true
           },
-          handleChange: {
+          onChange: {
             type: '(event: ChangeEvent<HTMLInputElement>) => void',
             description:
-              'Callback fired whenever the toggle state changes. Use this to update form values or trigger side effects.'
+              'Callback fired whenever the toggle state changes. Use this to update form values or trigger side effects.',
+            required: true
           },
           label: {
-            type: 'string | React.ReactNode',
+            type: 'string | node',
             description: 'The label displayed next to the switch. Can be text or a React element for custom formatting.'
           },
-          onOff: {
-            type: 'boolean',
+          activeLabel: {
+            type: 'string | node',
             description:
-              'If true, the toggle will display "On/Off" (or Active/Inactive) with corresponding colors to reflect its state.'
+              'The label shown when the toggle is in the active (checked) state. If not provided, defaults to `label`.'
+          },
+          inactiveLabel: {
+            type: 'string | node',
+            description:
+              'The label shown when the toggle is in the inactive (unchecked) state. If not provided, defaults to `label`.'
+          },
+          activeColor: {
+            type: 'string',
+            description:
+              'The color applied to the switch track and border when active (checked). Defaults to `theme.palette.primary.main`.'
+          },
+          inactiveColor: {
+            type: 'string',
+            description:
+              'The color applied to the switch track and border when inactive (unchecked). Defaults to `theme.palette.action.disabled` for background and `theme.palette.primary.main` for border.'
           },
           disabled: {
             type: 'boolean',
