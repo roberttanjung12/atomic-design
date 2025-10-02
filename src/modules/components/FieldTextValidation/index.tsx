@@ -32,6 +32,16 @@ const FieldTextValidationModule = () => {
       propsDoc={{
         component: FieldTextValidation,
         propDefinitions: {
+          name: {
+            type: 'Path<FieldTextValidationValues>',
+            description: 'The input name attribute. Also used as htmlFor on the label.',
+            required: true
+          },
+          label: {
+            type: 'ReactNode | string',
+            description: 'The visible label rendered above the field.',
+            required: true
+          },
           control: {
             type: 'Control<FieldTextValidationValues>',
             description: 'Optional react-hook-form control. Required only when not used within a FormProvider.'
@@ -45,7 +55,7 @@ const FieldTextValidationModule = () => {
             description: 'Whether to display an error state.'
           },
           errorMessage: {
-            type: 'React.ReactNode',
+            type: 'ReactNode | string',
             description: 'Error message. Presence of a value toggles error state. When provided, overrides helperText.'
           },
           fullWidth: {
@@ -54,21 +64,13 @@ const FieldTextValidationModule = () => {
             description: 'Whether to take up the full width of its container.'
           },
           helperText: {
-            type: 'React.ReactNode',
+            type: 'ReactNode | string',
             description: 'The helper text content displayed below the input field.'
           },
           inputMode: {
             type: `'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search'`,
             description:
               'Hint at the type of data that might be entered by the user while editing the element or its contents.'
-          },
-          label: {
-            type: 'string',
-            description: 'The visible label rendered above the field.'
-          },
-          name: {
-            type: 'Path<FieldTextValidationValues>',
-            description: 'The input name attribute. Also used as htmlFor on the label.'
           },
           placeholder: {
             type: 'string',
