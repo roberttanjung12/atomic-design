@@ -66,7 +66,7 @@ const CheckboxModule = () => {
             type: 'boolean',
             description: 'If true, the checkbox is checked. Controls its current selection state.'
           },
-          handleChange: {
+          onChange: {
             type: 'function',
             description:
               'Callback fired whenever the state changes (checked ↔ unchecked). Use this to update form state or trigger related actions.'

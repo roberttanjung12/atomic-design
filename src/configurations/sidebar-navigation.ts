@@ -34,6 +34,11 @@ const Menuitems: NavigationItem[] = [
   },
   {
     id: uniqueId(),
+    title: 'Breadcrumbs',
+    href: '/components/breadcrumbs'
+  },
+  {
+    id: uniqueId(),
     title: 'Button',
     href: '/components/button'
   },

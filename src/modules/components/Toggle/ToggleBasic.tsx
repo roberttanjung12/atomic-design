@@ -1,5 +1,5 @@
 import { type ChangeEvent, useState } from 'react';
-import Toogle from '@/@dront/components/Toogle';
+import Toggle from '@/@dront/components/Toggle';
 
 const ToggleBasic = () => {
   const [checked, setChecked] = useState(true);
@@ -8,7 +8,7 @@ const ToggleBasic = () => {
     setChecked(event.target.checked);
   };
 
-  return <Toogle checked={checked} handleChange={handleChange} />;
+  return <Toggle checked={checked} onChange={handleChange} />;
 };
 
 export default ToggleBasic;

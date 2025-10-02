@@ -12,12 +12,12 @@ const CheckboxDisabled = () => {
   return (
     <FormControl component="fieldset" variant="standard">
       <Checkboxes
-        handleChange={handleChange}
+        onChange={handleChange}
         checked={checked}
         label={<Typography>Disabled Activated</Typography>}
         disabled
       />
-      <Checkboxes handleChange={handleChange} checked={!checked} label={<Typography>Disabled</Typography>} disabled />
+      <Checkboxes onChange={handleChange} checked={!checked} label={<Typography>Disabled</Typography>} disabled />
     </FormControl>
   );
 };

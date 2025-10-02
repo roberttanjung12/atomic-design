@@ -11,7 +11,7 @@ const CheckboxProps = () => {
 
   return (
     <Checkboxes
-      handleChange={handleChange}
+      onChange={handleChange}
       checked={checked}
       label="label"
       slotProps={{

@@ -1,15 +1,15 @@
 import { type ChangeEvent, useState } from 'react';
 import { Typography } from '@mui/material';
-import Toogle from '@/@dront/components/Toogle';
+import Toggle from '@/@dront/components/Toggle';
 
-const ToogleLabel = () => {
+const ToggleLabel = () => {
   const [checked, setChecked] = useState(true);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
   };
 
-  return <Toogle checked={checked} handleChange={handleChange} label={<Typography>Label</Typography>} />;
+  return <Toggle checked={checked} onChange={handleChange} label={<Typography>Label</Typography>} />;
 };
 
-export default ToogleLabel;
+export default ToggleLabel;
