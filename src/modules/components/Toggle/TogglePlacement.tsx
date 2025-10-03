@@ -14,10 +14,30 @@ const TogglePlacement = () => {
       <Toggle
         checked={checked}
         onChange={handleChange}
+        label={<Typography>End</Typography>}
+        slotProps={{
+          root: {
+            labelPlacement: 'end'
+          }
+        }}
+      />
+      <Toggle
+        checked={checked}
+        onChange={handleChange}
         label={<Typography>Start</Typography>}
         slotProps={{
           root: {
             labelPlacement: 'start'
+          }
+        }}
+      />
+      <Toggle
+        checked={checked}
+        onChange={handleChange}
+        label={<Typography>Top</Typography>}
+        slotProps={{
+          root: {
+            labelPlacement: 'top'
           }
         }}
       />
