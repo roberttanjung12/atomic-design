@@ -14,7 +14,7 @@ const BreadcrumbsModule = () => {
     <DocView
       contributors={['Agung Laksono Hartadi']}
       overview={
-        'The `Checkboxes` component is a Material UI-based checkbox designed for binary selections (checked/unchecked). It supports labels, disabled states, and advanced customization through `slotProps`. Commonly used in forms, task lists, filters, and settings where multiple selections may be allowed.'
+        'The `Breadcrumbs` component provides a navigational hierarchy that helps users understand their current location within the site structure. It displays links back to previous pages, enabling quick navigation. Commonly used at the top of pages, especially in dashboards, documentation, or multi-level navigation systems.'
       }
       sections={[
         {

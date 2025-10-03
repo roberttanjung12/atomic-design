@@ -18,6 +18,11 @@ const BreadcrumbsSeparator = () => {
         items={[{ label: 'Dashboard', href: '/' }, { label: 'Component', href: '/core' }, { label: 'Breadcrumb' }]}
         separator={<BrightnessLowIcon fontSize="small" sx={{ color: theme.palette.action.disabled }} />}
       />
+
+      <Breadcrumbs
+        items={[{ label: 'Dashboard', href: '/' }, { label: 'Component', href: '/core' }, { label: 'Breadcrumb' }]}
+        separator="/"
+      />
     </Stack>
   );
 };
