@@ -33,7 +33,8 @@ const ToggleModule = () => {
         },
         {
           title: 'Label Placement',
-          descriptions: 'You can change the placement of the label:',
+          descriptions:
+            'The label associated with the toggle can be positioned on any side of the switch: end, start, top, or bottom. This flexibility helps adapt the toggle layout to different UI requirements, such as aligning with forms, lists, or compact settings panels.',
           example: <TogglePlacement />,
           exampleCode: togglePlacementCode
         },
