@@ -18,6 +18,7 @@ const TimeMachineDatePickerMain = ({
   textFieldProps,
   showTime,
   locale = id,
+  formatRenderValue,
   onApply,
   onClear
 }: TimeMachineDatePickerMainProps) => {
@@ -27,7 +28,9 @@ const TimeMachineDatePickerMain = ({
       locale,
       onApply
     });
-  const renderedValue = formatValue(date, locale, showTime);
+  const renderedValue = formatRenderValue
+    ? formatRenderValue(date, locale, showTime)
+    : formatValue(date, locale, showTime);
 
   const dateProps = typeof datePickerProps === 'function' ? datePickerProps(temporaryDate) : datePickerProps;
   const timeProps = typeof timePickerProps === 'function' ? timePickerProps(temporaryDate) : timePickerProps;

@@ -17,6 +17,7 @@ const TimeMachineDateRangeMain = ({
   datePickerProps,
   textFieldProps,
   locale = id,
+  formatRenderValue,
   onApply,
   onClear
 }: TimeMachineDateRangeTwoMonthsMainProps) => {
@@ -27,7 +28,7 @@ const TimeMachineDateRangeMain = ({
       onApply
     });
 
-  const renderedValue = formatValue(date, locale);
+  const renderedValue = formatRenderValue ? formatRenderValue(date, locale) : formatValue(date, locale);
   const dateProps = typeof datePickerProps === 'function' ? datePickerProps(temporaryDate) : datePickerProps;
 
   const monthShown = useMemo(() => 2, []);

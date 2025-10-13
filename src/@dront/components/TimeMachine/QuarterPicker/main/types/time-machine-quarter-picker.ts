@@ -26,4 +26,5 @@ export type TimeMachineQuarterPickerMainProps = {
   locale?: Locale;
   datePickerProps?: DatePickerPropsWithCallback;
   textFieldProps?: TextFieldProps;
+  formatRenderValue?: (date: [DateValue, DateValue], locale: Locale) => string;
 };
