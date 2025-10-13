@@ -50,7 +50,7 @@ const AvatarModule = () => {
         {
           title: 'Group',
           descriptions:
-            'Shows how to display multiple avatars as a group using the Avatar component. Each avatar can represent an image, initials, or an icon, automatically arranged within an avatar group layout.',
+            'Displays multiple avatars as a group using the Avatar component. Each avatar can represent an image, initials, or an icon, and they are automatically arranged within an avatar group layout. If the `img` property is empty, the `alt` text will be displayed as initials instead.',
           example: <AvatarGroup />,
           exampleCode: groupExampleCode
         },
@@ -84,7 +84,7 @@ const AvatarModule = () => {
         {
           title: 'Random Background Color',
           descriptions:
-            'Shows how to enable random background colors for avatars without images using the `randomColor` prop. Each avatar without an image will be assigned',
+            'Shows how to enable random background colors for avatars without images using the `randomColor` prop. Each avatar without an image will be assigned.',
           example: <AvatarRandomColor />,
           exampleCode: randomColorExampleCode
         },

@@ -9,6 +9,7 @@ type CustomData = {
   id: number;
   role: string;
   isActive: boolean;
+  img?: string;
 };
 
 const AvatarOnClick = () => {
@@ -43,7 +44,8 @@ const AvatarOnClick = () => {
       alt: 'Second Data',
       id: 2,
       role: 'user',
-      isActive: true
+      isActive: true,
+      img: 'https://randomuser.me/api/portraits/men/72.jpg'
     },
     {
       alt: 'Third Data',
@@ -70,11 +72,16 @@ const AvatarOnClick = () => {
   };
 
   return (
-    <Stack direction="column" spacing={2}>
+    <Stack display="flex" alignItems="end" direction="column" spacing={2}>
       <Avatar src={dummy} alt="Group User" onClick={defaultOnClick} />
       <Avatar src={dummy} alt="Group User" onClick={getIndexOnClick} />
       <Avatar src={dummy} alt="Group User" onClick={getDataOnClick} />
       <Avatar src={dummyCustomData} alt="Group User" onClick={getCustomDataOnClick} />
+      <Avatar<CustomData>
+        src={{ alt: 'Ivan Narendra', id: 1, role: 'admin', isActive: false }}
+        alt="Avatar Single with Object Type Flexible"
+        onClick={getCustomDataOnClick}
+      />
     </Stack>
   );
 };
