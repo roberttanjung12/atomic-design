@@ -19,6 +19,7 @@ const TimeMachineUltimateMain = ({
   textFieldProps,
   showTime,
   locale = id,
+  formatRenderValue,
   onApply,
   onClear
 }: TimeMachineUltimateMainProps) => {
@@ -39,7 +40,9 @@ const TimeMachineUltimateMain = ({
     onApply
   });
 
-  const renderedValue = formatValue(date.value, locale);
+  const renderedValue = formatRenderValue
+    ? formatRenderValue(date.value, locale, showTime)
+    : formatValue(date.value, locale);
   const dateProps = typeof datePickerProps === 'function' ? datePickerProps(temporaryDate) : datePickerProps;
 
   return (

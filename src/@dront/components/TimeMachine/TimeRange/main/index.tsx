@@ -15,6 +15,7 @@ const TimeMachineTimeRangeMain = ({
   endTimeProps,
   textFieldProps,
   locale = enUS,
+  formatRenderValue,
   onApply,
   onClear
 }: TimeMachineTimeRangeMainProps) => {
@@ -24,7 +25,7 @@ const TimeMachineTimeRangeMain = ({
     onApply
   });
 
-  const renderedValue = formatValue(date, locale);
+  const renderedValue = formatRenderValue ? formatRenderValue(date, locale) : formatValue(date, locale);
   const startProps = typeof startTimeProps === 'function' ? startTimeProps(temporaryDate) : startTimeProps;
   const endProps = typeof endTimeProps === 'function' ? endTimeProps(temporaryDate) : endTimeProps;
 

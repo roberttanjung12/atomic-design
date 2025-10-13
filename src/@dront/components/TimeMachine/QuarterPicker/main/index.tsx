@@ -15,6 +15,7 @@ const TimeMachineQuarterPickerMain = ({
   datePickerProps,
   textFieldProps,
   locale = id,
+  formatRenderValue,
   onApply,
   onClear
 }: TimeMachineQuarterPickerMainProps) => {
@@ -24,7 +25,7 @@ const TimeMachineQuarterPickerMain = ({
       locale,
       onApply
     });
-  const renderedValue = formatValue(date, locale);
+  const renderedValue = formatRenderValue ? formatRenderValue(date, locale) : formatValue(date, locale);
 
   const dateProps = typeof datePickerProps === 'function' ? datePickerProps(temporaryDate) : datePickerProps;
 
