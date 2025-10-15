@@ -1,6 +1,7 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button, IconButton } from '@mui/material';
+import { createPortal } from 'react-dom';
 import Cropper, { type Area } from 'react-easy-crop';
 
 // Helper to create image
@@ -28,6 +29,7 @@ const createImage = (imageFile: File): Promise<HTMLImageElement> =>
     };
   });
 
+// Helper to get the cropped image as a File
 const getCroppedImg = async (
   imageSrc: File,
   pixelCrop: { x: number; y: number; width: number; height: number }
@@ -68,6 +70,7 @@ const getCroppedImg = async (
 interface MediaCropperProps {
   imageFile?: File | null;
   aspectRatio: number;
+
   onCropped?: (imageFile: File) => void;
   onClose: () => void;
 }
@@ -77,32 +80,61 @@ const MediaCropper = ({ imageFile, onCropped, aspectRatio, onClose }: MediaCropp
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
 
+  // State to hold the portal container element
+  const [modalRoot, setModalRoot] = useState<HTMLElement | null>(null);
+
+  // Create a div element on mount and append it to the body
+  // This div will serve as the root for our portal
+  useEffect(() => {
+    const element = document.createElement('div');
+
+    document.body.appendChild(element);
+    setModalRoot(element);
+
+    // Cleanup function to remove the div when the component unmounts
+    return () => {
+      document.body.removeChild(element);
+    };
+  }, []);
+
   const onCropComplete = useCallback((_: Area, croppedPixels: Area) => {
-    const sidebar = document.querySelector('.desktop-sidebar') as HTMLElement | null;
-
-    if (sidebar) sidebar.style.zIndex = '1';
-
     setCroppedAreaPixels(croppedPixels);
   }, []);
 
   const handleExport = async () => {
     if (!croppedAreaPixels || !imageFile) return;
 
-    const file = await getCroppedImg(imageFile, croppedAreaPixels);
+    try {
+      const file = await getCroppedImg(imageFile, croppedAreaPixels);
 
-    if (onCropped) {
-      onCropped(file);
+      if (onCropped) {
+        onCropped(file);
+      }
+    } catch (error) {
+      console.error('Error cropping image:', error);
     }
   };
 
   const imageUrl = useMemo(() => (imageFile ? URL.createObjectURL(imageFile) : ''), [imageFile]);
 
-  if (!imageFile) {
+  // Don't render anything if there's no image file or the portal root hasn't been created
+  if (!imageFile || !modalRoot) {
     return null;
   }
 
-  return (
-    <Box sx={{ height: '100vh', position: 'fixed', top: 0, left: 0, right: 0, zIndex: 9999 }}>
+  // The Modal content to be rendered into the portal
+  const modalContent = (
+    <Box
+      sx={{
+        height: '100vh',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 9999,
+        backgroundColor: 'rgba(0,0,0,0.4)'
+      }}
+    >
       <Cropper
         image={imageUrl}
         crop={crop}
@@ -122,19 +154,16 @@ const MediaCropper = ({ imageFile, onCropped, aspectRatio, onClose }: MediaCropp
       </Box>
 
       <Box sx={{ position: 'fixed', right: 8, top: 16 }}>
-        <IconButton
-          onClick={() => {
-            const sidebar = document.querySelector('.desktop-sidebar') as HTMLElement | null;
-
-            if (sidebar) sidebar.style.zIndex = '100';
-            onClose();
-          }}
-        >
-          <CloseIcon color="info" />
+        <IconButton onClick={onClose}>
+          {/* Ensure the close icon is visible against any background */}
+          <CloseIcon sx={{ color: 'white', backgroundColor: 'rgba(0,0,0,0.5)', borderRadius: '50%', padding: '4px' }} />
         </IconButton>
       </Box>
     </Box>
   );
+
+  // Use createPortal to render the modal content into the modalRoot element
+  return createPortal(modalContent, modalRoot);
 };
 
 export default MediaCropper;
