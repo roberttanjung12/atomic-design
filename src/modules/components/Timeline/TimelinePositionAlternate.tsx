@@ -1,7 +1,7 @@
 import { Timeline } from '@/@dront/components';
 import type { TimelineData } from '@/@dront/components/Timeline/Timeline.types';
 
-const TimelineBasic = () => {
+const TimelinePositionAlternate = () => {
   const data: TimelineData[] = [
     {
       content: 'Test 1'
@@ -17,7 +17,7 @@ const TimelineBasic = () => {
     }
   ];
 
-  return <Timeline data={data} />;
+  return <Timeline data={data} position="alternate" />;
 };
 
-export default TimelineBasic;
+export default TimelinePositionAlternate;

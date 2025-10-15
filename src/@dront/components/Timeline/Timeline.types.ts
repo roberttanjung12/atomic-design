@@ -21,6 +21,5 @@ export interface TimelineProps {
   data: TimelineData[];
   position?: 'left' | 'right' | 'alternate' | 'alternate-reverse';
   dot?: OptionsDot;
-  theme?: SemanticColor;
   connectorVariant?: 'solid' | 'dashed';
 }

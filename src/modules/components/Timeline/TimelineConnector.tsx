@@ -1,7 +1,7 @@
 import { Timeline } from '@/@dront/components';
 import type { TimelineData } from '@/@dront/components/Timeline/Timeline.types';
 
-const TimelineBasic = () => {
+const TimelineConnector = () => {
   const data: TimelineData[] = [
     {
       content: 'Test 1'
@@ -17,7 +17,7 @@ const TimelineBasic = () => {
     }
   ];
 
-  return <Timeline data={data} />;
+  return <Timeline data={data} connectorVariant="dashed" />;
 };
 
-export default TimelineBasic;
+export default TimelineConnector;
