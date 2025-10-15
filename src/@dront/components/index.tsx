@@ -41,3 +41,7 @@ export { default as TopLoader } from './TopLoader';
 export { default as Chip } from './Chips';
 
 export { LineChart, BarChart, DonutChart } from './Chart';
+
+export { default as Avatar } from './Avatar';
+
+export { default as Timeline } from './Timeline';
