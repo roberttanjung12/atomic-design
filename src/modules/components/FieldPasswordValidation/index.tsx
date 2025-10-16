@@ -1,6 +1,7 @@
 'use client';
 
-import { DocView, FieldPasswordValidation } from '@/@dront/components';
+import FieldPasswordValidation from '@dront/ui/FieldPasswordValidation';
+import { DocView } from '@/@dront/components';
 import BasicExample from './FieldPasswordValidationBasic';
 import basicExampleCode from './FieldPasswordValidationBasic?raw';
 import WithProviderExample from './FieldPasswordValidationWithProvider';
