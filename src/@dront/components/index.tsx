@@ -12,14 +12,6 @@ export { default as DynamicAlert } from './DynamicAlert';
 
 export { default as Field } from './Field';
 
-export { default as FieldPassword } from './FieldPassword';
-
-export { default as FieldPasswordValidation } from './FieldPasswordValidation';
-
-export { default as FieldText } from './FieldText';
-
-export { default as FieldTextValidation } from './FieldTextValidation';
-
 export { default as LoadingScreen } from './LoadingScreen';
 
 export { default as MainScrollbar } from './MainScrollbar';
