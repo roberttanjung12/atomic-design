@@ -9,6 +9,7 @@ import {
   TimelineOppositeContent,
   TimelineSeparator
 } from '@mui/lab';
+import { Stack, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { getStyleDivider } from './Timeline.helper';
 import type { TimelineProps } from './Timeline.types';
@@ -43,7 +44,13 @@ const TimelineTree = ({ data, position = 'right', dot, connectorVariant = 'solid
               {connectorVariant === 'dashed' ? <DashedConnector /> : <TimelineConnector />}
             </TimelineSeparator>
 
-            <TimelineContent sx={{ opacity: isDisabled ? 0.5 : 1 }}>{tl.content}</TimelineContent>
+            <TimelineContent sx={{ opacity: isDisabled ? 0.5 : 1 }}>
+              <Stack direction="column">
+                <Typography>{tl.title}</Typography>
+
+                {tl.content && tl.content}
+              </Stack>
+            </TimelineContent>
           </TimelineItem>
         );
       })}

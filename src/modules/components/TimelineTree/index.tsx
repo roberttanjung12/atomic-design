@@ -5,6 +5,8 @@ import TimelineTreeBasic from './TimelineTreeBasic';
 import basicExampleCode from './TimelineTreeBasic?raw';
 import TimelineTreeConnector from './TimelineTreeConnector';
 import connectorExampleCode from './TimelineTreeConnector?raw';
+import TimelineTreecontent from './TimelineTreeContent';
+import contentExampleCode from './TimelineTreeContent?raw';
 import TimelineTreeDisabled from './TimelineTreeDisabled';
 import disabledExampleCode from './TimelineTreeDisabled?raw';
 import TimelineTreeDotColor from './TimelineTreeDotColor';
@@ -60,6 +62,13 @@ const TimelineTreeModule = () => {
           exampleCode: oppositeExampleCode
         },
         {
+          title: 'Content',
+          descriptions:
+            'Demonstrates the TimelineTree component using data that includes both a mandatory `title` and an additional `content` field. Each of these fields supports either a `string` or a `ReactNode`, allowing flexible customization such as plain text or JSX elements for display.',
+          example: <TimelineTreecontent />,
+          exampleCode: contentExampleCode
+        },
+        {
           title: 'Dot Color',
           descriptions:
             'Shows how to customize the color of timeline dots to represent different statuses or categories.',
@@ -103,7 +112,7 @@ const TimelineTreeModule = () => {
           data: {
             type: 'TimelineData[]',
             description:
-              'An array of timeline items containing details such as `content`, `opposite`, `disabled`, `dotIcon`, or `color` settings for each event.',
+              'An array of timeline items containing details such as `title`, `content`, `disabled`, `dotIcon`, or `color` settings for each event.',
             required: true
           },
           position: {

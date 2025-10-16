@@ -5,15 +5,17 @@ import type { TimelineData } from '@/@dront/components/TimelineTree/Timeline.typ
 const TimelineTreeIcon = () => {
   const data: TimelineData[] = [
     {
+      title: '',
       dotIcon: <Start />
     },
     {
-      content: <div>Test 2</div>
+      title: <div>Test 2</div>
     },
     {
-      content: 'Test 3'
+      title: 'Test 3'
     },
     {
+      title: '',
       dotIcon: <Place />
     }
   ];

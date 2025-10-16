@@ -11,6 +11,7 @@ export interface OptionsDot extends Color {
 }
 
 export interface TimelineData extends Color {
+  title: string | ReactNode;
   content?: string | ReactNode;
   opposite?: string | ReactNode;
   disabled?: boolean;

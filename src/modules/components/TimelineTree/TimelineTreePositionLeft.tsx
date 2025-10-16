@@ -4,16 +4,16 @@ import type { TimelineData } from '@/@dront/components/TimelineTree/Timeline.typ
 const TimelineTreePositionLeft = () => {
   const data: TimelineData[] = [
     {
-      content: 'Test 1'
+      title: 'Test 1'
     },
     {
-      content: <div>Test 2</div>
+      title: <div>Test 2</div>
     },
     {
-      content: 'Test 3'
+      title: 'Test 3'
     },
     {
-      content: 'Test 4'
+      title: 'Test 4'
     }
   ];
 

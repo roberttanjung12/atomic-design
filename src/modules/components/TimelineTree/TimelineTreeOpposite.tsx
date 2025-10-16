@@ -4,24 +4,24 @@ import type { TimelineData } from '@/@dront/components/TimelineTree/Timeline.typ
 const TimelineTreeOpposite = () => {
   const data: TimelineData[] = [
     {
-      content: 'Test 1',
+      title: 'Test 1',
       opposite: '02:00 AM'
     },
     {
-      content: <div>Test 2</div>,
+      title: <div>Test 2</div>,
       opposite: '02:30 PM'
     },
     {
-      content: 'Test 3',
+      title: 'Test 3',
       opposite: '09:11 PM'
     },
     {
-      content: 'Test 4',
+      title: 'Test 4',
       opposite: '11:21 AM'
     }
   ];
 
-  return <TimelineTree data={data} position="alternate" />;
+  return <TimelineTree data={data} />;
 };
 
 export default TimelineTreeOpposite;
