@@ -1,4 +1,5 @@
-import { DocView, FieldPassword } from '@/@dront/components';
+import FieldPassword from '@dront/ui/FieldPassword';
+import { DocView } from '@/@dront/components';
 import FieldPasswordBasic from './FieldPasswordBasic';
 import fieldPasswordBasicCode from './FieldPasswordBasic?raw';
 import FieldPasswordError from './FieldPasswordError';

@@ -1,8 +1,8 @@
 'use client';
 
+import FieldPasswordValidation from '@dront/ui/FieldPasswordValidation';
 import Button from '@mui/material/Button';
 import { useForm, type SubmitHandler } from 'react-hook-form';
-import { FieldPasswordValidation } from '@/@dront/components';
 
 // Define FormValues
 type FormValues = {

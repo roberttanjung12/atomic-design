@@ -1,4 +1,5 @@
-import { DocView, FieldText } from '@/@dront/components';
+import FieldText from '@dront/ui/FieldText';
+import { DocView } from '@/@dront/components';
 import BasicExample from './FieldTextBasic';
 import fieldTextBasicCode from './FieldTextBasic?raw';
 import FieldTextError from './FieldTextError';
