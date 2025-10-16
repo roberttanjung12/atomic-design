@@ -1,17 +1,17 @@
 'use client';
 
 import { PageID } from '@/@dront/components';
-import TimelineModule from '@/modules/components/Timeline';
+import TimelineModule from '@/modules/components/TimelineTree';
 
 const TimelinePage = () => {
   return (
     <PageID
-      title="Timeline"
+      title="Timeline Tree"
       breadcrumbs={{
-        title: 'Timeline',
+        title: 'Timeline Tree',
         routes: [
           { label: 'Components', href: '#' },
-          { label: 'Timeline', href: '' }
+          { label: 'Timeline Tree', href: '' }
         ]
       }}
     >

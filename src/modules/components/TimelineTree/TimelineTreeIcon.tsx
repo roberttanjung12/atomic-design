@@ -1,8 +1,8 @@
 import { Place, Start } from '@mui/icons-material';
-import { Timeline } from '@/@dront/components';
-import type { TimelineData } from '@/@dront/components/Timeline/Timeline.types';
+import { TimelineTree } from '@/@dront/components';
+import type { TimelineData } from '@/@dront/components/TimelineTree/Timeline.types';
 
-const TimelineIcon = () => {
+const TimelineTreeIcon = () => {
   const data: TimelineData[] = [
     {
       dotIcon: <Start />
@@ -18,7 +18,7 @@ const TimelineIcon = () => {
     }
   ];
 
-  return <Timeline data={data} />;
+  return <TimelineTree data={data} />;
 };
 
-export default TimelineIcon;
+export default TimelineTreeIcon;

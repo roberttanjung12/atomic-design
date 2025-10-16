@@ -17,7 +17,7 @@ const DashedConnector = styled(TimelineConnector)(({ theme }) => ({
   ...getStyleDivider(theme.palette.divider)
 }));
 
-const Timeline = ({ data, position = 'right', dot, connectorVariant = 'solid' }: TimelineProps) => {
+const TimelineTree = ({ data, position = 'right', dot, connectorVariant = 'solid' }: TimelineProps) => {
   return (
     <MuiTimeline position={position}>
       {data.map((tl, key) => {
@@ -51,4 +51,4 @@ const Timeline = ({ data, position = 'right', dot, connectorVariant = 'solid' }:
   );
 };
 
-export default Timeline;
+export default TimelineTree;

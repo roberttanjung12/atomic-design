@@ -1,7 +1,7 @@
-import { Timeline } from '@/@dront/components';
-import type { TimelineData } from '@/@dront/components/Timeline/Timeline.types';
+import { TimelineTree } from '@/@dront/components';
+import type { TimelineData } from '@/@dront/components/TimelineTree/Timeline.types';
 
-const TimelineOpposite = () => {
+const TimelineTreeOpposite = () => {
   const data: TimelineData[] = [
     {
       content: 'Test 1',
@@ -21,7 +21,7 @@ const TimelineOpposite = () => {
     }
   ];
 
-  return <Timeline data={data} position="alternate" />;
+  return <TimelineTree data={data} position="alternate" />;
 };
 
-export default TimelineOpposite;
+export default TimelineTreeOpposite;

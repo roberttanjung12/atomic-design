@@ -124,13 +124,13 @@ const Menuitems: NavigationItem[] = [
   },
   {
     id: uniqueId(),
-    title: 'Timeline',
-    href: '/components/timeline'
+    title: 'Time Machine',
+    href: '/components/time-machine'
   },
   {
     id: uniqueId(),
-    title: 'Time Machine',
-    href: '/components/time-machine'
+    title: 'Timeline Tree',
+    href: '/components/timeline-tree'
   },
   {
     id: uniqueId(),

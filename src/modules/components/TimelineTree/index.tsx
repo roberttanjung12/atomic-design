@@ -1,28 +1,28 @@
-import { DocView, Timeline } from '@/@dront/components';
-import TimelineActive from './TimelineActive';
-import activeExampleCode from './TimelineActive?raw';
-import TimelineBasic from './TimelineBasic';
-import basicExampleCode from './TimelineBasic?raw';
-import TimelineConnector from './TimelineConnector';
-import connectorExampleCode from './TimelineConnector?raw';
-import TimelineDisabled from './TimelineDisabled';
-import disabledExampleCode from './TimelineDisabled?raw';
-import TimelineDotColor from './TimelineDotColor';
-import dotColorExampleCode from './TimelineDotColor?raw';
-import TimelineDotOutlined from './TimelineDotOutlined';
-import dotOutlinedExampleCode from './TimelineDotOutlined?raw';
-import TimelineIcon from './TimelineIcon';
-import iconExampleCode from './TimelineIcon?raw';
-import TimelineOpposite from './TimelineOpposite';
-import oppositeExampleCode from './TimelineOpposite?raw';
-import TimelinePositionAlternate from './TimelinePositionAlternate';
-import positionAlternateExampleCode from './TimelinePositionAlternate?raw';
-import TimelinePositionAlternateReverse from './TimelinePositionAlternateReverse';
-import positionAlternateReverseExampleCode from './TimelinePositionAlternateReverse?raw';
-import TimelinePositionLeft from './TimelinePositionLeft';
-import positionLeftExampleCode from './TimelinePositionLeft?raw';
+import { DocView, TimelineTree } from '@/@dront/components';
+import TimelineTreeActive from './TimelineTreeActive';
+import activeExampleCode from './TimelineTreeActive?raw';
+import TimelineTreeBasic from './TimelineTreeBasic';
+import basicExampleCode from './TimelineTreeBasic?raw';
+import TimelineTreeConnector from './TimelineTreeConnector';
+import connectorExampleCode from './TimelineTreeConnector?raw';
+import TimelineTreeDisabled from './TimelineTreeDisabled';
+import disabledExampleCode from './TimelineTreeDisabled?raw';
+import TimelineTreeDotColor from './TimelineTreeDotColor';
+import dotColorExampleCode from './TimelineTreeDotColor?raw';
+import TimelineTreeDotOutlined from './TimelineTreeDotOutlined';
+import dotOutlinedExampleCode from './TimelineTreeDotOutlined?raw';
+import TimelineTreeIcon from './TimelineTreeIcon';
+import iconExampleCode from './TimelineTreeIcon?raw';
+import TimelineTreeOpposite from './TimelineTreeOpposite';
+import oppositeExampleCode from './TimelineTreeOpposite?raw';
+import TimelineTreePositionAlternate from './TimelineTreePositionAlternate';
+import positionAlternateExampleCode from './TimelineTreePositionAlternate?raw';
+import TimelineTreePositionAlternateReverse from './TimelineTreePositionAlternateReverse';
+import positionAlternateReverseExampleCode from './TimelineTreePositionAlternateReverse?raw';
+import TimelineTreePositionLeft from './TimelineTreePositionLeft';
+import positionLeftExampleCode from './TimelineTreePositionLeft?raw';
 
-const TimelineModule = () => {
+const TimelineTreeModule = () => {
   return (
     <DocView
       contributors={['Rafli Rai Rizky']}
@@ -31,74 +31,74 @@ const TimelineModule = () => {
         {
           title: 'Basic',
           descriptions: 'Demonstrates a simple timeline with default right-side alignment.',
-          example: <TimelineBasic />,
+          example: <TimelineTreeBasic />,
           exampleCode: basicExampleCode
         },
         {
           title: 'Position Left',
           descriptions: 'Displays all timeline items aligned to the left side for a clean, single-column layout.',
-          example: <TimelinePositionLeft />,
+          example: <TimelineTreePositionLeft />,
           exampleCode: positionLeftExampleCode
         },
         {
           title: 'Position Alternate',
           descriptions: 'Alternates timeline items between the left and right sides for better visual balance.',
-          example: <TimelinePositionAlternate />,
+          example: <TimelineTreePositionAlternate />,
           exampleCode: positionAlternateExampleCode
         },
         {
           title: 'Position Alternate Reverse',
           descriptions:
             'Similar to the alternate layout but starts from the opposite side, reversing the order of alignment.',
-          example: <TimelinePositionAlternateReverse />,
+          example: <TimelineTreePositionAlternateReverse />,
           exampleCode: positionAlternateReverseExampleCode
         },
         {
           title: 'Opposite',
           descriptions: 'Adds opposite content beside each timeline item to display complementary information.',
-          example: <TimelineOpposite />,
+          example: <TimelineTreeOpposite />,
           exampleCode: oppositeExampleCode
         },
         {
           title: 'Dot Color',
           descriptions:
             'Shows how to customize the color of timeline dots to represent different statuses or categories.',
-          example: <TimelineDotColor />,
+          example: <TimelineTreeDotColor />,
           exampleCode: dotColorExampleCode
         },
         {
           title: 'Dot Outlined',
           descriptions: 'Uses outlined dots instead of filled ones for a minimalist appearance.',
-          example: <TimelineDotOutlined />,
+          example: <TimelineTreeDotOutlined />,
           exampleCode: dotOutlinedExampleCode
         },
         {
           title: 'Connector',
           descriptions: 'Demonstrates the use of solid or dashed connector lines between timeline items.',
-          example: <TimelineConnector />,
+          example: <TimelineTreeConnector />,
           exampleCode: connectorExampleCode
         },
         {
           title: 'Active',
           descriptions: 'Highlights an active timeline item to indicate the current or completed step.',
-          example: <TimelineActive />,
+          example: <TimelineTreeActive />,
           exampleCode: activeExampleCode
         },
         {
           title: 'Disabled',
           descriptions: 'Displays disabled timeline items to represent inactive or unavailable steps.',
-          example: <TimelineDisabled />,
+          example: <TimelineTreeDisabled />,
           exampleCode: disabledExampleCode
         },
         {
           title: 'Icon',
           descriptions: 'Shows how to use icons inside timeline dots for visual emphasis or event categorization.',
-          example: <TimelineIcon />,
+          example: <TimelineTreeIcon />,
           exampleCode: iconExampleCode
         }
       ]}
       propsDoc={{
-        component: Timeline,
+        component: TimelineTree,
         propDefinitions: {
           data: {
             type: 'TimelineData[]',
@@ -128,4 +128,4 @@ const TimelineModule = () => {
   );
 };
 
-export default TimelineModule;
+export default TimelineTreeModule;

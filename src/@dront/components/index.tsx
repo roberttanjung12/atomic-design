@@ -44,4 +44,4 @@ export { LineChart, BarChart, DonutChart } from './Chart';
 
 export { default as Avatar } from './Avatar';
 
-export { default as Timeline } from './Timeline';
+export { default as TimelineTree } from './TimelineTree';
