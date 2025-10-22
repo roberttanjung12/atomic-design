@@ -15,6 +15,7 @@ const Avatar = <T extends object = Record<string, unknown>>({
   spacing = 'medium',
   variant = 'circular',
   randomColor = false,
+  scale = false,
   onClick,
   ...props
 }: AvatarProps<T>) => {
@@ -45,7 +46,7 @@ const Avatar = <T extends object = Record<string, unknown>>({
           onClick={handleClick}
           alt={alt}
           variant={variant}
-          sx={{ ...getAvatarSx(false, randomColor), ...getAvatarSize(size) }}
+          sx={{ ...getAvatarSx(false, randomColor, scale), ...getAvatarSize(size) }}
         >
           {item as ReactNode}
         </MuiAvatar>
@@ -71,7 +72,7 @@ const Avatar = <T extends object = Record<string, unknown>>({
         alt={value.alt || alt}
         variant={variant}
         src={hasImg ? value.img : undefined}
-        sx={{ ...getAvatarSx(hasImg, randomColor), ...getAvatarSize(size) }}
+        sx={{ ...getAvatarSx(hasImg, randomColor, scale), ...getAvatarSize(size) }}
       >
         {content}
       </MuiAvatar>
