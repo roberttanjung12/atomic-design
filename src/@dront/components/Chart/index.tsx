@@ -4,6 +4,7 @@ import { Box } from '@mui/material';
 import AreaChart, { type AreaChartProps } from './AreaChart';
 import BarChart, { type BarChartProps } from './BarChart';
 import DonutChart, { type DonutChartProps } from './DonutChart';
+import GanttChart, { type GanttChartProps } from './GanttChart';
 import HeatmapChart, { type HeatmapChartProps } from './HeatmapChart';
 import LineChart, { type LineChartProps } from './LineChart';
 import RadarChart, { type RadarChartProps } from './RadarChart';
@@ -12,9 +13,9 @@ import SunburstChart, { type SunburstChartProps } from './SunburstChart';
 
 /**
  * Supported chart types in the Chart component
- * @typedef {('area'|'bar'|'line'|'donut'|'sunburst'|'radar'|'sankey'|'heatmap')} ChartType
+ * @typedef {('area'|'bar'|'line'|'donut'|'sunburst'|'radar'|'sankey'|'heatmap'|'gantt')} ChartType
  */
-export type ChartType = 'area' | 'bar' | 'line' | 'donut' | 'sunburst' | 'radar' | 'sankey' | 'heatmap';
+export type ChartType = 'area' | 'bar' | 'line' | 'donut' | 'sunburst' | 'radar' | 'sankey' | 'heatmap' | 'gantt';
 
 /**
  * Props for the unified Chart component
@@ -36,7 +37,8 @@ export interface ChartProps {
     | SunburstChartProps['data']
     | RadarChartProps['data']
     | SankeyChartProps['data']
-    | HeatmapChartProps['data'];
+    | HeatmapChartProps['data']
+    | GanttChartProps['data'];
   title?: string;
   height?: string | number;
   width?: string | number;
@@ -99,6 +101,8 @@ const Chart = ({ type, data, title, height, width, color }: ChartProps) => {
             width={width}
           />
         );
+      case 'gantt':
+        return <GanttChart data={data as GanttChartProps['data']} title={title} height={height} width={width} />;
       default:
         return null;
     }
@@ -112,4 +116,4 @@ export default Chart;
 /**
  * Export individual chart components for direct use when needed
  */
-export { AreaChart, BarChart, LineChart, DonutChart, SunburstChart, RadarChart, SankeyChart, HeatmapChart };
+export { AreaChart, BarChart, LineChart, DonutChart, SunburstChart, RadarChart, SankeyChart, HeatmapChart, GanttChart };
