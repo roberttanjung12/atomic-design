@@ -7,8 +7,6 @@ import ChartBar from './ChartBar';
 import barExampleCode from './ChartBar?raw';
 import ChartDonut from './ChartDonut';
 import donutExampleCode from './ChartDonut?raw';
-import ChartGantt from './ChartGantt';
-import ganttExampleCode from './ChartGantt?raw';
 import ChartHeatmap from './ChartHeatmap';
 import heatmapExampleCode from './ChartHeatmap?raw';
 import ChartLine from './ChartLine';
@@ -96,12 +94,6 @@ displaying data with stacked or layered components. Area charts enhance the perc
 and are perfect for representing time series data, market share evolution, or cumulative growth patterns.`,
           example: <ChartArea />,
           exampleCode: areaExampleCode
-        },
-        {
-          title: 'Gantt Chart',
-          descriptions: '',
-          example: <ChartGantt />,
-          exampleCode: ganttExampleCode
         }
       ]}
       propsDoc={{
