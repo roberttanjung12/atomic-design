@@ -10,7 +10,7 @@ const ChartGantt = () => {
         start: new Date('2025-01-01'),
         end: new Date('2025-01-10'),
         type: TaskType.Task,
-        progress: 40
+        progress: 35
       },
       {
         id: '2',
@@ -27,13 +27,12 @@ const ChartGantt = () => {
         start: new Date('2025-02-02'),
         end: new Date('2025-02-20'),
         type: TaskType.Milestone,
-        progress: 20,
-        dependencies: ['2']
+        progress: 20
       }
     ]
   };
 
-  return <Chart type="gantt" data={data} title="Timeline Front End 2025" />;
+  return <Chart type="gantt" data={data} title="Timeline Project A 2025" />;
 };
 
 export default ChartGantt;

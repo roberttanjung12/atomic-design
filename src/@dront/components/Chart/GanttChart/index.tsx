@@ -214,19 +214,24 @@ const GanttChart = ({ data, title, height = 400, width = '100%' }: GanttChartPro
               style: { fill: barColor }
             };
 
-            const progressOverlay =
-              task.progress !== undefined
-                ? {
-                    type: 'rect',
-                    shape: echarts.graphic.clipRectByRect(
-                      { x: startPoint[0], y: startPoint[1] - BAR_HEIGHT / 2, width: progressWidth, height: BAR_HEIGHT },
-                      { x: coordSys.x, y: coordSys.y, width: coordSys.width, height: coordSys.height }
-                    ),
-                    style: { fill: progressColor }
-                  }
-                : null;
+            const progressOverlay = {
+              type: 'rect',
+              shape: echarts.graphic.clipRectByRect(
+                {
+                  x: startPoint[0],
+                  y: startPoint[1] - BAR_HEIGHT / 2,
+                  width: task.progress !== undefined ? progressWidth : barWidth, // full width kalau progress undefined
+                  height: BAR_HEIGHT
+                },
+                { x: coordSys.x, y: coordSys.y, width: coordSys.width, height: coordSys.height }
+              ),
+              style: { fill: progressColor }
+            };
 
-            return { type: 'group', children: progressOverlay ? [mainBar, progressOverlay] : ([mainBar] as any) };
+            return {
+              type: 'group',
+              children: [mainBar, progressOverlay] as any
+            };
           },
           encode: { x: [1, 2], y: 0 },
           data: seriesData
