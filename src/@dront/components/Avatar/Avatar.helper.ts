@@ -1,13 +1,15 @@
 import type { AvatarSize } from './Avatar.types';
 
-const hoverEffect = {
-  transition: 'transform 0.25s ease, box-shadow 0.25s ease',
-  willChange: 'transform',
-  '&:hover': {
-    transform: 'scale(1.2) translateY(-6px)',
-    zIndex: 10,
-    boxShadow: '0 2px 3px rgba(0, 0, 0, 0.25)'
-  }
+const hoverEffect = (scale: boolean) => {
+  return {
+    transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+    willChange: 'transform',
+    '&:hover': {
+      ...(scale && { transform: 'scale(1.2) translateY(-6px)' }),
+      zIndex: 10,
+      boxShadow: '0 2px 3px rgba(0, 0, 0, 0.25)'
+    }
+  };
 };
 
 const generateRandomBg = () => {
@@ -16,11 +18,11 @@ const generateRandomBg = () => {
   return colors[Math.floor(Math.random() * colors.length)];
 };
 
-export const getAvatarSx = (hasImg: boolean, randomColor: boolean) => {
+export const getAvatarSx = (hasImg: boolean, randomColor: boolean, scale: boolean) => {
   const base = {
     transform: 'none',
     zIndex: 'auto',
-    ...hoverEffect
+    ...hoverEffect(scale)
   };
 
   if (!hasImg && randomColor) {

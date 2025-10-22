@@ -10,6 +10,8 @@ import AvatarOnClick from './AvatarOnClick';
 import onClickExampleCode from './AvatarOnClick?raw';
 import AvatarRandomColor from './AvatarRandomColor';
 import randomColorExampleCode from './AvatarRandomColor?raw';
+import AvatarScale from './AvatarScale';
+import scaleExampleCode from './AvatarScale?raw';
 import AvatarSize from './AvatarSize';
 import sizeExampleCode from './AvatarSize?raw';
 import AvatarSpacing from './AvatarSpacing';
@@ -89,6 +91,12 @@ const AvatarModule = () => {
           exampleCode: randomColorExampleCode
         },
         {
+          title: 'Scale',
+          descriptions: 'Adds a hover animation that scales and slightly lifts the avatar when enabled.',
+          example: <AvatarScale />,
+          exampleCode: scaleExampleCode
+        },
+        {
           title: 'On Click',
           descriptions:
             "Shows different ways to handle click events using the `onClick` prop in the Avatar component. You can define custom behavior for each avatar group from a simple click alert, retrieving the clicked avatar's index, accessing its data (like alt), or even handling extended custom data such as `id`, `role`, and `isActive`.",
@@ -147,6 +155,11 @@ const AvatarModule = () => {
             type: 'boolean',
             default: 'false',
             description: 'If true, assigns a random background color to avatars without an image source.'
+          },
+          scale: {
+            type: 'boolean',
+            default: 'false',
+            description: 'Enable hover scale animation for the avatar.'
           },
           onClick: {
             type: '(item?: AvatarItem<T>, index?: number) => void',
