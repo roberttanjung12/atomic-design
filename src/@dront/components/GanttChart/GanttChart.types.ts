@@ -25,4 +25,5 @@ export interface GanttChartProps {
   title?: string;
   height?: string | number;
   width?: string | number;
+  onItemClick?: (task: Task) => void;
 }

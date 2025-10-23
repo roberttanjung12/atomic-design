@@ -14,7 +14,7 @@ const GANTT_CHART_COLORS = {
   title: '#222'
 };
 
-const GanttChart = ({ data: initialData, title, height = 400, width = '100%' }: GanttChartProps) => {
+const GanttChart = ({ data: initialData, title, height = 400, width = '100%', onItemClick }: GanttChartProps) => {
   const [data, setData] = useState<Task[]>(() =>
     initialData.map(task => ({
       ...task,
@@ -60,14 +60,15 @@ const GanttChart = ({ data: initialData, title, height = 400, width = '100%' }: 
         if (taskName) {
           const clickedTask = findTaskByName(data, taskName);
 
-          if (clickedTask?.children?.length) {
-            console.log('Toggling ID:', clickedTask.id);
-            handleToggleExpand(clickedTask.id);
+          if (clickedTask) {
+            if (clickedTask?.children?.length) return handleToggleExpand(clickedTask.id);
+
+            if (onItemClick) return onItemClick(clickedTask);
           }
         }
       }
     }),
-    [data, findTaskByName, handleToggleExpand]
+    [data, findTaskByName, handleToggleExpand, onItemClick]
   );
 
   return (

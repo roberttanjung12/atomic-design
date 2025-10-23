@@ -1,6 +1,6 @@
 'use client';
 
-import Timeline from '@/@dront/components/GanttChart';
+import GanttChart from '@/@dront/components/GanttChart';
 import { type Task, TaskType } from '@/@dront/components/GanttChart/GanttChart.types';
 
 const GanttChartColor = () => {
@@ -42,7 +42,7 @@ const GanttChartColor = () => {
     }
   ];
 
-  return <Timeline data={data} title="Timeline Project A 2025" />;
+  return <GanttChart data={data} title="Timeline Project A 2025" />;
 };
 
 export default GanttChartColor;
