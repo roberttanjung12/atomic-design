@@ -6,7 +6,6 @@ export const flattenTasks = (tasks: Task[]): Task[] => {
   for (const t of tasks) {
     result.push(t);
     if (t.children && !t.collapsed) {
-      // Cek apakah tidak collapsed
       result.push(...flattenTasks(t.children));
     }
   }
@@ -17,10 +16,10 @@ export const flattenTasks = (tasks: Task[]): Task[] => {
 export const toggleExpand = (tasks: Task[], taskId: string): Task[] => {
   return tasks.map(t => {
     if (t.id === taskId) {
-      return { ...t, collapsed: !t.collapsed }; // Membalikkan status collapsed
+      return { ...t, collapsed: !t.collapsed };
     }
     if (t.children) {
-      return { ...t, children: toggleExpand(t.children, taskId) }; // Rekursif ke anak
+      return { ...t, children: toggleExpand(t.children, taskId) };
     }
 
     return t;
