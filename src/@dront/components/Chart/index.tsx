@@ -12,9 +12,9 @@ import SunburstChart, { type SunburstChartProps } from './SunburstChart';
 
 /**
  * Supported chart types in the Chart component
- * @typedef {('area'|'bar'|'line'|'donut'|'sunburst'|'radar'|'sankey'|'heatmap')} ChartType
+ * @typedef {('area'|'bar'|'line'|'donut'|'sunburst'|'radar'|'sankey'|'heatmap)} ChartType
  */
-export type ChartType = 'area' | 'bar' | 'line' | 'donut' | 'sunburst' | 'radar' | 'sankey' | 'heatmap';
+export type ChartType = 'area' | 'bar' | 'line' | 'donut' | 'sunburst' | 'radar' | 'sankey' | 'heatmap' | 'gantt';
 
 /**
  * Props for the unified Chart component
