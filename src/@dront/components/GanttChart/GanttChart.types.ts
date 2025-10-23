@@ -1,6 +1,7 @@
 export const enum TaskType {
   Task = 'task',
-  Milestone = 'milestone'
+  Milestone = 'milestone',
+  Group = 'group'
 }
 
 export interface Task {
@@ -9,9 +10,14 @@ export interface Task {
   start: string | Date;
   end: string | Date;
   type: TaskType;
-  color?: { bar: string; progress: string };
+  color?: {
+    bar: string;
+    progress: string;
+  };
   progress?: number;
   dependencies?: string[];
+  children?: Task[];
+  collapsed?: boolean;
 }
 
 export interface GanttChartProps {

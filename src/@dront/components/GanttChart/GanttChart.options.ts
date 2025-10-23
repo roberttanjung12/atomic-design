@@ -1,9 +1,9 @@
-import type { EChartsOption } from 'echarts';
+import type { EChartsOption, SeriesOption } from 'echarts';
 import { renderTaskItem, renderDependencyItem } from './GanttChart.renderers';
 import type { Task } from './GanttChart.types';
 import { renderTooltip } from './GanttChart.utils';
 
-const ONE_DAY = 24 * 60 * 60 * 1000;
+// const ONE_DAY = 24 * 60 * 60 * 1000;
 
 export const buildGanttChartOptions = (
   data: Task[],
@@ -14,6 +14,7 @@ export const buildGanttChartOptions = (
 ): EChartsOption => {
   const categories = data.map(t => t.name);
   const seriesData = data.map((t, i) => [i, new Date(t.start).getTime(), new Date(t.end).getTime(), t.color]);
+
   const dependencyData = data.flatMap((dependent, dependentIndex) =>
     (dependent.dependencies || [])
       .map(prereqId => {
@@ -24,45 +25,10 @@ export const buildGanttChartOptions = (
       .filter((x): x is [number, number] => x !== null)
   );
 
-  let initialViewStart = range[0];
-  let initialViewEnd = initialViewStart + ONE_DAY * 45;
-
-  if (data.length > 0) {
-    initialViewStart = new Date(data[0].start).getTime() - ONE_DAY * 2;
-    initialViewEnd = Math.min(initialViewStart + ONE_DAY * 45, range[1]);
-  }
-
-  return {
-    title: {
-      text: title,
-      left: 'center',
-      textStyle: { color: colors.title, fontFamily }
-    },
-    tooltip: {
-      trigger: 'item',
-      formatter: (params: any) => renderTooltip(params, data, colors.text, fontFamily)
-    },
+  const option: EChartsOption = {
+    title: { text: title, left: 'center', textStyle: { color: colors.title, fontFamily } },
+    tooltip: { trigger: 'item', formatter: (params: any) => renderTooltip(params, data, colors.text, fontFamily) },
     grid: { top: 80, right: 40, left: 200, bottom: 60 },
-    dataZoom: [
-      {
-        type: 'slider',
-        xAxisIndex: 0,
-        filterMode: 'weakFilter',
-        height: 10,
-        bottom: 10,
-        startValue: initialViewStart,
-        endValue: initialViewEnd
-      },
-      {
-        type: 'slider',
-        yAxisIndex: 0,
-        filterMode: 'empty',
-        width: 10,
-        right: 10,
-        start: 0,
-        end: Math.min(100, (5 / data.length) * 100)
-      }
-    ],
     xAxis: {
       type: 'time',
       position: 'top',
@@ -80,7 +46,19 @@ export const buildGanttChartOptions = (
       type: 'category',
       data: categories,
       axisLine: { lineStyle: { color: colors.divider } },
-      axisLabel: { color: colors.text }
+      axisLabel: {
+        color: colors.text,
+        formatter: (val: string) => {
+          const task = data.find(t => t.name === val);
+
+          if (task?.children?.length) {
+            return `${task.collapsed ? '▶' : '▼'} ${val}`;
+          }
+
+          return val;
+        }
+      },
+      triggerEvent: true
     },
     series: [
       {
@@ -99,6 +77,8 @@ export const buildGanttChartOptions = (
         encode: { x: [0, 1], y: [0, 1] },
         data: dependencyData
       }
-    ] as echarts.CustomSeriesOption[]
+    ] as SeriesOption[]
   };
+
+  return option;
 };

@@ -14,7 +14,6 @@ export const computeRange = (data: Task[]): [number, number] => {
 
   const minStart = Math.min(...starts);
   const maxEnd = Math.max(...ends);
-
   const axisMin = new Date(new Date(minStart).getFullYear(), new Date(minStart).getMonth(), 1).getTime() - ONE_DAY;
   const axisMax = maxEnd + ONE_DAY * 7;
 
@@ -28,19 +27,16 @@ export const renderTooltip = (params: any, data: Task[], textColor: string, font
   if (params.seriesType === 'custom' && params.seriesName === 'Dependencies') {
     const [prereqIndex, dependentIndex] = params.value as [number, number];
 
-    return `
-      <div style="color:${textColor}; font-family:${fontFamily}; padding:5px;">
-        <b>Dependency</b><br/>
-        From: ${data[prereqIndex].name}<br/>
-        To: ${data[dependentIndex].name}
-      </div>
-    `;
+    return `<div style="color:${textColor}; font-family:${fontFamily}; padding:5px;">
+      <b>Dependency</b><br/>
+      From: ${data[prereqIndex].name}<br/>
+      To: ${data[dependentIndex].name}
+    </div>`;
   }
 
   const [start, end] = params.value.slice(1);
   const task = data[params.value[0]];
   const dependencies = task.dependencies?.join(', ') || 'None';
-
   const progressColor = task.color?.progress ?? (task.type === TaskType.Task ? '#23BEFC' : '#FCC93C');
   const progressHtml =
     task.progress !== undefined
@@ -48,13 +44,11 @@ export const renderTooltip = (params: any, data: Task[], textColor: string, font
          Progress: ${task.progress}%<br/>`
       : '';
 
-  return `
-    <div style="color:${textColor}; font-family:${fontFamily}; padding:5px;">
-      <b>${params.name}</b><br/>
-      ${progressHtml}
-      Start: ${new Date(start).toLocaleDateString()}<br/>
-      End: ${new Date(end).toLocaleDateString()}<br/>
-      Depends on: ${dependencies}
-    </div>
-  `;
+  return `<div style="color:${textColor}; font-family:${fontFamily}; padding:5px;">
+    <b>${params.name}</b><br/>
+    ${progressHtml}
+    Start: ${new Date(start).toLocaleDateString()}<br/>
+    End: ${new Date(end).toLocaleDateString()}<br/>
+    Depends on: ${dependencies}
+  </div>`;
 };
