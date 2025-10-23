@@ -1,4 +1,4 @@
-import { TaskType, type Task } from './Timeline.types';
+import { TaskType, type Task } from './GanttChart.types';
 
 const ONE_DAY = 24 * 60 * 60 * 1000;
 

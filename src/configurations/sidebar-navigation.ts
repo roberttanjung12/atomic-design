@@ -84,6 +84,11 @@ const Menuitems: NavigationItem[] = [
   },
   {
     id: uniqueId(),
+    title: 'Gantt Chart',
+    href: '/components/gantt-chart'
+  },
+  {
+    id: uniqueId(),
     title: 'Progress Bar',
     href: '/components/progress-bar'
   },
@@ -126,11 +131,6 @@ const Menuitems: NavigationItem[] = [
     id: uniqueId(),
     title: 'Time Machine',
     href: '/components/time-machine'
-  },
-  {
-    id: uniqueId(),
-    title: 'Timeline',
-    href: '/components/timeline'
   },
   {
     id: uniqueId(),

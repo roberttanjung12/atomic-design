@@ -45,3 +45,5 @@ export { LineChart, BarChart, DonutChart } from './Chart';
 export { default as Avatar } from './Avatar';
 
 export { default as TimelineTree } from './TimelineTree';
+
+export { default as GanttChart } from './GanttChart';

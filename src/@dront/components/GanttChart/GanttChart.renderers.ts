@@ -1,6 +1,6 @@
 import * as echarts from 'echarts';
 import type { CustomSeriesRenderItemParams, CustomSeriesRenderItemAPI } from 'echarts';
-import { TaskType, type Task } from './Timeline.types';
+import { TaskType, type Task } from './GanttChart.types';
 
 const BAR_HEIGHT = 20;
 const ARROW_HEAD_SIZE = 6;

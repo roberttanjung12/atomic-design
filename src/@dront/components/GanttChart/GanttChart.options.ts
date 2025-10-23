@@ -1,11 +1,11 @@
 import type { EChartsOption } from 'echarts';
-import { renderTaskItem, renderDependencyItem } from './Timeline.renderers';
-import type { Task } from './Timeline.types';
-import { renderTooltip } from './Timeline.utils';
+import { renderTaskItem, renderDependencyItem } from './GanttChart.renderers';
+import type { Task } from './GanttChart.types';
+import { renderTooltip } from './GanttChart.utils';
 
 const ONE_DAY = 24 * 60 * 60 * 1000;
 
-export const buildTimelineOptions = (
+export const buildGanttChartOptions = (
   data: Task[],
   title: string | undefined,
   range: [number, number],

@@ -14,7 +14,7 @@ export interface Task {
   dependencies?: string[];
 }
 
-export interface TimelineProps {
+export interface GanttChartProps {
   data: Task[];
   title?: string;
   height?: string | number;

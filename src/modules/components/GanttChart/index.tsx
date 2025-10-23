@@ -1,15 +1,15 @@
 import { DocView } from '@/@dront/components';
-import Timeline from '@/@dront/components/Timeline';
-import TimelineBasic from './TimelineBasic';
-import basicExampleCode from './TimelineBasic?raw';
-import TimelineColor from './TimelineColor';
-import colorExampleCode from './TimelineColor?raw';
-import TimelineDependency from './TimelineDependency';
-import dependencyExampleCode from './TimelineDependency?raw';
-import TimelineProgress from './TimelineProgress';
-import progressExampleCode from './TimelineProgress?raw';
+import Timeline from '@/@dront/components/GanttChart';
+import GanttChartBasic from './GanttChartBasic';
+import basicExampleCode from './GanttChartBasic?raw';
+import GanttChartColor from './GanttChartColor';
+import colorExampleCode from './GanttChartColor?raw';
+import GanttChartDependency from './GanttChartDependency';
+import dependencyExampleCode from './GanttChartDependency?raw';
+import GanttChartProgress from './GanttChartProgress';
+import progressExampleCode from './GanttChartProgress?raw';
 
-const TimelineModule = () => {
+const GanttChartModule = () => {
   return (
     <DocView
       contributors={['Rafli Rai Rizky']}
@@ -19,28 +19,28 @@ const TimelineModule = () => {
           title: 'Basic',
           descriptions:
             'Displays a simple timeline with tasks arranged in chronological order. Ideal for showing basic event or project timelines without additional styling or dependencies.',
-          example: <TimelineBasic />,
+          example: <GanttChartBasic />,
           exampleCode: basicExampleCode
         },
         {
           title: 'Progress',
           descriptions:
             'Adds progress indicators to each task, allowing users to track completion levels visually. Useful for project management or milestone tracking.',
-          example: <TimelineProgress />,
+          example: <GanttChartProgress />,
           exampleCode: progressExampleCode
         },
         {
           title: 'Color',
           descriptions:
             'Demonstrates how to apply custom colors to tasks or milestones. Each task can be assigned a unique color for better differentiation or status indication.',
-          example: <TimelineColor />,
+          example: <GanttChartColor />,
           exampleCode: colorExampleCode
         },
         {
           title: 'Dependency',
           descriptions:
             'Illustrates how tasks can be connected through dependencies, showing relationships and sequences between activities. Perfect for use cases like Gantt charts or workflow visualization.',
-          example: <TimelineDependency />,
+          example: <GanttChartDependency />,
           exampleCode: dependencyExampleCode
         }
       ]}
@@ -79,4 +79,4 @@ const TimelineModule = () => {
   );
 };
 
-export default TimelineModule;
+export default GanttChartModule;
