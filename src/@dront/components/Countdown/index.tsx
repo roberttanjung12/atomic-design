@@ -13,9 +13,10 @@ const Countdown = ({
   showDays = true,
   size = 'medium',
   className,
-  spacing = 1
+  spacing = 1,
+  onOver
 }: CountdownProps) => {
-  const { timeLeft } = useCountdown(targetDate);
+  const { timeLeft } = useCountdown(targetDate, onOver);
   const { days, hours, minutes, seconds } = timeLeft;
 
   const totalHours = hours + days * 24;
