@@ -9,6 +9,8 @@ import CountdownCompact from './CountdownCompact';
 import compactExampleCode from './CountdownCompact?raw';
 import CountdownOnOver from './CountdownOnOver';
 import onOverExampleCode from './CountdownOnOver?raw';
+import CountdownSeparator from './CountdownSeparator';
+import separatorExampleCode from './CountdownSeparator?raw';
 import CountdownShowDay from './CountdownShowDay';
 import showDayExampleCode from './CountdownShowDay?raw';
 import CountdownShowOnly from './CountdownShowOnly';
@@ -53,6 +55,13 @@ const CountdownModule = () => {
             'Demonstrates the flexibility of the block variant when changing direction between vertical and horizontal layouts. The `direction` prop allows you to align the countdown either in a column or row, depending on your layout needs.',
           example: <CountdownBlockDirection />,
           exampleCode: blockDirectionExampleCode
+        },
+        {
+          title: 'Separator',
+          descriptions:
+            'Customize the character used to separate each countdown segment. By default, the separator is a colon (":"). You can replace it with any symbol, text, or even an empty string to match your desired style.',
+          example: <CountdownSeparator />,
+          exampleCode: separatorExampleCode
         },
         {
           title: 'Size',
