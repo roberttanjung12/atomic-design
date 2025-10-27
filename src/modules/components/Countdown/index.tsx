@@ -11,6 +11,8 @@ import CountdownOnOver from './CountdownOnOver';
 import onOverExampleCode from './CountdownOnOver?raw';
 import CountdownShowDay from './CountdownShowDay';
 import showDayExampleCode from './CountdownShowDay?raw';
+import CountdownShowOnly from './CountdownShowOnly';
+import showOnlyExampleCode from './CountdownShowOnly?raw';
 import CountdownSize from './CountdownSize';
 import sizeExampleCode from './CountdownSize?raw';
 import CountdownSpacing from './CountdownSpacing';
@@ -72,6 +74,13 @@ const CountdownModule = () => {
           exampleCode: showDayExampleCode
         },
         {
+          title: 'Show by Segment',
+          descriptions:
+            'Display the countdown in a single time segment by accumulating all remaining time into days, hours, minutes, or seconds. The `showOnly` prop supports values `day`, `hour`, `min`, or `sec`, and works seamlessly across all variants `minimal`, `compact`, and `block`.',
+          example: <CountdownShowOnly />,
+          exampleCode: showOnlyExampleCode
+        },
+        {
           title: 'Handle when Countdown Over',
           descriptions:
             'Shows how to use the `onOver` callback, which is triggered automatically once the countdown reaches zero. You can use this callback to execute custom logic such as triggering notifications, animations, or refreshing data.',
@@ -130,6 +139,13 @@ const CountdownModule = () => {
             required: false,
             default: 'true'
           },
+          showOnly: {
+            type: "'day' | 'hour' | 'min' | 'sec'",
+            description:
+              'Determines which single time segment to display by converting the total remaining time into that unit. For example, setting it to `hour` will show the total hours left instead of splitting into days, minutes, and seconds.',
+            required: false
+          },
+
           onOver: {
             type: '() => void',
             description:

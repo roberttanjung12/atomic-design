@@ -9,6 +9,7 @@ export type CountdownProps = {
   size?: 'small' | 'medium' | 'large' | number;
   className?: string;
   spacing?: number;
+  showOnly?: 'day' | 'hour' | 'min' | 'sec';
   onOver?: () => void;
 };
 
