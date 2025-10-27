@@ -1,7 +1,7 @@
 import type { TypographyVariant } from '@mui/material';
 
 export type CountdownProps = {
-  targetDate: string;
+  targetDate: Date;
   separator?: string;
   variant?: 'block' | 'compact' | 'minimal';
   direction?: 'vertical' | 'horizontal';

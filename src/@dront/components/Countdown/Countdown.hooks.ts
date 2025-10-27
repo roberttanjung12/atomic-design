@@ -1,8 +1,8 @@
 import { useEffect, useState, useCallback } from 'react';
 import type { TimeLeft } from './Countdown.types';
 
-export const useCountdown = (targetDate: Date | string | number) => {
-  const countDownDate = new Date(targetDate).getTime();
+export const useCountdown = (targetDate: Date) => {
+  const countDownDate = targetDate.getTime();
 
   const calculateTimeLeft = useCallback((): TimeLeft => {
     const now = new Date().getTime();

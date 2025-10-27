@@ -5,7 +5,7 @@ import { Countdown } from '@/@dront/components';
 const CountdownBasic = () => {
   return (
     <>
-      <Countdown targetDate="2025-12-31T23:59:59" />
+      <Countdown targetDate={new Date('2025-12-31T23:59:59')} />
     </>
   );
 };
