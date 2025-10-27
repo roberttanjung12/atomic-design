@@ -14,7 +14,6 @@ export const renderCountdown = ({
   labelVariant,
   separator,
   spacing,
-  className,
   customFontSize,
 
   sx,
@@ -51,7 +50,6 @@ export const renderCountdown = ({
         <Typography
           variant={numberVariant}
           fontWeight={600}
-          className={className}
           sx={mergeSx(
             {
               display: 'flex',
@@ -91,7 +89,6 @@ export const renderCountdown = ({
           component="span"
           variant={numberVariant}
           fontWeight={600}
-          className={className}
           sx={mergeSx(
             {
               display: 'flex',
@@ -121,11 +118,10 @@ export const renderCountdown = ({
         </Typography>
       );
 
-    /** 🔵 BLOCK (default) */
     case 'block':
     default:
       return (
-        <Stack direction="row" spacing={spacing} alignItems="center" className={className} sx={sx}>
+        <Stack direction="row" spacing={spacing} alignItems="center" sx={sx}>
           {segments.map((s, i) => {
             const numSx = mergeSx(numberSx, getSxByLabel(s.label, numberStyleMap));
             const lblSx = mergeSx(labelSx, getSxByLabel(s.label, labelStyleMap));

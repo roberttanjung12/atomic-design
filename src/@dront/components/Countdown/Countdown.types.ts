@@ -22,7 +22,6 @@ export interface CountdownProps extends StylingSx {
   direction?: 'vertical' | 'horizontal';
   showDays?: boolean;
   size?: 'small' | 'medium' | 'large' | number;
-  className?: string;
   spacing?: number;
   showOnly?: 'day' | 'hour' | 'min' | 'sec';
   onOver?: () => void;
@@ -36,7 +35,6 @@ export interface CountdownRendererProps extends StylingSx {
   labelVariant: TypographyVariant;
   separator: string;
   spacing: number;
-  className?: string;
   customFontSize?: number;
 }
 

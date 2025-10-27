@@ -12,7 +12,6 @@ const Countdown = ({
   direction = 'vertical',
   showDays = true,
   size = 'medium',
-  className,
   spacing = 1,
   showOnly,
   onOver,
@@ -43,7 +42,6 @@ const Countdown = ({
     labelVariant,
     separator,
     spacing,
-    className,
     customFontSize,
 
     sx,
