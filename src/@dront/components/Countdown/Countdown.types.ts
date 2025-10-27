@@ -6,7 +6,7 @@ export type CountdownProps = {
   variant?: 'block' | 'compact' | 'minimal';
   direction?: 'vertical' | 'horizontal';
   showDays?: boolean;
-  size?: 'small' | 'medium' | 'large';
+  size?: 'small' | 'medium' | 'large' | number;
   className?: string;
   spacing?: number;
 };
@@ -18,8 +18,9 @@ export type CountdownRendererProps = {
   numberVariant: TypographyVariant;
   labelVariant: TypographyVariant;
   separator: string;
-  resolvedSpacing: number;
+  spacing: number;
   className?: string;
+  customFontSize?: number;
 };
 
 export interface TimeLeft {

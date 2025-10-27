@@ -8,9 +8,10 @@ interface FlipDigitProps {
   variant: React.ComponentProps<typeof Typography>['variant'];
   fontWeight?: React.CSSProperties['fontWeight'];
   duration?: number;
+  customFontSize?: number;
 }
 
-const FlipDigit: React.FC<FlipDigitProps> = ({ digit, variant, fontWeight = 600, duration = 300 }) => {
+const FlipDigit: React.FC<FlipDigitProps> = ({ digit, variant, fontWeight = 600, duration = 300, customFontSize }) => {
   const [prevDigit, setPrevDigit] = useState(digit);
   const [flipping, setFlipping] = useState(false);
 
@@ -46,7 +47,8 @@ const FlipDigit: React.FC<FlipDigitProps> = ({ digit, variant, fontWeight = 600,
           fontWeight={fontWeight}
           sx={{
             display: 'inline-block',
-            backfaceVisibility: 'hidden'
+            backfaceVisibility: 'hidden',
+            ...(customFontSize && { fontSize: customFontSize })
           }}
         >
           {prevDigit}

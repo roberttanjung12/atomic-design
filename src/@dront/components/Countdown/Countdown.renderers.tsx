@@ -15,8 +15,9 @@ export const renderCountdown = ({
   numberVariant,
   labelVariant,
   separator,
-  resolvedSpacing,
-  className
+  spacing,
+  className,
+  customFontSize
 }: CountdownRendererProps) => {
   const pad = (v: number) => String(v).padStart(2, '0');
 
@@ -27,11 +28,16 @@ export const renderCountdown = ({
           variant={numberVariant}
           fontWeight={600}
           className={className}
-          sx={{ display: 'flex', gap: resolvedSpacing }}
+          sx={{ display: 'flex', gap: spacing, ...(customFontSize && { fontSize: customFontSize }) }}
         >
           {segments.map((s, i) => (
             <Box key={i} component="span">
-              <FlipNumber value={pad(s.value)} variant={numberVariant} fontWeight="bold" />
+              <FlipNumber
+                value={pad(s.value)}
+                variant={numberVariant}
+                fontWeight="bold"
+                customFontSize={customFontSize}
+              />
               {s.label[0]}
             </Box>
           ))}
@@ -44,18 +50,23 @@ export const renderCountdown = ({
           variant={numberVariant}
           fontWeight={600}
           className={className}
-          sx={{ display: 'flex', alignItems: 'center', gap: resolvedSpacing }}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: spacing
+          }}
         >
           {segments.map((s, i) => (
             <React.Fragment key={i}>
               <Box component="span">
-                <FlipNumber value={pad(s.value)} variant={numberVariant} fontWeight="bold" />
+                <FlipNumber
+                  value={pad(s.value)}
+                  variant={numberVariant}
+                  fontWeight="bold"
+                  customFontSize={customFontSize}
+                />
               </Box>
-              {i < segments.length - 1 && (
-                <Box component="span" sx={{ mx: 0.3 }}>
-                  {separator}
-                </Box>
-              )}
+              {i < segments.length - 1 && <Box component="span">{separator}</Box>}
             </React.Fragment>
           ))}
         </Typography>
@@ -64,7 +75,7 @@ export const renderCountdown = ({
     case 'block':
     default:
       return (
-        <Stack direction="row" spacing={resolvedSpacing} alignItems="center" className={className}>
+        <Stack direction="row" spacing={spacing} alignItems="center" className={className}>
           {segments.map((s, i) => (
             <Stack
               key={i}
@@ -81,7 +92,12 @@ export const renderCountdown = ({
               }}
             >
               <Typography variant={numberVariant} fontWeight="bold">
-                <FlipNumber value={pad(s.value)} variant={numberVariant} fontWeight="bold" />
+                <FlipNumber
+                  value={pad(s.value)}
+                  variant={numberVariant}
+                  fontWeight="bold"
+                  customFontSize={customFontSize}
+                />
               </Typography>
               <Typography
                 variant={labelVariant}

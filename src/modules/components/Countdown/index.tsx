@@ -69,7 +69,7 @@ const CountdownModule = () => {
         component: Countdown,
         propDefinitions: {
           targetDate: {
-            type: 'string',
+            type: 'Date',
             description: 'Target date and time for the countdown.',
             required: true
           },
@@ -92,15 +92,16 @@ const CountdownModule = () => {
             default: ':'
           },
           size: {
-            type: "'small' | 'medium' | 'large'",
-            description: 'Size of the countdown display.',
+            type: "number | 'small' | 'medium' | 'large'",
+            description: "Size of the countdown display, can custom number or 'small', 'mediume', 'large'",
             required: false,
             default: 'medium'
           },
           spacing: {
             type: 'number',
             description: 'Spacing between digits or blocks in the countdown.',
-            required: false
+            required: false,
+            default: '0.2'
           },
           showDays: {
             type: 'boolean',

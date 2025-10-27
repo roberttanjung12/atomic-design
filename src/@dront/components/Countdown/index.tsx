@@ -13,7 +13,7 @@ const Countdown = ({
   showDays = true,
   size = 'medium',
   className,
-  spacing
+  spacing = 1
 }: CountdownProps) => {
   const { timeLeft } = useCountdown(targetDate);
   const { days, hours, minutes, seconds } = timeLeft;
@@ -30,16 +30,27 @@ const Countdown = ({
 
   const sizeConfig: Record<
     'small' | 'medium' | 'large',
-    { numberVariant: TypographyVariant; labelVariant: TypographyVariant; spacing: number }
+    { numberVariant: TypographyVariant; labelVariant: TypographyVariant }
   > = {
-    small: { numberVariant: 'h6', labelVariant: 'caption', spacing: 1.5 },
-    medium: { numberVariant: 'h4', labelVariant: 'body2', spacing: 2.5 },
-    large: { numberVariant: 'h3', labelVariant: 'body1', spacing: 4 }
+    small: { numberVariant: 'h6', labelVariant: 'caption' },
+    medium: { numberVariant: 'h4', labelVariant: 'body2' },
+    large: { numberVariant: 'h3', labelVariant: 'body1' }
   };
 
-  const { numberVariant, labelVariant, spacing: defaultSpacing } = sizeConfig[size];
+  let numberVariant: TypographyVariant;
+  let labelVariant: TypographyVariant;
+  let customFontSize: number | undefined;
 
-  const resolvedSpacing = spacing ?? (variant === 'block' ? defaultSpacing : 0);
+  if (typeof size === 'number') {
+    numberVariant = 'body1';
+    labelVariant = 'caption';
+    customFontSize = size;
+  } else {
+    const config = sizeConfig[size];
+
+    numberVariant = config.numberVariant;
+    labelVariant = config.labelVariant;
+  }
 
   return renderCountdown({
     variant,
@@ -48,8 +59,9 @@ const Countdown = ({
     numberVariant,
     labelVariant,
     separator,
-    resolvedSpacing,
-    className
+    spacing,
+    className,
+    ...(customFontSize ? { customFontSize } : {})
   });
 };
 
