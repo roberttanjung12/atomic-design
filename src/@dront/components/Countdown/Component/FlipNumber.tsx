@@ -11,7 +11,7 @@ interface FlipNumberProps {
   customFontSize?: number;
 }
 
-const FlipNumber: React.FC<FlipNumberProps> = ({ value, variant, fontWeight = 600, customFontSize }) => {
+const FlipNumber = ({ value, variant, fontWeight = 600, customFontSize }: FlipNumberProps) => {
   const strValue = String(value).padStart(2, '0').split('');
 
   return (

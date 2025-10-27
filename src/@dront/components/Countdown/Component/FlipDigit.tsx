@@ -11,7 +11,7 @@ interface FlipDigitProps {
   customFontSize?: number;
 }
 
-const FlipDigit: React.FC<FlipDigitProps> = ({ digit, variant, fontWeight = 600, duration = 300, customFontSize }) => {
+const FlipDigit = ({ digit, variant, fontWeight = 600, duration = 300, customFontSize }: FlipDigitProps) => {
   const [prevDigit, setPrevDigit] = useState(digit);
   const [flipping, setFlipping] = useState(false);
 
