@@ -3,11 +3,11 @@
 import { Countdown } from '@/@dront/components';
 
 const CountdownCompact = () => {
-  return (
-    <>
-      <Countdown targetDate={new Date('2025-12-31T23:59:59')} variant="compact" />
-    </>
-  );
+  const targetDate = new Date();
+
+  targetDate.setMonth(targetDate.getMonth() + 1);
+
+  return <Countdown targetDate={targetDate} variant="compact" />;
 };
 
 export default CountdownCompact;

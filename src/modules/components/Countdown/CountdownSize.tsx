@@ -4,12 +4,16 @@ import { Box } from '@mui/material';
 import { Countdown } from '@/@dront/components';
 
 const CountdownSize = () => {
+  const targetDate = new Date();
+
+  targetDate.setMonth(targetDate.getMonth() + 1);
+
   return (
     <Box display="flex" flexDirection="column" gap={2}>
-      <Countdown targetDate={new Date('2025-12-31T23:59:59')} size="small" />
-      <Countdown targetDate={new Date('2025-12-31T23:59:59')} size={17} />
-      <Countdown targetDate={new Date('2025-12-31T23:59:59')} size="medium" />
-      <Countdown targetDate={new Date('2025-12-31T23:59:59')} size="large" />
+      <Countdown targetDate={targetDate} size="small" />
+      <Countdown targetDate={targetDate} size={17} />
+      <Countdown targetDate={targetDate} size="medium" />
+      <Countdown targetDate={targetDate} size="large" />
     </Box>
   );
 };

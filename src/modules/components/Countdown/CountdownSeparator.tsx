@@ -4,11 +4,15 @@ import { Box } from '@mui/material';
 import { Countdown } from '@/@dront/components';
 
 const CountdownSeparator = () => {
+  const targetDate = new Date();
+
+  targetDate.setMonth(targetDate.getMonth() + 1);
+
   return (
     <Box display="flex" flexDirection="column" gap={2}>
-      <Countdown targetDate={new Date('2025-12-31T23:59:59')} separator="-" />
-      <Countdown targetDate={new Date('2025-12-31T23:59:59')} separator="|" />
-      <Countdown targetDate={new Date('2025-12-31T23:59:59')} separator="*" />
+      <Countdown targetDate={targetDate} separator="-" />
+      <Countdown targetDate={targetDate} separator="|" />
+      <Countdown targetDate={targetDate} separator="*" />
     </Box>
   );
 };

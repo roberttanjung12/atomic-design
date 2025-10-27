@@ -3,7 +3,11 @@
 import { Countdown } from '@/@dront/components';
 
 const CountdownBasic = () => {
-  return <Countdown targetDate={new Date('2025-12-27T11:10:59')} />;
+  const targetDate = new Date();
+
+  targetDate.setMonth(targetDate.getMonth() + 1);
+
+  return <Countdown targetDate={targetDate} />;
 };
 
 export default CountdownBasic;
