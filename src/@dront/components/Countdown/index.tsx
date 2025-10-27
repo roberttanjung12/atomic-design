@@ -15,7 +15,19 @@ const Countdown = ({
   className,
   spacing = 1,
   showOnly,
-  onOver
+  onOver,
+
+  sx,
+  numberSx,
+  labelSx,
+  dayNumberSx,
+  dayLabelSx,
+  hourNumberSx,
+  hourLabelSx,
+  minNumberSx,
+  minLabelSx,
+  secNumberSx,
+  secLabelSx
 }: CountdownProps) => {
   const { timeLeft } = useCountdown(targetDate, onOver);
 
@@ -32,7 +44,19 @@ const Countdown = ({
     separator,
     spacing,
     className,
-    ...(customFontSize ? { customFontSize } : {})
+    customFontSize,
+
+    sx,
+    numberSx,
+    labelSx,
+    dayNumberSx,
+    dayLabelSx,
+    hourNumberSx,
+    hourLabelSx,
+    minNumberSx,
+    minLabelSx,
+    secNumberSx,
+    secLabelSx
   });
 };
 

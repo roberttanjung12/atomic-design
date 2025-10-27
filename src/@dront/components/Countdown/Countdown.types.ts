@@ -1,6 +1,21 @@
-import type { TypographyVariant } from '@mui/material';
+import type { SxProps, Theme, TypographyVariant } from '@mui/material';
 
-export type CountdownProps = {
+interface StylingSx {
+  dayNumberSx?: SxProps<Theme>;
+  dayLabelSx?: SxProps<Theme>;
+  hourNumberSx?: SxProps<Theme>;
+  hourLabelSx?: SxProps<Theme>;
+  minNumberSx?: SxProps<Theme>;
+  minLabelSx?: SxProps<Theme>;
+  secNumberSx?: SxProps<Theme>;
+  secLabelSx?: SxProps<Theme>;
+
+  labelSx?: SxProps<Theme>;
+  numberSx?: SxProps<Theme>;
+  sx?: SxProps<Theme>;
+}
+
+export interface CountdownProps extends StylingSx {
   targetDate: Date;
   separator?: string;
   variant?: 'block' | 'compact' | 'minimal';
@@ -11,9 +26,9 @@ export type CountdownProps = {
   spacing?: number;
   showOnly?: 'day' | 'hour' | 'min' | 'sec';
   onOver?: () => void;
-};
+}
 
-export type CountdownRendererProps = {
+export interface CountdownRendererProps extends StylingSx {
   variant: NonNullable<CountdownProps['variant']>;
   direction: NonNullable<CountdownProps['direction']>;
   segments: { label: string; value: number }[];
@@ -23,7 +38,7 @@ export type CountdownRendererProps = {
   spacing: number;
   className?: string;
   customFontSize?: number;
-};
+}
 
 export interface TimeLeft {
   days: number;
