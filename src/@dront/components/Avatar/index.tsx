@@ -1,3 +1,40 @@
+/**
+ * A customizable Avatar component that can display images, icons, or text initials.
+ * Supports single avatar or group of avatars with various styling options.
+ *
+ * @template T - Generic type for additional avatar item properties
+ *
+ * @param props - The avatar component props
+ * @param {string | AvatarItem<T> | ReactNode | Array<string | AvatarItem<T> | ReactNode> | null} props.src - Source for avatar content (image URL, avatar item object, React node, or array of these)
+ * @param {string} [props.alt] - Alternative text for the avatar
+ * @param {number} [props.max] - Maximum number of avatars to show in group
+ * @param {number} [props.total] - Total number of avatars in group
+ * @param {boolean} [props.surplus] - Whether to show surplus count for grouped avatars
+ * @param {'small' | 'medium' | 'large'} [props.size='medium'] - Size of the avatar
+ * @param {'small' | 'medium'} [props.spacing='medium'] - Spacing between avatars in group
+ * @param {'circular' | 'rounded' | 'square'} [props.variant='circular'] - Shape variant of the avatar
+ * @param {boolean} [props.randomColor=false] - Whether to use random background colors
+ * @param {boolean} [props.scale=false] - Whether to enable scaling effect on hover
+ * @param {(item?: AvatarItem<T>, index?: number) => void} [props.onClick] - Click handler for the avatar
+ *
+ * @returns {JSX.Element} A single avatar or group of avatars
+ *
+ * @example
+ * // Single avatar with image
+ * <Avatar src="https://example.com/avatar.jpg" alt="User Avatar" />
+ *
+ * @example
+ * // Group of avatars
+ * <Avatar
+ *   src={[
+ *     { img: "https://example.com/avatar1.jpg", alt: "User 1" },
+ *     { img: "https://example.com/avatar2.jpg", alt: "User 2" }
+ *   ]}
+ *   max={3}
+ *   size="medium"
+ * />
+ */
+
 'use client';
 
 import type { ReactNode } from 'react';
