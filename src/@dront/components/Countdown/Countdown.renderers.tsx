@@ -1,3 +1,28 @@
+/**
+ * Renders a countdown component with different variants and styles
+ * @param props - The props object containing various styling and configuration options
+ * @param props.variant - The visual variant of the countdown ('compact' | 'minimal' | 'block')
+ * @param props.direction - The direction of the countdown elements ('vertical' | 'horizontal')
+ * @param props.segments - Array of countdown segments containing value and label
+ * @param props.numberVariant - MUI Typography variant for numbers
+ * @param props.labelVariant - MUI Typography variant for labels
+ * @param props.separator - Separator character/element between segments (for minimal variant)
+ * @param props.spacing - Spacing between countdown elements
+ * @param props.customFontSize - Custom font size for the numbers
+ * @param props.sx - Root element style overrides
+ * @param props.numberSx - Global number style overrides
+ * @param props.labelSx - Global label style overrides
+ * @param props.dayNumberSx - Day number specific style overrides
+ * @param props.dayLabelSx - Day label specific style overrides
+ * @param props.hourNumberSx - Hour number specific style overrides
+ * @param props.hourLabelSx - Hour label specific style overrides
+ * @param props.minNumberSx - Minute number specific style overrides
+ * @param props.minLabelSx - Minute label specific style overrides
+ * @param props.secNumberSx - Second number specific style overrides
+ * @param props.secLabelSx - Second label specific style overrides
+ * @returns A React component rendering the countdown in the specified variant
+ */
+
 'use client';
 
 import React from 'react';

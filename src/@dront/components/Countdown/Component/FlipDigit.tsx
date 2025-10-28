@@ -1,3 +1,28 @@
+/**
+ * A component that displays a single digit with a flip animation when the digit changes.
+ *
+ * @component
+ * @param {object} props - The component props
+ * @param {string} props.digit - The digit to be displayed
+ * @param {React.ComponentProps<typeof Typography>['variant']} props.variant - The Typography variant to be used
+ * @param {React.CSSProperties['fontWeight']} [props.fontWeight=600] - The font weight of the digit
+ * @param {number} [props.duration=300] - The duration of the flip animation in milliseconds
+ * @param {number} [props.customFontSize] - Optional custom font size for the digit
+ *
+ * @example
+ * ```tsx
+ * <FlipDigit
+ *   digit="5"
+ *   variant="h1"
+ *   fontWeight={700}
+ *   duration={500}
+ *   customFontSize={32}
+ * />
+ * ```
+ *
+ * @returns {JSX.Element} A box container with the flipping digit animation
+ */
+
 'use client';
 
 import React, { useEffect, useState } from 'react';
