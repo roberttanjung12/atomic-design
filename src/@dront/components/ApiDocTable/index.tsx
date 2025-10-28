@@ -48,10 +48,10 @@ type Definitions = {
  */
 export interface ApiDocTableProps {
   /**
-   * @property {'function' | 'object'} docType
-   * @description Specifies whether the documentation target is a function or an object.
+   * @property {'function' | 'object' | 'utility'} docType
+   * @description Specifies whether the documentation target is.
    */
-  docType: 'function' | 'object';
+  docType: 'function' | 'object' | 'utility';
   /**
    * @property {string} name
    * @description The explicit name of the function or object being documented.
@@ -130,13 +130,25 @@ const ApiDocTable = (props: ApiDocTableProps) => {
                   <TableCell>
                     <CodeChip>{meta.type}</CodeChip>
                   </TableCell>
-                  <TableCell>
+                  <TableCell align="center">
                     <CodeChip variant="secondary">{meta.required ? 'Yes' : 'No'}</CodeChip>
                   </TableCell>
                   <TableCell>
                     <CodeChip variant="secondary">{meta?.default ?? 'undefined'}</CodeChip>
                   </TableCell>
-                  <TableCell>{meta.description}</TableCell>
+                  <TableCell>
+                    {typeof meta.description === 'string' ? (
+                      <TextHighlighter
+                        sx={({ typography }) => ({
+                          fontSize: typography.body2.fontSize,
+                          lineHeight: typography.body2.lineHeight
+                        })}
+                        text={meta.description}
+                      />
+                    ) : (
+                      meta.description
+                    )}
+                  </TableCell>
                 </TableRow>
               );
             })}
