@@ -1,9 +1,18 @@
+/**
+ * Builds the ECharts option object for rendering a Gantt chart.
+ *
+ * @param data - Array of task objects to be displayed in the Gantt chart.
+ * @param title - Optional chart title.
+ * @param range - Tuple specifying the minimum and maximum time range for the x-axis.
+ * @param colors - Object specifying colors for axis, text, divider, and title.
+ * @param fontFamily - Font family to use for chart text.
+ * @returns EChartsOption object configured for a Gantt chart with tasks and dependencies.
+ */
+
 import type { EChartsOption, SeriesOption } from 'echarts';
 import { renderTaskItem, renderDependencyItem } from './GanttChart.renderers';
 import type { Task } from './GanttChart.types';
 import { renderTooltip } from './GanttChart.utils';
-
-// const ONE_DAY = 24 * 60 * 60 * 1000;
 
 export const buildGanttChartOptions = (
   data: Task[],

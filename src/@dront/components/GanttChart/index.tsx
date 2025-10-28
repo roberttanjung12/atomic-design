@@ -1,3 +1,56 @@
+/**
+ * GanttChart
+ *
+ * A responsive, interactive Gantt chart component built on echarts.
+ *
+ * Renders a timeline visualization for a hierarchical list of tasks. Tasks may be
+ * nested and groups can be expanded/collapsed. The chart automatically computes
+ * the visible time range from the flattened task list and builds echarts options
+ * accordingly.
+ *
+ * Props:
+ * @param data - Array of Task items (see Task type). Each task may contain:
+ *   - id: unique identifier
+ *   - name: display name shown on the y-axis and series items
+ *   - start / end: date/time values used to place the bar on the timeline
+ *   - children?: Task[] for nested tasks
+ *   - collapsed?: boolean indicating initial collapsed state (if omitted, tasks default to collapsed)
+ *
+ * @param title - Optional title string rendered in the chart options.
+ * @param height - Optional container height in pixels (default: 400).
+ * @param width - Optional container width (default: '100%').
+ * @param onItemClick - Optional callback invoked when a leaf (non-group) task is clicked.
+ *   Receives the clicked Task as its single argument.
+ *
+ * Behavior and implementation notes:
+ * @remarks
+ * - The component maintains local state for the task hierarchy, ensuring each task
+ *   has a `collapsed` boolean (defaults to true when not provided).
+ * - Tasks are flattened (preserving order and nesting information) with flattenTasks
+ *   to produce the series and axis values for echarts.
+ * - The visible time range is computed from the flattened tasks via computeRange and
+ *   passed into buildGanttChartOptions together with a fixed color palette.
+ * - Click handling supports clicks on the yAxis label and on series items:
+ *   - If a clicked task has children, the component toggles its collapsed state (expand/collapse).
+ *   - If a clicked task is a leaf, and onItemClick is provided, it will be invoked
+ *     with the clicked Task object.
+ * - A helper (findTaskByName) is used to map a clicked label/name back to the task object.
+ * - The rendered ReactEcharts instance is re-keyed by the flattened data length to help
+ *   force re-rendering when the number of visible rows changes.
+ *
+ * Returns:
+ * @returns JSX.Element - a div wrapper containing the configured ReactEcharts instance.
+ *
+ * Example:
+ * @example
+ * <GanttChart
+ *   data={[{ id: '1', name: 'Phase A', start: '2024-01-01', end: '2024-02-01', children: [...] }]}
+ *   title="Project Timeline"
+ *   height={480}
+ *   onItemClick={(task) => console.log('clicked', task)}
+ * />
+ */
+
 'use client';
 
 import React, { useMemo, useState, useCallback } from 'react';
@@ -14,6 +67,17 @@ const GANTT_CHART_COLORS = {
   title: '#222'
 };
 
+/**
+ * GanttChart component renders an interactive Gantt chart using the provided task data.
+ *
+ * @param data - The initial array of tasks to display in the Gantt chart.
+ * @param title - The title of the Gantt chart.
+ * @param height - The height of the chart container (default: 400).
+ * @param width - The width of the chart container (default: '100%').
+ * @param onItemClick - Optional callback invoked when a leaf task is clicked.
+ *
+ * The component supports expanding/collapsing parent tasks and handles click events on both axis labels and chart series.
+ */
 const GanttChart = ({ data: initialData, title, height = 400, width = '100%', onItemClick }: GanttChartProps) => {
   const [data, setData] = useState<Task[]>(() =>
     initialData.map(task => ({

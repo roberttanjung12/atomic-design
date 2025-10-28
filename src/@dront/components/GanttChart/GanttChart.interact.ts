@@ -1,3 +1,11 @@
+/**
+ * Recursively flattens a hierarchical list of tasks into a single array.
+ * Only includes children of tasks that are not collapsed.
+ *
+ * @param tasks - The array of tasks to flatten.
+ * @returns A flat array of tasks, including all expanded children.
+ */
+
 import type { Task } from './GanttChart.types';
 
 export const flattenTasks = (tasks: Task[]): Task[] => {
@@ -13,6 +21,15 @@ export const flattenTasks = (tasks: Task[]): Task[] => {
   return result;
 };
 
+/**
+ * Toggles the `collapsed` state of a task with the specified `taskId` within a nested list of tasks.
+ * If the task is found, its `collapsed` property is inverted.
+ * The function recursively traverses child tasks if present.
+ *
+ * @param tasks - The array of tasks to search through.
+ * @param taskId - The ID of the task whose `collapsed` state should be toggled.
+ * @returns A new array of tasks with the specified task's `collapsed` state toggled.
+ */
 export const toggleExpand = (tasks: Task[], taskId: string): Task[] => {
   return tasks.map(t => {
     if (t.id === taskId) {

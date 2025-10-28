@@ -1,3 +1,11 @@
+/**
+ * Computes the visible date range for the Gantt chart based on the provided tasks.
+ * If no tasks are provided, returns a default range of one week before and after the current date.
+ *
+ * @param data - Array of tasks to determine the date range from.
+ * @returns A tuple containing the minimum and maximum timestamps for the chart axis.
+ */
+
 import { TaskType, type Task } from './GanttChart.types';
 
 const ONE_DAY = 24 * 60 * 60 * 1000;

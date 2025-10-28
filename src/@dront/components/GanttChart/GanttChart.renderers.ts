@@ -1,3 +1,23 @@
+/**
+ * Custom renderer for task bars and progress overlay in the Gantt chart.
+ *
+ * @param data - Array of Task objects representing the tasks to be rendered.
+ * @returns A function compatible with ECharts custom series renderItem, which draws the main task bar and its progress overlay.
+ *
+ * The renderer draws a rectangular bar for each task, colored according to its type or custom color.
+ * If the task has a progress value, a progress overlay is drawn on top of the bar.
+ */
+
+/**
+ * Custom renderer for dependency arrows between tasks in the Gantt chart.
+ *
+ * @param data - Array of Task objects representing the tasks and their dependencies.
+ * @returns A function compatible with ECharts custom series renderItem, which draws an arrow from the prerequisite task to the dependent task.
+ *
+ * The renderer draws a polyline arrow between two tasks, indicating a dependency.
+ * The arrow is clipped to the coordinate system and includes a styled arrowhead.
+ */
+
 import * as echarts from 'echarts';
 import type { CustomSeriesRenderItemParams, CustomSeriesRenderItemAPI } from 'echarts';
 import { TaskType, type Task } from './GanttChart.types';
