@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import type { SxProps, Theme, TypographyVariant } from '@mui/material';
 
 interface StylingSx {
@@ -25,7 +26,9 @@ export interface CountdownProps extends StylingSx {
   spacing?: number;
   showOnly?: 'day' | 'hour' | 'min' | 'sec';
   identifier?: string;
+  countingElement?: ReactNode;
   onOver?: () => void;
+  children?: ReactNode;
 }
 
 export interface CountdownRendererProps extends StylingSx {

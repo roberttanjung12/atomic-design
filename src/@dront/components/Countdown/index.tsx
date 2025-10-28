@@ -15,6 +15,7 @@ const Countdown = ({
   spacing = 1,
   showOnly,
   identifier,
+  countingElement,
   onOver,
 
   sx,
@@ -27,13 +28,25 @@ const Countdown = ({
   minNumberSx,
   minLabelSx,
   secNumberSx,
-  secLabelSx
+  secLabelSx,
+
+  children
 }: CountdownProps) => {
   const { timeLeft } = useCountdown(targetDate, onOver);
+
+  const finished = timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0;
 
   const segments = getSegments(timeLeft, showDays, showOnly, identifier);
 
   const { numberVariant, labelVariant, customFontSize } = getSizeConfig(size);
+
+  if (finished && children) {
+    return children;
+  }
+
+  if (!finished && countingElement) {
+    return countingElement;
+  }
 
   return renderCountdown({
     variant,

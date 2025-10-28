@@ -11,6 +11,8 @@ import CountdownIdentifier from './CountdownIdentifier';
 import identifierExampleCode from './CountdownIdentifier?raw';
 import CountdownOnOver from './CountdownOnOver';
 import onOverExampleCode from './CountdownOnOver?raw';
+import CountdownRender from './CountdownRender';
+import renderExampleCode from './CountdownRender?raw';
 import CountdownSeparator from './CountdownSeparator';
 import separatorExampleCode from './CountdownSeparator?raw';
 import CountdownShowDay from './CountdownShowDay';
@@ -113,6 +115,13 @@ const CountdownModule = () => {
             'Shows how to use the `onOver` callback, which is triggered automatically once the countdown reaches zero. You can use this callback to execute custom logic such as triggering notifications, animations, or refreshing data.',
           example: <CountdownOnOver />,
           exampleCode: onOverExampleCode
+        },
+        {
+          title: 'Custom Render',
+          descriptions:
+            'Provides flexibility to display different elements during and after the countdown. When `countingElement` is provided, it will be shown while the countdown is running. Once the countdown finishes, the component will render its children instead, allowing you to easily define post-countdown content.',
+          example: <CountdownRender />,
+          exampleCode: renderExampleCode
         }
       ]}
       propsDoc={{
@@ -128,42 +137,36 @@ const CountdownModule = () => {
             type: "'minimal' | 'compact' | 'block'",
             description:
               'Determines the visual style of the countdown display. Use `minimal` for a clean inline look, `compact` for a space-saving format, or `block` for a segmented card-like style.',
-
             default: 'minimal'
           },
           direction: {
             type: "'vertical' | 'horizontal'",
             description:
               'Defines the layout direction of the countdown. `vertical` stacks the time units, while `horizontal` arranges them side by side.',
-
             default: 'vertical'
           },
           separator: {
             type: 'string',
             description:
               "Custom separator displayed between time units (e.g., ':', '/', or '·'). Ignored when using the `block` variant.",
-
             default: ':'
           },
           size: {
             type: "number | 'small' | 'medium' | 'large'",
             description:
               'Controls the font size of the countdown. You can use predefined sizes (`small`, `medium`, `large`) or provide a custom numeric value for fine-grained control.',
-
             default: 'medium'
           },
           spacing: {
             type: 'number',
             description:
               'Adjusts the spacing between time units. Useful for controlling visual density, especially in compact layouts.',
-
             default: '0.2'
           },
           showDays: {
             type: 'boolean',
             description:
               'Determines whether to include the day unit in the countdown. Set to false to hide days and display only hours, minutes, and seconds.',
-
             default: 'true'
           },
           identifier: {
@@ -175,6 +178,11 @@ const CountdownModule = () => {
             type: "'day' | 'hour' | 'min' | 'sec'",
             description:
               'Determines which single time segment to display by converting the total remaining time into that unit. For example, setting it to `hour` will show the total hours left instead of splitting into days, minutes, and seconds.'
+          },
+          countingElement: {
+            type: 'ReactNode',
+            description:
+              "Element to display while the countdown is active. Once the countdown finishes, this element is replaced by the component's children, which represent the finished state."
           },
           sx: {
             type: 'SxProps<Theme>',
@@ -223,8 +231,12 @@ const CountdownModule = () => {
           onOver: {
             type: '() => void',
             description:
-              'Callback function triggered when the countdown reaches zero. Useful for handling post-countdown actions such as showing alerts, refreshing data, or changing UI states.',
-            default: 'false'
+              'Callback function triggered when the countdown reaches zero. Useful for handling post-countdown actions such as showing alerts, refreshing data, or changing UI states.'
+          },
+          children: {
+            type: 'ReactNode',
+            description:
+              'Content to display when the countdown has finished. This element will automatically replace the "countingElement" once the countdown reaches zero, allowing you to define what appears after completion.'
           }
         }
       }}

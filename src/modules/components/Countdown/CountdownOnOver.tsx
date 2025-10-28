@@ -5,14 +5,14 @@ import { Button, Box } from '@mui/material';
 import { Countdown } from '@/@dront/components';
 
 const CountdownOnOver = () => {
-  const [targetDate, setTargetDate] = useState(new Date(Date.now() + 1 * 60 * 1000));
+  const [targetDate, setTargetDate] = useState(new Date(Date.now() + 20_000));
 
   const onOver = () => {
     console.log('Countdown Finish!');
   };
 
   const handleReset = () => {
-    setTargetDate(new Date(Date.now() + 1 * 60 * 1000));
+    setTargetDate(new Date(Date.now() + 20_000));
   };
 
   return (
