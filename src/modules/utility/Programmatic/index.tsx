@@ -29,7 +29,7 @@ const ProgrammaticModule = () => {
           {
             title: 'Installation',
             descriptions:
-              'First, you need to setup `ProgrammaticContaier`at the root of your app (e.g., in _app.tsx or layout.tsx). Ensure to include it in the MUI ThemeProvider section for the theme to work.',
+              'First, you need to setup `ProgrammaticContainer`at the root of your app (e.g., in _app.tsx or layout.tsx). Ensure to include it in the MUI ThemeProvider section for the theme to work.',
             exampleCode: programmaticRootPageRaw
           },
           {
