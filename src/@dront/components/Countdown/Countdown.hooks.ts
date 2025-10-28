@@ -22,6 +22,10 @@ export const useCountdown = (targetDate: Date, onOver?: () => void) => {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(() => calculateTimeLeft());
 
   useEffect(() => {
+    hasCalledOver.current = false;
+  }, [countDownDate]);
+
+  useEffect(() => {
     const interval = setInterval(() => {
       const next = calculateTimeLeft();
 
