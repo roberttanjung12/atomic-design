@@ -1,10 +1,10 @@
 'use client';
 
+import FieldTextValidation from '@dront/ui/FieldTextValidation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Button from '@mui/material/Button';
 import { FormProvider, useForm, type DefaultValues, type SubmitHandler } from 'react-hook-form';
 import * as yup from 'yup';
-import { FieldTextValidation } from '@/@dront/components';
 
 // Define the validation schema using yup
 const validationSchema = yup.object({

@@ -28,4 +28,5 @@ export type TimeMachineTimeRangeMainProps = {
   startTimeProps?: DatePickerPropsWithCallback;
   endTimeProps?: DatePickerPropsWithCallback;
   textFieldProps?: TextFieldProps;
+  formatRenderValue?: (date: DateValue, locale: Locale) => string;
 };

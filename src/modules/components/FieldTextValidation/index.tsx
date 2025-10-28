@@ -1,6 +1,7 @@
 'use client';
 
-import { DocView, FieldTextValidation } from '@/@dront/components';
+import FieldTextValidation from '@dront/ui/FieldTextValidation';
+import { DocView } from '@/@dront/components';
 import BasicExample from './FieldTextValidationBasic';
 import basicExampleCode from './FieldTextValidationBasic?raw';
 import WithProviderExample from './FieldTextValidationWithProvider';

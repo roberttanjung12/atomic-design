@@ -23,5 +23,6 @@ export interface AvatarProps<T extends object = Record<string, unknown>> extends
   spacing?: number | 'small' | 'medium';
   randomColor?: boolean;
   variant?: 'square' | 'rounded' | 'circular';
+  scale?: boolean;
   onClick?: (item?: AvatarItem<T>, index?: number) => void;
 }
