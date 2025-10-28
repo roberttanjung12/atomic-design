@@ -7,6 +7,8 @@ import CountdownBlockDirection from './CountdownBlockDirection';
 import blockDirectionExampleCode from './CountdownBlockDirection?raw';
 import CountdownCompact from './CountdownCompact';
 import compactExampleCode from './CountdownCompact?raw';
+import CountdownIdentifier from './CountdownIdentifier';
+import identifierExampleCode from './CountdownIdentifier?raw';
 import CountdownOnOver from './CountdownOnOver';
 import onOverExampleCode from './CountdownOnOver?raw';
 import CountdownSeparator from './CountdownSeparator';
@@ -92,6 +94,13 @@ const CountdownModule = () => {
           exampleCode: showOnlyExampleCode
         },
         {
+          title: 'Identifier',
+          descriptions:
+            'The `identifier` prop allows you to customize which time segments are displayed and how they are accumulated. You can specify segments using identifiers like `d`, `h`, `m`, and `s`, separated by commas (e.g., `"h,m"` or `"d,h,m"`). The countdown automatically adjusts values based on the selected segments, for example, if `d` is omitted, hours will be shown as the total accumulated value.',
+          example: <CountdownIdentifier />,
+          exampleCode: identifierExampleCode
+        },
+        {
           title: 'Styling',
           descriptions:
             'You can style the countdown easily using multiple sx props. Use `sx` to style the main container, `numberSx` and `labelSx` for global number and label styles, or apply more specific styling with `dayNumberSx`, `dayLabelSx`, `hourNumberSx`, `hourLabelSx`, `minNumberSx`, `minLabelSx`, `secNumberSx`, and `secLabelSx` for full control over each time unit.',
@@ -119,110 +128,102 @@ const CountdownModule = () => {
             type: "'minimal' | 'compact' | 'block'",
             description:
               'Determines the visual style of the countdown display. Use `minimal` for a clean inline look, `compact` for a space-saving format, or `block` for a segmented card-like style.',
-            required: false,
+
             default: 'minimal'
           },
           direction: {
             type: "'vertical' | 'horizontal'",
             description:
               'Defines the layout direction of the countdown. `vertical` stacks the time units, while `horizontal` arranges them side by side.',
-            required: false,
+
             default: 'vertical'
           },
           separator: {
             type: 'string',
             description:
               "Custom separator displayed between time units (e.g., ':', '/', or '·'). Ignored when using the `block` variant.",
-            required: false,
+
             default: ':'
           },
           size: {
             type: "number | 'small' | 'medium' | 'large'",
             description:
               'Controls the font size of the countdown. You can use predefined sizes (`small`, `medium`, `large`) or provide a custom numeric value for fine-grained control.',
-            required: false,
+
             default: 'medium'
           },
           spacing: {
             type: 'number',
             description:
               'Adjusts the spacing between time units. Useful for controlling visual density, especially in compact layouts.',
-            required: false,
+
             default: '0.2'
           },
           showDays: {
             type: 'boolean',
             description:
               'Determines whether to include the day unit in the countdown. Set to false to hide days and display only hours, minutes, and seconds.',
-            required: false,
+
             default: 'true'
+          },
+          identifier: {
+            type: 'string',
+            description:
+              'Specifies which time segments to display in the countdown. Use comma-separated identifiers such as "d,h,m" or "h,m,s" to control which units appear and how they are accumulated.'
           },
           showOnly: {
             type: "'day' | 'hour' | 'min' | 'sec'",
             description:
-              'Determines which single time segment to display by converting the total remaining time into that unit. For example, setting it to `hour` will show the total hours left instead of splitting into days, minutes, and seconds.',
-            required: false
+              'Determines which single time segment to display by converting the total remaining time into that unit. For example, setting it to `hour` will show the total hours left instead of splitting into days, minutes, and seconds.'
           },
           sx: {
             type: 'SxProps<Theme>',
-            description: 'Applies custom styles to the main countdown container.',
-            required: false
+            description: 'Applies custom styles to the main countdown container.'
           },
           numberSx: {
             type: 'SxProps<Theme>',
-            description: 'Applies global styles to all number elements in the countdown.',
-            required: false
+            description: 'Applies global styles to all number elements in the countdown.'
           },
           labelSx: {
             type: 'SxProps<Theme>',
-            description: 'Applies global styles to all label elements in the countdown.',
-            required: false
+            description: 'Applies global styles to all label elements in the countdown.'
           },
           dayNumberSx: {
             type: 'SxProps<Theme>',
-            description: 'Applies styles specifically to the day number element.',
-            required: false
+            description: 'Applies styles specifically to the day number element.'
           },
           dayLabelSx: {
             type: 'SxProps<Theme>',
-            description: 'Applies styles specifically to the day label element.',
-            required: false
+            description: 'Applies styles specifically to the day label element.'
           },
           hourNumberSx: {
             type: 'SxProps<Theme>',
-            description: 'Applies styles specifically to the hour number element.',
-            required: false
+            description: 'Applies styles specifically to the hour number element.'
           },
           hourLabelSx: {
             type: 'SxProps<Theme>',
-            description: 'Applies styles specifically to the hour label element.',
-            required: false
+            description: 'Applies styles specifically to the hour label element.'
           },
           minNumberSx: {
             type: 'SxProps<Theme>',
-            description: 'Applies styles specifically to the minute number element.',
-            required: false
+            description: 'Applies styles specifically to the minute number element.'
           },
           minLabelSx: {
             type: 'SxProps<Theme>',
-            description: 'Applies styles specifically to the minute label element.',
-            required: false
+            description: 'Applies styles specifically to the minute label element.'
           },
           secNumberSx: {
             type: 'SxProps<Theme>',
-            description: 'Applies styles specifically to the second number element.',
-            required: false
+            description: 'Applies styles specifically to the second number element.'
           },
           secLabelSx: {
             type: 'SxProps<Theme>',
-            description: 'Applies styles specifically to the second label element.',
-            required: false
+            description: 'Applies styles specifically to the second label element.'
           },
           onOver: {
             type: '() => void',
             description:
               'Callback function triggered when the countdown reaches zero. Useful for handling post-countdown actions such as showing alerts, refreshing data, or changing UI states.',
-            required: false,
             default: 'false'
           }
         }

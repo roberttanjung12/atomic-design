@@ -24,6 +24,7 @@ export interface CountdownProps extends StylingSx {
   size?: 'small' | 'medium' | 'large' | number;
   spacing?: number;
   showOnly?: 'day' | 'hour' | 'min' | 'sec';
+  identifier?: string;
   onOver?: () => void;
 }
 

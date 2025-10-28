@@ -14,6 +14,7 @@ const Countdown = ({
   size = 'medium',
   spacing = 1,
   showOnly,
+  identifier,
   onOver,
 
   sx,
@@ -30,7 +31,7 @@ const Countdown = ({
 }: CountdownProps) => {
   const { timeLeft } = useCountdown(targetDate, onOver);
 
-  const segments = getSegments(timeLeft, showDays, showOnly);
+  const segments = getSegments(timeLeft, showDays, showOnly, identifier);
 
   const { numberVariant, labelVariant, customFontSize } = getSizeConfig(size);
 
