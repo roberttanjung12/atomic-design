@@ -2,7 +2,7 @@
 
 import { useRef, useState, type ReactNode } from 'react';
 import { Code, CodeOff, ContentCopy, Replay } from '@mui/icons-material';
-import { Card, CardActions, CardContent, Collapse, IconButton, Stack, Tooltip } from '@mui/material';
+import { Box, Card, CardActions, CardContent, Collapse, IconButton, Stack, Tab, Tabs, Tooltip } from '@mui/material';
 import uniqueId from 'lodash/uniqueId';
 import CodeSnippet from '../CodeSnippet';
 
@@ -10,7 +10,7 @@ export interface CodeViewerProps {
   /** ReactNode content to display above the code snippet. */
   children: ReactNode;
   /** The code snippet to display and copy. */
-  code: string;
+  code: string | { label: string; code: string; language?: string }[];
 }
 
 /**
@@ -30,6 +30,12 @@ const CodeViewer = ({ children, code }: CodeViewerProps) => {
   const [copied, setCopied] = useState(false);
   const [key, setKey] = useState(uniqueId());
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [tabValue, setTabValue] = useState(0);
+  const isCodeArray = Array.isArray(code);
+
+  const handleChange = (_: React.SyntheticEvent, newValue: number) => {
+    setTabValue(newValue);
+  };
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -41,7 +47,9 @@ const CodeViewer = ({ children, code }: CodeViewerProps) => {
     }
 
     try {
-      await navigator.clipboard.writeText(code);
+      const content = isCodeArray ? code[tabValue].code : code;
+
+      await navigator.clipboard.writeText(content);
 
       setCopied(true);
 
@@ -70,8 +78,9 @@ const CodeViewer = ({ children, code }: CodeViewerProps) => {
         disableSpacing
         sx={{
           border: ({ palette }) => `1px solid ${palette.divider}`,
-          borderBottomLeftRadius: 7,
-          borderBottomRightRadius: 7,
+          borderBottom: expanded && isCodeArray ? 0 : undefined,
+          borderBottomLeftRadius: expanded && isCodeArray ? 0 : 7,
+          borderBottomRightRadius: expanded && isCodeArray ? 0 : 7,
           justifyContent: 'end',
           gap: 1
         }}
@@ -96,7 +105,29 @@ const CodeViewer = ({ children, code }: CodeViewerProps) => {
       </CardActions>
 
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CodeSnippet language="tsx" code={code} />
+        {isCodeArray ? (
+          <>
+            <Box
+              sx={{
+                border: 1,
+                borderBottomLeftRadius: 7,
+                borderBottomRightRadius: 7,
+                borderColor: 'divider'
+              }}
+            >
+              <Tabs value={tabValue} onChange={handleChange}>
+                {code.map(({ label }) => {
+                  return <Tab key={`label-${label}`} label={label} sx={{ textTransform: 'none' }} />;
+                })}
+              </Tabs>
+            </Box>
+            {code.map(({ label, code, language = 'tsx' }, idx) => {
+              return tabValue === idx && <CodeSnippet key={`code-${label}`} language={language} code={code} />;
+            })}
+          </>
+        ) : (
+          <CodeSnippet language="tsx" code={code} />
+        )}
       </Collapse>
     </Stack>
   );

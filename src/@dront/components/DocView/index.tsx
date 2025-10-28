@@ -1,13 +1,14 @@
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import uniqueId from 'lodash/uniqueId';
-import { CodeViewer, PropsDocTable, Section, TextHighlighter } from '@/@dront/components';
+import { CodeSnippet, CodeViewer, PropsDocTable, Section, TextHighlighter } from '@/@dront/components';
 import ApiDocTable, { type ApiDocTableProps } from '../ApiDocTable';
 import type { CodeViewerProps } from '../CodeViewer';
 import type { PropsDocTableProps } from '../PropsDocTable';
 import type { SectionProps } from '../Section';
 import type { TextHighlighterProps } from '../TextHighlighter';
 import Contributors, { type ContributorsProps } from './Contributors';
+import Dependencies, { type DependenciesProps } from './Dependencies';
 import DescriptionText from './DescriptionText';
 
 type TextHighLightIntern = TextHighlighterProps['text'] | TextHighlighterProps['text'][];
@@ -68,6 +69,11 @@ interface DocViewProps<TComponent = any> {
   apiDoc?: ApiDocTableProps;
 
   /**
+   * A list of dependencies/packages used by the documented component.
+   */
+  dependencies?: DependenciesProps['packages'];
+
+  /**
    * A list of contributors for the documented component.
    */
   contributors: ContributorsProps['persons'];
@@ -78,6 +84,13 @@ function hasExample(
   section: DocViewProps['sections'][number]
 ): section is Required<Pick<typeof section, 'exampleCode' | 'example'>> & typeof section {
   return !!section.exampleCode && !!section.example;
+}
+
+// Type guard to ensure section has both exampleCode and example
+function haveCodeExamplesNotWithExamples(
+  section: DocViewProps['sections'][number]
+): section is Required<Pick<typeof section, 'exampleCode' | 'example'>> & typeof section {
+  return !!section.exampleCode && !section.example;
 }
 
 const renderOverview = (overviewItems: TextHighLightIntern) => {
@@ -140,6 +153,7 @@ const renderDescription = (descrioptionItems: Descriptions) => {
  */
 const DocView = <TComponent extends object>({
   contributors,
+  dependencies,
   overview,
   propsDoc,
   apiDoc,
@@ -151,18 +165,33 @@ const DocView = <TComponent extends object>({
 
       {sections.map(section => {
         const showExample = hasExample(section);
+        const showExampleCode = haveCodeExamplesNotWithExamples(section);
 
         return (
           <Section key={uniqueId()} title={section.title}>
             {renderDescription(section.descriptions)}
 
             {showExample && <CodeViewer code={section.exampleCode}>{section.example}</CodeViewer>}
+
+            {showExampleCode && (
+              <CodeSnippet
+                language="tsx"
+                code={Array.isArray(section.exampleCode) ? section.exampleCode[0].code : section.exampleCode}
+              />
+            )}
           </Section>
         );
       })}
 
       {propsDoc && <PropsDocTable component={propsDoc.component} propDefinitions={propsDoc.propDefinitions} />}
+
       {apiDoc && <ApiDocTable docType={apiDoc.docType} name={apiDoc.name} definitions={apiDoc.definitions} />}
+
+      {dependencies && (
+        <Section title="Dependencies">
+          <Dependencies packages={dependencies} />
+        </Section>
+      )}
 
       <Stack direction="row" spacing={1} alignItems="center">
         <Typography fontWeight={700}>Contributors:</Typography>
