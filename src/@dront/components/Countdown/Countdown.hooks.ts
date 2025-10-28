@@ -1,28 +1,21 @@
+import { useEffect, useState, useCallback, useRef } from 'react';
+import type { TimeLeft } from './Countdown.types';
+
 /**
- * A custom hook that creates a countdown timer based on a target date.
+ * A custom hook that provides countdown functionality to a target date.
  *
  * @param targetDate - The target date to count down to
  * @param onOver - Optional callback function that will be called when the countdown reaches zero
  *
  * @returns An object containing:
- * - timeLeft: Object with remaining time split into days, hours, minutes and seconds
+ * - timeLeft: An object with the remaining time in days, hours, minutes, and seconds
  *
  * @example
  * ```tsx
- * const { timeLeft } = useCountdown(new Date('2024-12-31'), () => {
- *   console.log('Countdown finished!');
- * });
+ * const { timeLeft } = useCountdown(new Date('2024-12-31'));
+ * console.log(timeLeft); // { days: 365, hours: 23, minutes: 59, seconds: 59 }
  * ```
- *
- * @remarks
- * - The countdown updates every second
- * - When the countdown reaches zero, the onOver callback is called only once
- * - The timer automatically cleans up when the component unmounts
  */
-
-import { useEffect, useState, useCallback, useRef } from 'react';
-import type { TimeLeft } from './Countdown.types';
-
 export const useCountdown = (targetDate: Date, onOver?: () => void) => {
   const countDownDate = targetDate.getTime();
   const hasCalledOver = useRef(false);

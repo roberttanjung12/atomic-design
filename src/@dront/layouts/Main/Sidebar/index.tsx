@@ -26,7 +26,7 @@ const SidebarContent = ({
         backgroundSize: 'contain',
 
         '@media (max-width: 1200px)': {
-          height: '100vh',
+          height: '100dvh',
           display: 'flex',
           flexDirection: 'column'
         }

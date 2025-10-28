@@ -1,35 +1,6 @@
-/**
- * Props for the FlipNumber component.
- *
- * @property value - The numeric or string value to display. Numeric values are formatted using the Indonesian locale ('id-ID') before rendering.
- * @property variant - Visual variant forwarded to each FlipDigit; controls the digit's visual style.
- * @property fontWeight - Optional CSS fontWeight applied to each digit. Defaults to 600 when omitted.
- * @property customFontSize - Optional custom font size (in pixels) forwarded to each FlipDigit to override default sizing.
- */
-
-/**
- * FlipNumber component
- *
- * Renders a sequence of FlipDigit components, one for each character of the provided value.
- * If `value` is numeric, it is converted to a localized string via Number(value).toLocaleString('id-ID').
- * Non-numeric values are rendered as-is (split into characters).
- *
- * The component arranges digits horizontally using an inline-flex container and applies a small gap between them.
- * Provided styling and behavior props (variant, fontWeight, customFontSize) are forwarded to each FlipDigit.
- *
- * Note: This is intended as a client-side React component.
- *
- * @param props.value - The value to display (number | string).
- * @param props.variant - Variant prop passed to FlipDigit to control the digit style.
- * @param props.fontWeight - Optional font weight applied to rendered digits; defaults to 600.
- * @param props.customFontSize - Optional custom font size (pixels) forwarded to FlipDigit.
- *
- * @returns A JSX element containing the rendered flip-style digits.
- */
-
 'use client';
 
-import React from 'react';
+import React, { type ReactNode } from 'react';
 import { Box } from '@mui/material';
 import FlipDigit from './FlipDigit';
 
@@ -37,10 +8,30 @@ interface FlipNumberProps {
   value: number | string;
   variant: React.ComponentProps<typeof FlipDigit>['variant'];
   fontWeight?: React.CSSProperties['fontWeight'];
-  customFontSize?: number; // <— tambahan
+  customFontSize?: number;
 }
 
-const FlipNumber = ({ value, variant, fontWeight = 600, customFontSize }: FlipNumberProps) => {
+/**
+ * A component that displays a number with flipping animation effect.
+ * Each digit is rendered separately and can be styled individually.
+ *
+ * @param {FlipNumberProps} props - The component props
+ * @param {string | number} props.value - The numerical value to display
+ * @param {string} props.variant - The variant style to apply to the digits
+ * @param {number} [props.fontWeight=600] - The font weight of the digits (default: 600)
+ * @param {string | number} [props.customFontSize] - Optional custom font size for the digits
+ *
+ * @returns {JSX.Element} A Box component containing individual FlipDigit components
+ *
+ * @example
+ * <FlipNumber
+ *   value={1234}
+ *   variant="primary"
+ *   fontWeight={500}
+ *   customFontSize="2rem"
+ * />
+ */
+const FlipNumber = ({ value, variant, fontWeight = 600, customFontSize }: FlipNumberProps): Readonly<ReactNode> => {
   let displayValue = String(value);
 
   if (!isNaN(Number(value))) {
