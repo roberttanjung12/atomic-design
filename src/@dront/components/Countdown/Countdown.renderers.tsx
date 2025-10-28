@@ -82,7 +82,6 @@ export const renderCountdown = ({
         </Typography>
       );
 
-    /** 🟡 MINIMAL */
     case 'minimal':
       return (
         <Typography
