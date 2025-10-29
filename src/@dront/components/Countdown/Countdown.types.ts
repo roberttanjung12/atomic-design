@@ -2,8 +2,13 @@
  * Style customization interface for countdown component
  */
 import type { ReactNode } from 'react';
-import type { SxProps, Theme, TypographyVariant } from '@mui/material';
+import type { SxProps, Theme, TooltipProps, TypographyVariant } from '@mui/material';
 
+/**
+ * Provides style customization options for each countdown segment.
+ * Each property allows passing MUI `SxProps<Theme>` to style specific parts
+ * such as numbers, labels, and the root container.
+ */
 interface StylingSx {
   /** Custom styles for day number typography */
   dayNumberSx?: SxProps<Theme>;
@@ -30,12 +35,16 @@ interface StylingSx {
 }
 
 /**
- * Props for the Countdown component
+ * Props for the Countdown component.
+ *
+ * Controls the behavior, layout, and style of the countdown timer.
+ * Includes customization options for appearance, layout direction,
+ * tooltip behavior, and rendering control through children or callbacks.
  */
 export interface CountdownProps extends StylingSx {
   /** Target date for countdown */
   targetDate: Date;
-  /** Custom separator between time units */
+  /** Custom separator between time units (e.g., ":" or "•") */
   separator?: string;
   /** Display variant of the countdown */
   variant?: 'block' | 'compact' | 'minimal';
@@ -45,22 +54,33 @@ export interface CountdownProps extends StylingSx {
   size?: 'small' | 'medium' | 'large' | number;
   /** Spacing between countdown elements */
   spacing?: number;
-  /** Show only specific time unit */
+  /** Show only a specific time unit (day, hour, minute, or second) */
   showOnly?: 'day' | 'hour' | 'min' | 'sec';
-  /** Unique identifier for the countdown */
+  /** Unique identifier for the countdown instance */
   identifier?: string;
-  /** Custom element to show during countdown */
+  /** Custom element to render while countdown is active */
   countingElement?: ReactNode;
-  /** Show remaining time in tooltip */
+  /**
+   * Enables tooltip display on hover, showing the finish time or completion status.
+   * @default false
+   */
   useTooltip?: boolean;
-  /** Callback function when countdown reaches zero */
+  /**
+   * Sets the tooltip placement relative to the countdown element.
+   * Uses MUI Tooltip’s placement options such as `'top'`, `'bottom-start'`, etc.
+   * @default 'top'
+   */
+  tooltipPlacement?: TooltipProps['placement'];
+  /** Callback function triggered when countdown reaches zero */
   onOver?: () => void;
-  /** Child elements */
+  /** Child elements rendered when countdown has finished */
   children?: ReactNode;
 }
 
 /**
- * Props for the CountdownRenderer component
+ * Props for the internal CountdownRenderer component.
+ *
+ * Used by the main countdown to render time segments, typography, and layout.
  */
 export interface CountdownRendererProps extends StylingSx {
   /** Display variant of the countdown */
@@ -77,12 +97,12 @@ export interface CountdownRendererProps extends StylingSx {
   separator: string;
   /** Spacing between countdown elements */
   spacing: number;
-  /** Optional custom font size */
+  /** Optional custom font size for number text */
   customFontSize?: number;
 }
 
 /**
- * Interface representing remaining time units
+ * Represents the remaining time units calculated for the countdown.
  */
 export interface TimeLeft {
   /** Days remaining */

@@ -25,6 +25,8 @@ import CountdownStyling from './CountdownStyling';
 import stylingExampleCode from './CountdownStyling?raw';
 import CountdownTooltip from './CountdownTooltip';
 import tooltipExampleCode from './CountdownTooltip?raw';
+import CountdownTooltipPlacement from './CountdownTooltipPlacement';
+import tooltipPlacementExampleCode from './CountdownTooltipPlacement?raw';
 
 const CountdownModule = () => {
   return (
@@ -102,6 +104,13 @@ const CountdownModule = () => {
           exampleCode: tooltipExampleCode
         },
         {
+          title: 'Tooltip Placement',
+          descriptions:
+            'Defines the position of the tooltip relative to the countdown elements when `useTooltip` is enabled.',
+          example: <CountdownTooltipPlacement />,
+          exampleCode: tooltipPlacementExampleCode
+        },
+        {
           title: 'Styling',
           descriptions:
             'You can style the countdown easily using multiple sx props. Use `sx` to style the main container, `numberSx` and `labelSx` for global number and label styles, or apply more specific styling with `dayNumberSx`, `dayLabelSx`, `hourNumberSx`, `hourLabelSx`, `minNumberSx`, `minLabelSx`, `secNumberSx`, and `secLabelSx` for full control over each time unit.',
@@ -171,6 +180,12 @@ const CountdownModule = () => {
             type: 'boolean',
             description:
               'If true, shows a tooltip on hover displaying the countdown finish date and time. Default to false.'
+          },
+          tooltipPlacement: {
+            type: 'TooltipProps["placement"]',
+            description:
+              'Determines where the tooltip will appear in relation to the countdown. Accepts any valid MUI Tooltip placement such as `top`, `bottom`, `left`, `right`, and their combinations (e.g., `top-start`).',
+            default: 'bottom'
           },
           showOnly: {
             type: "'day' | 'hour' | 'min' | 'sec'",

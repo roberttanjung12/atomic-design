@@ -43,6 +43,7 @@ const Countdown = ({
   showOnly,
   identifier,
   useTooltip = false,
+  tooltipPlacement,
   countingElement,
   onOver,
 
@@ -108,7 +109,7 @@ const Countdown = ({
   );
 
   return useTooltip ? (
-    <Tooltip title={tooltipText} arrow>
+    <Tooltip title={tooltipText} arrow placement={tooltipPlacement}>
       {renderTime}
     </Tooltip>
   ) : (
