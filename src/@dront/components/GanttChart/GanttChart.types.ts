@@ -1,60 +1,77 @@
 /**
- * Represents the type of a task in the Gantt chart.
- *
- * @remarks
- * - `Task`: A standard task with a start and end date.
- * - `Milestone`: A significant event or marker, typically with no duration.
- * - `Group`: A collection of tasks grouped together.
+ * Enum representing available task types in the Gantt chart.
  */
 export const enum TaskType {
+  /** Standard task representing an actionable item. */
   Task = 'task',
+
+  /** A milestone marker representing a significant event or deadline. */
   Milestone = 'milestone',
+
+  /** A group that contains multiple child tasks. */
   Group = 'group'
 }
 
 /**
- * Represents a single task in the Gantt chart.
- *
- * @property id - Unique identifier for the task.
- * @property name - Display name of the task.
- * @property start - Start date/time of the task, as a string or Date object.
- * @property end - End date/time of the task, as a string or Date object.
- * @property type - The type/category of the task.
- * @property color - Optional colors for the task bar and progress indicator.
- * @property progress - Optional progress value (0-100) indicating completion percentage.
- * @property dependencies - Optional list of task IDs that this task depends on.
- * @property children - Optional list of child tasks (for hierarchical structures).
- * @property collapsed - Optional flag indicating if child tasks are collapsed in the UI.
+ * Represents a single task or milestone in the Gantt chart.
  */
 export interface Task {
+  /** Unique identifier for the task. */
   id: string;
+
+  /** Display name or title of the task. */
   name: string;
+
+  /** Task start date (string or Date format). */
   start: string | Date;
+
+  /** Task end date (string or Date format). */
   end: string | Date;
+
+  /** Type of task, indicating whether it's a task, milestone, or group. */
   type: TaskType;
+
+  /** Color configuration for task bar and progress visualization. */
   color?: {
+    /** Color for the task bar. */
     bar: string;
+    /** Color for the task progress indicator. */
     progress: string;
   };
+
+  /** Progress percentage of the task (0–100). */
   progress?: number;
+
+  /** List of task IDs that this task depends on. */
   dependencies?: string[];
+
+  /** Nested child tasks (used when this task is a group). */
   children?: Task[];
+
+  /** Whether the group task is collapsed (hides its children). */
   collapsed?: boolean;
 }
 
 /**
- * Props for the GanttChart component.
- *
- * @property data - An array of Task objects to be displayed in the Gantt chart.
- * @property title - Optional title for the Gantt chart.
- * @property height - Optional height of the chart, specified as a string (e.g., '400px') or number.
- * @property width - Optional width of the chart, specified as a string (e.g., '100%') or number.
- * @property onItemClick - Optional callback function invoked when a task item is clicked.
+ * Props definition for the GanttChart component.
  */
 export interface GanttChartProps {
+  /** Array of task objects to be rendered in the Gantt chart. */
   data: Task[];
+
+  /** Optional chart title displayed above the Gantt chart. */
   title?: string;
+
+  /** Height of the chart container (can be string or number). */
   height?: string | number;
+
+  /** Width of the chart container (can be string or number). */
   width?: string | number;
+
+  /**
+   * Callback triggered when a task item is clicked.
+   *
+   * @param task - The task object that was clicked.
+   */
   onItemClick?: (task: Task) => void;
 }
