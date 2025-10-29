@@ -91,7 +91,7 @@ const TimelineTree = ({ data, position = 'right', dot, connectorVariant = 'solid
 
             <TimelineContent sx={{ opacity: isDisabled ? 0.5 : 1 }}>
               <Stack direction="column">
-                <Typography>{tl.title}</Typography>
+                <Typography component="span">{tl.title}</Typography>
 
                 {tl.content && tl.content}
               </Stack>
