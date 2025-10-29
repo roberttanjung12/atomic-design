@@ -74,6 +74,7 @@ export const renderCountdown = ({
     case 'compact':
       return (
         <Typography
+          component="span"
           variant={numberVariant}
           fontWeight={600}
           sx={mergeSx(

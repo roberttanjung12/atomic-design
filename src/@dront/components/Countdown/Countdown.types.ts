@@ -51,6 +51,8 @@ export interface CountdownProps extends StylingSx {
   identifier?: string;
   /** Custom element to show during countdown */
   countingElement?: ReactNode;
+  /** Show remaining time in tooltip */
+  useTooltip?: boolean;
   /** Callback function when countdown reaches zero */
   onOver?: () => void;
   /** Child elements */

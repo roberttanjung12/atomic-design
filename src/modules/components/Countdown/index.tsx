@@ -23,6 +23,8 @@ import CountdownSpacing from './CountdownSpacing';
 import spacingExampleCode from './CountdownSpacing?raw';
 import CountdownStyling from './CountdownStyling';
 import stylingExampleCode from './CountdownStyling?raw';
+import CountdownTooltip from './CountdownTooltip';
+import tooltipExampleCode from './CountdownTooltip?raw';
 
 const CountdownModule = () => {
   return (
@@ -94,6 +96,12 @@ const CountdownModule = () => {
           exampleCode: identifierExampleCode
         },
         {
+          title: 'Show Tooltip',
+          descriptions: 'Displays a tooltip when hovering over the countdown, showing the target finish date and time.',
+          example: <CountdownTooltip />,
+          exampleCode: tooltipExampleCode
+        },
+        {
           title: 'Styling',
           descriptions:
             'You can style the countdown easily using multiple sx props. Use `sx` to style the main container, `numberSx` and `labelSx` for global number and label styles, or apply more specific styling with `dayNumberSx`, `dayLabelSx`, `hourNumberSx`, `hourLabelSx`, `minNumberSx`, `minLabelSx`, `secNumberSx`, and `secLabelSx` for full control over each time unit.',
@@ -158,6 +166,11 @@ const CountdownModule = () => {
             type: 'string',
             description:
               'Specifies which time segments to display in the countdown. Use comma-separated identifiers such as "d,h,m" or "h,m,s" to control which units appear and how they are accumulated.'
+          },
+          useTooltip: {
+            type: 'boolean',
+            description:
+              'If true, shows a tooltip on hover displaying the countdown finish date and time. Default to false.'
           },
           showOnly: {
             type: "'day' | 'hour' | 'min' | 'sec'",

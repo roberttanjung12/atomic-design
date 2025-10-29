@@ -13,9 +13,9 @@ const CountdownShowOnly = () => {
       <Countdown targetDate={targetDate} />
 
       <Countdown targetDate={targetDate} variant="block" direction="horizontal" showOnly="day" />
-      <Countdown targetDate={targetDate} variant="compact" showOnly="hour" />
-      <Countdown targetDate={targetDate} variant="compact" showOnly="min" />
-      <Countdown targetDate={targetDate} variant="minimal" showOnly="sec" />
+      <Countdown targetDate={targetDate} showOnly="hour" />
+      <Countdown targetDate={targetDate} showOnly="min" />
+      <Countdown targetDate={targetDate} showOnly="sec" />
     </Box>
   );
 };

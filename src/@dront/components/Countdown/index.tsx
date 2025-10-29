@@ -1,6 +1,7 @@
 'use client';
 
 import type { ReactNode } from 'react';
+import { Tooltip } from '@mui/material';
 import { useCountdown } from './Countdown.hooks';
 import { renderCountdown } from './Countdown.renderers';
 import type { CountdownProps } from './Countdown.types';
@@ -35,12 +36,13 @@ import { getSizeConfig, getSegments } from './Countdown.utils';
 const Countdown = ({
   targetDate,
   separator = ':',
-  variant = 'minimal',
+  variant: variantProp = 'minimal',
   direction = 'vertical',
   size = 'medium',
   spacing = 1,
   showOnly,
   identifier,
+  useTooltip = false,
   countingElement,
   onOver,
 
@@ -66,6 +68,8 @@ const Countdown = ({
 
   const { numberVariant, labelVariant, customFontSize } = getSizeConfig(size);
 
+  const variant = variantProp === 'minimal' && showOnly ? 'compact' : variantProp;
+
   if (finished && children) {
     return children;
   }
@@ -74,28 +78,42 @@ const Countdown = ({
     return countingElement;
   }
 
-  return renderCountdown({
-    variant,
-    direction,
-    segments,
-    numberVariant,
-    labelVariant,
-    separator,
-    spacing,
-    customFontSize,
+  const tooltipText = finished ? 'Countdown finished' : `Finish at ${targetDate.toLocaleString('id-ID')}`;
 
-    sx,
-    numberSx,
-    labelSx,
-    dayNumberSx,
-    dayLabelSx,
-    hourNumberSx,
-    hourLabelSx,
-    minNumberSx,
-    minLabelSx,
-    secNumberSx,
-    secLabelSx
-  });
+  const renderTime = (
+    <span style={{ display: 'inline-flex', alignItems: 'center', width: 'fit-content' }}>
+      {renderCountdown({
+        variant,
+        direction,
+        segments,
+        numberVariant,
+        labelVariant,
+        separator,
+        spacing,
+        customFontSize,
+
+        sx,
+        numberSx,
+        labelSx,
+        dayNumberSx,
+        dayLabelSx,
+        hourNumberSx,
+        hourLabelSx,
+        minNumberSx,
+        minLabelSx,
+        secNumberSx,
+        secLabelSx
+      })}
+    </span>
+  );
+
+  return useTooltip ? (
+    <Tooltip title={tooltipText} arrow>
+      {renderTime}
+    </Tooltip>
+  ) : (
+    renderTime
+  );
 };
 
 export default Countdown;
