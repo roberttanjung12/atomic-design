@@ -1,3 +1,8 @@
+import type { EChartsOption, SeriesOption } from 'echarts';
+import { renderTaskItem, renderDependencyItem } from './GanttChart.renderers';
+import type { Task } from './GanttChart.types';
+import { renderTooltip } from './GanttChart.utils';
+
 /**
  * Builds the ECharts option object for rendering a Gantt chart.
  *
@@ -8,12 +13,6 @@
  * @param fontFamily - Font family to use for chart text.
  * @returns EChartsOption object configured for a Gantt chart with tasks and dependencies.
  */
-
-import type { EChartsOption, SeriesOption } from 'echarts';
-import { renderTaskItem, renderDependencyItem } from './GanttChart.renderers';
-import type { Task } from './GanttChart.types';
-import { renderTooltip } from './GanttChart.utils';
-
 export const buildGanttChartOptions = (
   data: Task[],
   title: string | undefined,

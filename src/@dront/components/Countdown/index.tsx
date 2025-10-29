@@ -37,7 +37,6 @@ const Countdown = ({
   separator = ':',
   variant = 'minimal',
   direction = 'vertical',
-  showDays = true,
   size = 'medium',
   spacing = 1,
   showOnly,
@@ -63,7 +62,7 @@ const Countdown = ({
 
   const finished = timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0;
 
-  const segments = getSegments(timeLeft, showDays, showOnly, identifier);
+  const segments = getSegments(timeLeft, showOnly, identifier);
 
   const { numberVariant, labelVariant, customFontSize } = getSizeConfig(size);
 

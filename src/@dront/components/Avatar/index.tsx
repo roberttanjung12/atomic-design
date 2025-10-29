@@ -1,3 +1,10 @@
+'use client';
+
+import type { ReactNode } from 'react';
+import { AvatarGroup, ButtonBase, Avatar as MuiAvatar } from '@mui/material';
+import { getAvatarSize, getAvatarSx, getInitials } from './Avatar.helper';
+import type { AvatarProps, AvatarItem } from './Avatar.types';
+
 /**
  * A customizable Avatar component that can display images, icons, or text initials.
  * Supports single avatar or group of avatars with various styling options.
@@ -34,14 +41,6 @@
  *   size="medium"
  * />
  */
-
-'use client';
-
-import type { ReactNode } from 'react';
-import { AvatarGroup, ButtonBase, Avatar as MuiAvatar } from '@mui/material';
-import { getAvatarSize, getAvatarSx, getInitials } from './Avatar.helper';
-import type { AvatarProps, AvatarItem } from './Avatar.types';
-
 const Avatar = <T extends object = Record<string, unknown>>({
   src,
   alt,
@@ -55,7 +54,7 @@ const Avatar = <T extends object = Record<string, unknown>>({
   scale = false,
   onClick,
   ...props
-}: AvatarProps<T>) => {
+}: AvatarProps<T>): Readonly<ReactNode> => {
   const renderMuiAvatar = (item: string | AvatarItem<T> | ReactNode | null | undefined, key?: number) => {
     if (item == null) return null;
 

@@ -1,3 +1,23 @@
+'use client';
+
+import {
+  Timeline as MuiTimeline,
+  TimelineConnector,
+  TimelineContent,
+  TimelineDot,
+  TimelineItem,
+  TimelineOppositeContent,
+  TimelineSeparator
+} from '@mui/lab';
+import { Stack, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { getStyleDivider } from './Timeline.helper';
+import type { TimelineProps } from './Timeline.types';
+
+const DashedConnector = styled(TimelineConnector)(({ theme }) => ({
+  ...getStyleDivider(theme.palette.divider)
+}));
+
 /**
  * TimelineTree
  *
@@ -43,27 +63,6 @@
  *   ]}
  * />
  */
-
-'use client';
-
-import {
-  Timeline as MuiTimeline,
-  TimelineConnector,
-  TimelineContent,
-  TimelineDot,
-  TimelineItem,
-  TimelineOppositeContent,
-  TimelineSeparator
-} from '@mui/lab';
-import { Stack, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { getStyleDivider } from './Timeline.helper';
-import type { TimelineProps } from './Timeline.types';
-
-const DashedConnector = styled(TimelineConnector)(({ theme }) => ({
-  ...getStyleDivider(theme.palette.divider)
-}));
-
 const TimelineTree = ({ data, position = 'right', dot, connectorVariant = 'solid' }: TimelineProps) => {
   return (
     <MuiTimeline position={position}>

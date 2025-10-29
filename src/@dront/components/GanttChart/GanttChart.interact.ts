@@ -1,3 +1,5 @@
+import type { Task } from './GanttChart.types';
+
 /**
  * Recursively flattens a hierarchical list of tasks into a single array.
  * Only includes children of tasks that are not collapsed.
@@ -5,9 +7,6 @@
  * @param tasks - The array of tasks to flatten.
  * @returns A flat array of tasks, including all expanded children.
  */
-
-import type { Task } from './GanttChart.types';
-
 export const flattenTasks = (tasks: Task[]): Task[] => {
   const result: Task[] = [];
 

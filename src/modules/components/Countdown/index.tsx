@@ -15,8 +15,6 @@ import CountdownRender from './CountdownRender';
 import renderExampleCode from './CountdownRender?raw';
 import CountdownSeparator from './CountdownSeparator';
 import separatorExampleCode from './CountdownSeparator?raw';
-import CountdownShowDay from './CountdownShowDay';
-import showDayExampleCode from './CountdownShowDay?raw';
 import CountdownShowOnly from './CountdownShowOnly';
 import showOnlyExampleCode from './CountdownShowOnly?raw';
 import CountdownSize from './CountdownSize';
@@ -80,13 +78,6 @@ const CountdownModule = () => {
             'Controls the spacing between each time segment. This is useful when integrating the countdown into different layouts or when aligning it with other visual elements.',
           example: <CountdownSpacing />,
           exampleCode: spacingExampleCode
-        },
-        {
-          title: 'Hide Days',
-          descriptions:
-            'Toggles the visibility of the day segment using the `showDays` prop. When disabled, the countdown merges the total days into the hour count, providing a cleaner look for short-duration timers.',
-          example: <CountdownShowDay />,
-          exampleCode: showDayExampleCode
         },
         {
           title: 'Show by Segment',
@@ -162,12 +153,6 @@ const CountdownModule = () => {
             description:
               'Adjusts the spacing between time units. Useful for controlling visual density, especially in compact layouts.',
             default: '0.2'
-          },
-          showDays: {
-            type: 'boolean',
-            description:
-              'Determines whether to include the day unit in the countdown. Set to false to hide days and display only hours, minutes, and seconds.',
-            default: 'true'
           },
           identifier: {
             type: 'string',

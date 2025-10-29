@@ -1,3 +1,19 @@
+'use client';
+
+import React, { useMemo, useState, useCallback } from 'react';
+import ReactEcharts from 'echarts-for-react';
+import { flattenTasks, toggleExpand } from './GanttChart.interact';
+import { buildGanttChartOptions } from './GanttChart.options';
+import type { GanttChartProps, Task } from './GanttChart.types';
+import { computeRange } from './GanttChart.utils';
+
+const GANTT_CHART_COLORS = {
+  axis: '#999',
+  text: '#333',
+  divider: '#eee',
+  title: '#222'
+};
+
 /**
  * GanttChart
  *
@@ -49,34 +65,6 @@
  *   height={480}
  *   onItemClick={(task) => console.log('clicked', task)}
  * />
- */
-
-'use client';
-
-import React, { useMemo, useState, useCallback } from 'react';
-import ReactEcharts from 'echarts-for-react';
-import { flattenTasks, toggleExpand } from './GanttChart.interact';
-import { buildGanttChartOptions } from './GanttChart.options';
-import type { GanttChartProps, Task } from './GanttChart.types';
-import { computeRange } from './GanttChart.utils';
-
-const GANTT_CHART_COLORS = {
-  axis: '#999',
-  text: '#333',
-  divider: '#eee',
-  title: '#222'
-};
-
-/**
- * GanttChart component renders an interactive Gantt chart using the provided task data.
- *
- * @param data - The initial array of tasks to display in the Gantt chart.
- * @param title - The title of the Gantt chart.
- * @param height - The height of the chart container (default: 400).
- * @param width - The width of the chart container (default: '100%').
- * @param onItemClick - Optional callback invoked when a leaf task is clicked.
- *
- * The component supports expanding/collapsing parent tasks and handles click events on both axis labels and chart series.
  */
 const GanttChart = ({ data: initialData, title, height = 400, width = '100%', onItemClick }: GanttChartProps) => {
   const [data, setData] = useState<Task[]>(() =>

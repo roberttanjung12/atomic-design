@@ -41,8 +41,6 @@ export interface CountdownProps extends StylingSx {
   variant?: 'block' | 'compact' | 'minimal';
   /** Layout direction of the countdown */
   direction?: 'vertical' | 'horizontal';
-  /** Whether to show days in countdown */
-  showDays?: boolean;
   /** Size preset or custom number for countdown */
   size?: 'small' | 'medium' | 'large' | number;
   /** Spacing between countdown elements */

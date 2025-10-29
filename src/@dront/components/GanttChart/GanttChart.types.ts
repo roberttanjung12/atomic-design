@@ -6,7 +6,6 @@
  * - `Milestone`: A significant event or marker, typically with no duration.
  * - `Group`: A collection of tasks grouped together.
  */
-
 export const enum TaskType {
   Task = 'task',
   Milestone = 'milestone',

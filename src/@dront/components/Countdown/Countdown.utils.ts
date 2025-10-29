@@ -66,12 +66,7 @@ export const getSizeConfig = (
  * // Returns custom segments using identifier
  * getSegments({days: 1, hours: 2, minutes: 30, seconds: 45}, true, undefined, 'd,h')
  */
-export const getSegments = (
-  timeLeft: TimeLeft,
-  showDays: boolean,
-  showOnly?: 'day' | 'hour' | 'min' | 'sec',
-  identifier?: string
-) => {
+export const getSegments = (timeLeft: TimeLeft, showOnly?: 'day' | 'hour' | 'min' | 'sec', identifier?: string) => {
   const segments = [];
 
   const totalSeconds = timeLeft.days * 86400 + timeLeft.hours * 3600 + timeLeft.minutes * 60 + timeLeft.seconds;
@@ -147,9 +142,8 @@ export const getSegments = (
     }
   }
 
-  if (showDays) segments.push({ label: 'Days', value: timeLeft.days });
-
   segments.push(
+    { label: 'Days', value: timeLeft.days },
     { label: 'Hours', value: timeLeft.hours },
     { label: 'Minutes', value: timeLeft.minutes },
     { label: 'Seconds', value: timeLeft.seconds }
