@@ -12,27 +12,33 @@ interface TheDialogProps extends ProgrammaticComponentProps {
   onCancel?: () => void;
 }
 
-const TheDialog = ({ open, title, description, onAgree, onDisagree, onCancel, onClose }: TheDialogProps) => {
+const TheDialog = ({ open, title, description, onAgree, onDisagree, onCancel, close }: TheDialogProps) => {
   const [loading, setLoading] = useState(false);
 
-  const handleOnAgree = async () => {
+  const handleClose = (callback: () => void | Promise<void>) => async () => {
+    if (loading) {
+      return;
+    }
+
+    await callback();
+    close();
+  };
+
+  const handleOnAgree = handleClose(async () => {
     setLoading(true);
 
     await onAgree?.();
 
-    onClose?.();
     setLoading(false);
-  };
+  });
 
-  const handleOnDisagree = () => {
+  const handleOnDisagree = handleClose(() => {
     onDisagree?.();
-    onClose?.();
-  };
+  });
 
-  const handleOnCancel = () => {
+  const handleOnCancel = handleClose(() => {
     onCancel?.();
-    onClose?.();
-  };
+  });
 
   return (
     <Dialog
