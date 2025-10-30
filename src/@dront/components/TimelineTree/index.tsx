@@ -1,5 +1,6 @@
 'use client';
 
+import type { ReactNode } from 'react';
 import {
   Timeline as MuiTimeline,
   TimelineConnector,
@@ -36,21 +37,7 @@ const DashedConnector = styled(TimelineConnector)(({ theme }) => ({
  * - The component composes MUI components: Timeline, TimelineItem, TimelineOppositeContent, TimelineSeparator,
  *   TimelineDot, TimelineConnector (or styled dashed connector), TimelineContent, Stack, Typography.
  *
- * @param props - Component props
- * @param props.data - Array of timeline entries. Each entry should at minimum supply a `title`. Common entry fields:
- *   - title: React.ReactNode | string — primary label shown in the content region.
- *   - content?: React.ReactNode — optional additional content rendered beneath the title.
- *   - opposite?: React.ReactNode — optional content rendered in the opposite column (when position is not 'alternate').
- *   - disabled?: boolean — when true, the item is visually muted (reduced opacity and subdued border/color).
- *   - color?: string — optional color applied to the TimelineDot for this item (falls back to `dot.color`).
- *   - dotIcon?: React.ReactNode — optional icon rendered inside the TimelineDot.
- * @param props.position - Timeline position for items (default: 'right'). Passed to MUI Timeline and TimelineItem.
- * @param props.dot - Controls default dot appearance for items:
- *   - color?: string — default color used when an item does not supply its own `color`.
- *   - outlined?: boolean — when true, dots use an outlined variant; otherwise filled (default behavior).
- * @param props.connectorVariant - Determines connector style between items. Accepts 'solid' (default) or 'dashed'.
- *
- * @returns JSX.Element — Rendered Timeline component composed of provided data.
+ * @returns {React.JSX} — Rendered Timeline component composed of provided data.
  *
  * @example
  * <TimelineTree
@@ -63,7 +50,12 @@ const DashedConnector = styled(TimelineConnector)(({ theme }) => ({
  *   ]}
  * />
  */
-const TimelineTree = ({ data, position = 'right', dot, connectorVariant = 'solid' }: TimelineProps) => {
+const TimelineTree = ({
+  data,
+  position = 'right',
+  dot,
+  connectorVariant = 'solid'
+}: TimelineProps): Readonly<ReactNode> => {
   return (
     <MuiTimeline position={position}>
       {data.map((tl, key) => {

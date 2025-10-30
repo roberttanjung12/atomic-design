@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useMemo, useState, useCallback, type ReactNode } from 'react';
 import ReactEcharts from 'echarts-for-react';
 import { flattenTasks, toggleExpand } from './GanttChart.interact';
 import { buildGanttChartOptions } from './GanttChart.options';
@@ -24,18 +24,6 @@ const GANTT_CHART_COLORS = {
  * the visible time range from the flattened task list and builds echarts options
  * accordingly.
  *
- * Props:
- * @param data - Array of Task items (see Task type). Each task may contain:
- *   - id: unique identifier
- *   - name: display name shown on the y-axis and series items
- *   - start / end: date/time values used to place the bar on the timeline
- *   - children?: Task[] for nested tasks
- *   - collapsed?: boolean indicating initial collapsed state (if omitted, tasks default to collapsed)
- *
- * @param title - Optional title string rendered in the chart options.
- * @param height - Optional container height in pixels (default: 400).
- * @param width - Optional container width (default: '100%').
- * @param onItemClick - Optional callback invoked when a leaf (non-group) task is clicked.
  *   Receives the clicked Task as its single argument.
  *
  * Behavior and implementation notes:
@@ -55,7 +43,7 @@ const GANTT_CHART_COLORS = {
  *   force re-rendering when the number of visible rows changes.
  *
  * Returns:
- * @returns JSX.Element - a div wrapper containing the configured ReactEcharts instance.
+ * @returns {React.JSX} - a div wrapper containing the configured ReactEcharts instance.
  *
  * Example:
  * @example
@@ -66,7 +54,13 @@ const GANTT_CHART_COLORS = {
  *   onItemClick={(task) => console.log('clicked', task)}
  * />
  */
-const GanttChart = ({ data: initialData, title, height = 400, width = '100%', onItemClick }: GanttChartProps) => {
+const GanttChart = ({
+  data: initialData,
+  title,
+  height = 400,
+  width = '100%',
+  onItemClick
+}: GanttChartProps): Readonly<ReactNode> => {
   const [data, setData] = useState<Task[]>(() =>
     initialData.map(task => ({
       ...task,
