@@ -16,6 +16,8 @@ import './Skeleton.css';
  * <Skeleton variant="circular" width={50} height={50} />
  * <Skeleton variant="text" width="100%" lines={3} />
  * ```
+ *
+ * @returns {React.JSX} A single avatar or group of avatars
  */
 const Skeleton = ({
   variant = 'rounded',
