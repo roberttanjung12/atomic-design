@@ -58,7 +58,7 @@ const CountdownModule = () => {
         {
           title: 'Block (Direction)',
           descriptions:
-            'Demonstrates the flexibility of the block variant when changing direction between vertical and horizontal layouts. The `direction` prop allows you to align the countdown either in a column or row, depending on your layout needs.',
+            'Demonstrates the flexibility of the block variant when changing direction between vertical and horizontal layouts. The `direction` prop allows you to align the countdown either in a column or row, depending on your layout needs. Note that the `direction` prop is only applicable when the `variant` is set to "compact".',
           example: <CountdownBlockDirection />,
           exampleCode: blockDirectionExampleCode
         },

@@ -24,7 +24,7 @@ import { getSizeConfig, getSegments } from './Countdown.utils';
  * - Styling props suffixed with `Sx` are passed through to the corresponding element renderers to allow custom styles.
  * - The returned node is treated as readonly (immutable) to encourage safe rendering patterns.
  *
- * @returns Readonly<ReactNode> - The rendered node. This may be:
+ * @returns {React.JSX} Readonly<ReactNode> - The rendered node. This may be:
  *  - `children` if the countdown has finished and `children` exists,
  *  - `countingElement` if the countdown is running and `countingElement` is provided,
  *  - otherwise the default countdown UI produced by renderCountdown.
