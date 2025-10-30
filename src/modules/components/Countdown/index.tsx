@@ -99,14 +99,15 @@ const CountdownModule = () => {
         },
         {
           title: 'Show Tooltip',
-          descriptions: 'Displays a tooltip when hovering over the countdown, showing the target finish date and time.',
+          descriptions:
+            'Enables a tooltip that appears when hovering over the countdown. The tooltip displays the target finish date and time. You can enable it with `tooltip={true}` or configure it using an object, e.g., `tooltip={{ placement: "top" }}`.',
           example: <CountdownTooltip />,
           exampleCode: tooltipExampleCode
         },
         {
           title: 'Tooltip Placement',
           descriptions:
-            'Defines the position of the tooltip relative to the countdown elements when `useTooltip` is enabled.',
+            'Controls the position of the tooltip relative to the countdown elements when the `tooltip` prop is active. Placement can be customized by passing an object, e.g., `tooltip={{ placement: "bottom" }}}`.',
           example: <CountdownTooltipPlacement />,
           exampleCode: tooltipPlacementExampleCode
         },
@@ -176,17 +177,12 @@ const CountdownModule = () => {
             description:
               'Specifies which time segments to display in the countdown. Use comma-separated identifiers such as "d,h,m" or "h,m,s" to control which units appear and how they are accumulated.'
           },
-          useTooltip: {
-            type: 'boolean',
+          tooltip: {
+            type: 'boolean | { placement?: Placement }',
             description:
-              'If true, shows a tooltip on hover displaying the countdown finish date and time. Default to false.'
+              'Enables a tooltip that shows the countdown finish date and time on hover. Can be set to `true` for default behavior or an object to customize placement. Defaults to false.'
           },
-          tooltipPlacement: {
-            type: 'TooltipProps["placement"]',
-            description:
-              'Determines where the tooltip will appear in relation to the countdown. Accepts any valid MUI Tooltip placement such as `top`, `bottom`, `left`, `right`, and their combinations (e.g., `top-start`).',
-            default: 'bottom'
-          },
+
           showOnly: {
             type: "'day' | 'hour' | 'min' | 'sec'",
             description:

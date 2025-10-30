@@ -38,8 +38,6 @@ interface StylingSx {
  * Props for the Countdown component.
  *
  * Controls the behavior, layout, and style of the countdown timer.
- * Includes customization options for appearance, layout direction,
- * tooltip behavior, and rendering control through children or callbacks.
  */
 export interface CountdownProps extends StylingSx {
   /** Target date for countdown */
@@ -61,16 +59,16 @@ export interface CountdownProps extends StylingSx {
   /** Custom element to render while countdown is active */
   countingElement?: ReactNode;
   /**
-   * Enables tooltip display on hover, showing the finish time or completion status.
-   * @default false
+   * Tooltip configuration.
+   * - Pass `true` or `false` to enable or disable tooltip quickly.
+   * - Pass an object to customize placement.
+   *
+   * @example
+   * <Countdown targetDate={date} variant="compact" tooltip />
+   * <Countdown targetDate={date} variant="compact" tooltip={false} />
+   * <Countdown targetDate={date} variant="compact" tooltip={{ placement: 'top' }} />
    */
-  useTooltip?: boolean;
-  /**
-   * Sets the tooltip placement relative to the countdown element.
-   * Uses MUI Tooltip’s placement options such as `'top'`, `'bottom-start'`, etc.
-   * @default 'top'
-   */
-  tooltipPlacement?: TooltipProps['placement'];
+  tooltip?: boolean | { placement?: TooltipProps['placement'] };
   /** Callback function triggered when countdown reaches zero */
   onOver?: () => void;
   /** Child elements rendered when countdown has finished */

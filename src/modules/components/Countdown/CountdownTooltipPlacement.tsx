@@ -10,10 +10,9 @@ const CountdownTooltipPlacement = () => {
 
   return (
     <Box display="flex" flexDirection="column" gap={2}>
-      <Countdown targetDate={targetDate} variant="compact" useTooltip />
-      <Countdown targetDate={targetDate} variant="compact" useTooltip tooltipPlacement="top" />
-      <Countdown targetDate={targetDate} variant="compact" useTooltip tooltipPlacement="right" />
-      <Countdown targetDate={targetDate} variant="compact" useTooltip tooltipPlacement="left" />
+      <Countdown targetDate={targetDate} variant="compact" tooltip={{ placement: 'top' }} />
+      <Countdown targetDate={targetDate} variant="compact" tooltip={{ placement: 'right' }} />
+      <Countdown targetDate={targetDate} variant="compact" tooltip={{ placement: 'left' }} />
     </Box>
   );
 };
