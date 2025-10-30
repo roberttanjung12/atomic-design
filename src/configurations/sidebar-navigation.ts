@@ -114,6 +114,11 @@ const Menuitems: NavigationItem[] = [
   },
   {
     id: uniqueId(),
+    title: 'Skeleton',
+    href: '/components/skeleton'
+  },
+  {
+    id: uniqueId(),
     title: 'Status Indicator',
     href: '/components/status-indicator'
   },
