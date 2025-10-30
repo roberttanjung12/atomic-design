@@ -9,7 +9,7 @@ interface TheAlertProps extends ProgrammaticComponentProps {
   severity?: AlertProps['severity'];
 }
 
-const TheAlert = ({ open, message, severity = 'success', onClose }: TheAlertProps) => {
+const TheAlert = ({ open, message, severity = 'success', close }: TheAlertProps) => {
   if (!open) {
     return null;
   }
@@ -17,7 +17,7 @@ const TheAlert = ({ open, message, severity = 'success', onClose }: TheAlertProp
   return (
     <Alert
       severity={severity}
-      onClose={onClose}
+      onClose={close}
       sx={{
         position: 'fixed',
         top: 100,
