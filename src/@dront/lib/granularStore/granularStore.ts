@@ -259,7 +259,8 @@ export function createStoreHook<T extends object>(store: Store<T>) {
     // ensuring proper reactivity with concurrent rendering.
     const value = useSyncExternalStore(
       cb => store.subscribe(key, cb),
-      () => store.get()[key]
+      () => store.get()[key],
+      () => store.snapshot()[key]
     );
 
     // Setter updates the specific key in the store.

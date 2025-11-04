@@ -176,6 +176,15 @@ const Menuitems: NavigationItem[] = [
     id: uniqueId(),
     title: 'Document File Type',
     href: '/components/document-file-type'
+  },
+  {
+    navigationLabel: true,
+    subheader: 'Utility'
+  },
+  {
+    id: uniqueId(),
+    title: 'Programmatic',
+    href: '/utility/programmatic'
   }
 ];
 
