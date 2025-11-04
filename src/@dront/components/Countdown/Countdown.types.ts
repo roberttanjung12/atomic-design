@@ -1,6 +1,3 @@
-/**
- * Style customization interface for countdown component
- */
 import type { ReactNode } from 'react';
 import type { SxProps, Theme, TooltipProps, TypographyVariant } from '@mui/material';
 
