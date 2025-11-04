@@ -39,3 +39,7 @@ export { default as Avatar } from './Avatar';
 export { default as TimelineTree } from './TimelineTree';
 
 export { default as GanttChart } from './GanttChart';
+
+export { default as Countdown } from './Countdown';
+
+export { default as Skeleton } from './Skeleton';

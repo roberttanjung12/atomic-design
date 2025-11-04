@@ -1,0 +1,87 @@
+/* ============================
+   Base structure
+============================ */
+.Skeleton {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
+
+.Skeleton__body {
+  position: relative;
+  background-color: #e5e7eb; /* gray-200 */
+  overflow: hidden;
+}
+
+/* Shimmer overlay */
+.Skeleton__body::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translate3d(-100%, 0, 0);
+  animation: Skeleton__shimmer 1.6s ease-in-out infinite;
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* Smooth shimmer animation */
+@keyframes Skeleton__shimmer {
+  0% {
+    transform: translate3d(-100%, 0, 0);
+  }
+  50% {
+    transform: translate3d(20%, 0, 0);
+  }
+  100% {
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+/* ============================
+   Shape variants
+============================ */
+.Skeleton__body--square {
+  border-radius: 0;
+}
+
+.Skeleton__body--rounded {
+  border-radius: 8px;
+}
+
+.Skeleton__body--circular {
+  border-radius: 50%;
+}
+
+/* ============================
+   Text variant
+============================ */
+.Skeleton__text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.Skeleton__body--text {
+  height: 12px;
+  border-radius: 4px;
+  background-color: #e5e7eb;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Accessibility: disable motion if user prefers */
+@media (prefers-reduced-motion: reduce) {
+  .Skeleton__body::after {
+    animation: none;
+  }
+}

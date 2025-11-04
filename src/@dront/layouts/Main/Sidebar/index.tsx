@@ -23,7 +23,13 @@ const SidebarContent = ({
         backgroundImage: 'url(/images/Abstract%20patern.png)',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'bottom left',
-        backgroundSize: 'contain'
+        backgroundSize: 'contain',
+
+        '@media (max-width: 1200px)': {
+          height: '100dvh',
+          display: 'flex',
+          flexDirection: 'column'
+        }
       }}
     >
       <Box px={4} display="flex" alignItems="center" justifyContent="center" height={130}>
