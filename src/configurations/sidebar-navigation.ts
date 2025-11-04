@@ -64,6 +64,11 @@ const Menuitems: NavigationItem[] = [
   },
   {
     id: uniqueId(),
+    title: 'Countdown',
+    href: '/components/countdown'
+  },
+  {
+    id: uniqueId(),
     title: 'Field Password',
     href: '/components/field-password'
   },
@@ -106,6 +111,11 @@ const Menuitems: NavigationItem[] = [
     id: uniqueId(),
     title: 'Radio Button',
     href: '/components/radio-button'
+  },
+  {
+    id: uniqueId(),
+    title: 'Skeleton',
+    href: '/components/skeleton'
   },
   {
     id: uniqueId(),
