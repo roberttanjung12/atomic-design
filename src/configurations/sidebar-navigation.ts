@@ -29,11 +29,6 @@ const Menuitems: NavigationItem[] = [
   },
   {
     id: uniqueId(),
-    title: 'Alert (Floating)',
-    href: '/components/alert-floating'
-  },
-  {
-    id: uniqueId(),
     title: 'Avatar',
     href: '/components/avatar'
   },
@@ -180,6 +175,11 @@ const Menuitems: NavigationItem[] = [
   {
     navigationLabel: true,
     subheader: 'Utility'
+  },
+  {
+    id: uniqueId(),
+    title: 'Alert (Floating)',
+    href: '/utility/alert-floating'
   },
   {
     id: uniqueId(),

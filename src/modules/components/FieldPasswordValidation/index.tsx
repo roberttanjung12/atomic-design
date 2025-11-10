@@ -40,11 +40,6 @@ const FieldPasswordValidationModule = () => {
             description: 'The input name attribute. Also used as htmlFor on the label.',
             required: true
           },
-          label: {
-            type: 'ReactNode | string',
-            description: 'The visible label rendered above the field.',
-            required: true
-          },
           control: {
             type: 'Control<FieldPasswordValidationValues>',
             description: 'Optional react-hook-form control. Required only when not used within a FormProvider.'
@@ -53,42 +48,9 @@ const FieldPasswordValidationModule = () => {
             type: 'PathValue<FieldPasswordValidationValues, Path<FieldPasswordValidationValues>>',
             description: 'Default value for the field.'
           },
-          error: {
-            type: 'boolean',
-            description: 'Whether to display an error state.'
-          },
-          errorMessage: {
-            type: 'ReactNode | string',
-            description: 'Error message. Presence of a value toggles error state. When provided, overrides helperText.'
-          },
-          fullWidth: {
-            type: 'boolean',
-            default: 'true',
-            description: 'Whether to take up the full width of its container.'
-          },
-          helperText: {
-            type: 'ReactNode | string',
-            description: 'The helper text content displayed below the input field.'
-          },
-          placeholder: {
-            type: 'string',
-            description: 'The short hint displayed in the input before the user enters a value.'
-          },
-          size: {
-            type: `'medium' | 'small'`,
-            description: 'The size of the component.'
-          },
           rules: {
             type: `Omit<RegisterOptions<FieldPasswordValidationValues, Path<FieldPasswordValidationValues>>, 'disabled' | 'valueAsNumber' | 'valueAsDate' | 'setValueAs'>`,
             description: 'Validation rules for the field using react-hook-form.'
-          },
-          slotProps: {
-            type: `{ root?: Omit<FormControlProps, 'error' | 'fullWidth'>; textField?: Omit<TextFieldProps<TVariant>, TextFieldPropsSubset>; }`,
-            description: 'Slot props to customize internal subcomponents.'
-          },
-          variant: {
-            type: 'TextFieldVariants',
-            description: 'The variant to use for the TextField component.'
           }
         }
       }}

@@ -10,28 +10,28 @@ const FloatingAlertModule = () => {
   return (
     <DocView
       contributors={['Agmar Putra']}
-      overview="The `callAlert` utility provides a way to programmatically trigger snackbar-style notifications that float above the UI. It's perfect for providing feedback on asynchronous actions, like API requests, without disrupting the page layout. The utility dynamically injects the alert into the DOM."
+      overview="The `alertFloating` utility provides a way to programmatically trigger snackbar-style notifications that float above the UI. It's perfect for providing feedback on asynchronous actions, like API requests, without disrupting the page layout. The utility dynamically injects the alert into the DOM."
       sections={[
         {
           title: 'Programmatic Usage',
           descriptions:
-            'The `callAlert.open()` function allows you to trigger alerts imperatively from anywhere in your code. You can control the content, severity, and auto-hide duration.',
+            'The `alertFloating.open()` function allows you to trigger alerts imperatively from anywhere in your code. You can control the content, severity, and auto-hide duration.',
           example: <FloatingAlertProgrammaticExample />,
           exampleCode: floatingAlertProgrammaticExampleCode
         },
         {
           title: 'Positioning',
           descriptions:
-            "When using `callAlert.open()`, you can easily specify the alert's position on the screen using the `position` option.",
+            "When using `alertFloating.open()`, you can easily specify the alert's position on the screen using the `position` option.",
           example: <FloatingAlertPositioningExample />,
           exampleCode: floatingAlertPositioningExampleCode
         }
       ]}
       apiDoc={{
-        name: 'callAlert',
+        name: 'alertFloating',
         docType: 'object',
         definitions: {
-          'callAlert.open(options)': {
+          'alertFloating.open(options)': {
             type: 'function',
             description:
               'A utility function to programmatically display an alert. It accepts an options object with all the standard `AlertProps` plus additional ones for controlling behavior.'
