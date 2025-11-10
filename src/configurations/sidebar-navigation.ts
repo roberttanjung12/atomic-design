@@ -50,7 +50,54 @@ const Menuitems: NavigationItem[] = [
   {
     id: uniqueId(),
     title: 'Chart',
-    href: '/components/chart'
+    href: '/components/chart',
+    children: [
+      {
+        id: uniqueId(),
+        title: 'Area Chart',
+        href: '/components/chart/area'
+      },
+      {
+        id: uniqueId(),
+        title: 'Bar Chart',
+        href: '/components/chart/bar'
+      },
+      {
+        id: uniqueId(),
+        title: 'Donut Chart',
+        href: '/components/chart/donut'
+      },
+      {
+        id: uniqueId(),
+        title: 'Heatmap Chart',
+        href: '/components/chart/heatmap'
+      },
+      {
+        id: uniqueId(),
+        title: 'Line Chart',
+        href: '/components/chart/line'
+      },
+      {
+        id: uniqueId(),
+        title: 'Radar Chart',
+        href: '/components/chart/radar'
+      },
+      {
+        id: uniqueId(),
+        title: 'Sankey Chart',
+        href: '/components/chart/sankey'
+      },
+      {
+        id: uniqueId(),
+        title: 'Sunburst Chart',
+        href: '/components/chart/sunburst'
+      },
+      {
+        id: uniqueId(),
+        title: 'Gantt Chart',
+        href: '/components/chart/gantt'
+      }
+    ]
   },
   {
     id: uniqueId(),
@@ -77,6 +124,7 @@ const Menuitems: NavigationItem[] = [
     title: 'Field Text Validation',
     href: '/components/field-text-validation'
   },
+
   {
     id: uniqueId(),
     title: 'Progress Bar',
@@ -151,6 +199,20 @@ const Menuitems: NavigationItem[] = [
     id: uniqueId(),
     title: 'Document File Type',
     href: '/components/document-file-type'
+  },
+  {
+    id: uniqueId(),
+    title: 'Context Menu',
+    href: '/components/context-menu'
+  },
+  {
+    navigationLabel: true,
+    subheader: 'Utility'
+  },
+  {
+    id: uniqueId(),
+    title: 'Programmatic',
+    href: '/utility/programmatic'
   }
 ];
 
