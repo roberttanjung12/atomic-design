@@ -54,6 +54,12 @@ const FieldPasswordValidationModule = () => {
           }
         }
       }}
+      dependencies={{
+        'react-hook-form': {
+          version: '>= 7',
+          description: ''
+        }
+      }}
     />
   );
 };

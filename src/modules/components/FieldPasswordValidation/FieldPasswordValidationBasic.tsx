@@ -19,6 +19,7 @@ const FieldPasswordValidationBasic = () => {
   return (
     <form noValidate onSubmit={handleSubmit(handleOnSubmit)}>
       <FieldPasswordValidation
+        label="Password"
         name="password"
         control={control}
         defaultValue=""
