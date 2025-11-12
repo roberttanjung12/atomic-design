@@ -1,11 +1,11 @@
+import { alertFloating } from '@dront/ui';
 import { Button, Grid } from '@mui/material';
-import callAlert from '@/@dront/components/Alert/CallAlert.action';
 
 const FloatingAlertPositioningExample = () => {
   const showAlert = (
     position: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'
   ) => {
-    callAlert.open({
+    alertFloating.open({
       position,
       severity: 'info',
       title: `Position: ${position}`,

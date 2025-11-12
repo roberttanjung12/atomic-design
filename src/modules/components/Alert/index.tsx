@@ -1,5 +1,5 @@
+import { Alert } from '@dront/ui';
 import { DocView } from '@/@dront/components';
-import Alert from '@/@dront/components/Alert';
 import AlertActionExample from './AlertActionExample';
 import alertActionExampleCode from './AlertActionExample?raw';
 import AlertBasicExample from './AlertBasicExample';
