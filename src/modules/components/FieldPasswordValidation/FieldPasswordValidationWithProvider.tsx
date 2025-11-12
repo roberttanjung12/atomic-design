@@ -21,7 +21,7 @@ const defaultValues = (): DefaultValues<FormValues> => ({
 
 // The nested component.
 const PasswordField = () => {
-  return <FieldPasswordValidation<FormValues> name="password" />;
+  return <FieldPasswordValidation<FormValues> label="Password" name="password" />;
 };
 
 const FieldPasswordValidationWithProvider = () => {

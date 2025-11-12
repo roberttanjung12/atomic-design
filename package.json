@@ -18,7 +18,7 @@
     "release": "semantic-release"
   },
   "dependencies": {
-    "@dront/ui": "^1.0.0-rc.3",
+    "@dront/ui": "^1.0.0-rc.4",
     "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "@emotion/server": "^11.11.0",
