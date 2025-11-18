@@ -1,5 +1,5 @@
+import { useState, useEffect } from 'react';
 import { parse, format } from 'date-fns';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import TimeMachineTimeRangeMain from '../main';
 import type { TimeMachineTimeRangeFilterProps } from './types/time-machine-time-range-filter';
 
@@ -7,31 +7,46 @@ const FORMAT = 'dd-MM-yyyy HH:mm:ss';
 
 const TimeMachineTimeRangeFilter = (props: TimeMachineTimeRangeFilterProps) => {
   const { filter, ...rest } = props;
+  const [date, setDate] = useState<[Date | null, Date | null]>([null, null]);
 
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
-  const params = new URLSearchParams(searchParams);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const startDateParam = params.get(filter.startName);
+      const startDate = startDateParam ? parse(startDateParam, FORMAT, new Date()) : null;
+      const endDateParam = params.get(filter.endName);
+      const endDate = endDateParam ? parse(endDateParam, FORMAT, new Date()) : null;
 
-  const startDateParam = searchParams.get(filter.startName);
-  const startDate = startDateParam ? parse(startDateParam, FORMAT, new Date()) : null;
-  const endDateParam = searchParams.get(filter.endName);
-  const endDate = endDateParam ? parse(endDateParam, FORMAT, new Date()) : null;
-  const date: [Date | null, Date | null] = [startDate, endDate];
+      setDate([startDate, endDate]);
+    }
+  }, [filter.startName, filter.endName]);
 
   const handleSearch = (term: [Date | null, Date | null]) => {
-    if (term[0] && term[1]) {
-      params.set(filter.startName, format(term[0], FORMAT));
-      params.set(filter.endName, format(term[1], FORMAT));
-    }
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
 
-    replace(`${pathname}?${params.toString()}`);
+      if (term[0] && term[1]) {
+        params.set(filter.startName, format(term[0], FORMAT));
+        params.set(filter.endName, format(term[1], FORMAT));
+      }
+      const newUrl = `${window.location.pathname}?${params.toString()}`;
+
+      window.history.pushState({}, '', newUrl);
+      setDate(term);
+    }
   };
 
   const handleClear = () => {
-    params.delete(filter.startName);
-    params.delete(filter.endName);
-    replace(`${pathname}?${params.toString()}`);
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+
+      params.delete(filter.startName);
+      params.delete(filter.endName);
+      const newUrl = `${window.location.pathname}?${params.toString()}`;
+
+      window.history.pushState({}, '', newUrl);
+      setDate([null, null]);
+    }
   };
 
   return (
