@@ -34,6 +34,10 @@ const contributors = [
   {
     name: 'Robert Tanjung',
     url: 'https://gitlab.spesolution.net/robert.tanjung'
+  },
+  {
+    name: 'Sanday Azis Prayogi',
+    url: 'https://gitlab.spesolution.net/sanday.prayogi'
   }
 ] as const;
 
