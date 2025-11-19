@@ -1,5 +1,5 @@
+import UploadImage from '@dront/ui/UploadImage';
 import { DocView } from '@/@dront/components';
-import UploadImage from '@/@dront/components/UploadImage';
 import UploadImageAsynchronous from './UploadImageAsynchronous';
 import UploadImageAsynchronousCode from './UploadImageAsynchronous?raw';
 import UploadImageBasic from './UploadImageBasic';
