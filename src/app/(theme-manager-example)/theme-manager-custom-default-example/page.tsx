@@ -1,6 +1,6 @@
 'use client';
 
-import ThemeManager from '@/@dront/components/ThemeManager';
+import ThemeManager from '@dront/ui/ThemeManager';
 
 // Define a custom theme to be used as the default
 const myCustomTheme = {

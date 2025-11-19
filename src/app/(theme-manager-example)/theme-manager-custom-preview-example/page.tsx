@@ -1,7 +1,7 @@
 'use client';
 
+import ThemeManager from '@dront/ui/ThemeManager';
 import { ThemeProvider, createTheme, Typography, Box, Button } from '@mui/material';
-import ThemeManager from '@/@dront/components/ThemeManager';
 
 /**
  * A custom component to demonstrate how the render prop works.

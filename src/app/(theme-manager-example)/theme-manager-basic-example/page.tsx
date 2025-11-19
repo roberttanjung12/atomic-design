@@ -1,7 +1,6 @@
 'use client';
 
-import ThemeManager from '@/@dront/components/ThemeManager';
-import type { IThemeManager } from '@/@dront/components/ThemeManager/ThemeManager.type.js';
+import ThemeManager, { type IThemeManager } from '@dront/ui/ThemeManager';
 
 /**
  * An example demonstrating the ThemeManager with its default 'static' layout.

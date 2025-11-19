@@ -1,6 +1,5 @@
+import ThemeManager, { type IThemeManager } from '@dront/ui/ThemeManager';
 import { Box } from '@mui/material';
-import ThemeManager from '@/@dront/components/ThemeManager';
-import type { IThemeManager } from '@/@dront/components/ThemeManager/ThemeManager.type.js';
 
 /**
  * An example demonstrating the ThemeManager with its default 'static' layout.

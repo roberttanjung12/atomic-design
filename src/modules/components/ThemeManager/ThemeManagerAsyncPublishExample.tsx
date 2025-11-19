@@ -1,6 +1,5 @@
+import ThemeManager, { type IThemeManager } from '@dront/ui/ThemeManager';
 import { Box } from '@mui/material';
-import ThemeManager from '@/@dront/components/ThemeManager';
-import type { IThemeManager } from '@/@dront/components/ThemeManager/ThemeManager.type';
 
 /**
  * An example demonstrating how to handle asynchronous operations with the onPublish callback.
