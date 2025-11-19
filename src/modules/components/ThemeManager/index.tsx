@@ -1,7 +1,7 @@
+import ThemeManager from '@dront/ui/ThemeManager';
 import { Typography } from '@mui/material';
 import Link from 'next/link';
 import { CodeSnippet, DocView, TextHighlighter } from '@/@dront/components';
-import ThemeManager from '@/@dront/components/ThemeManager';
 import ThemeManagerAsyncPublishExample from './ThemeManagerAsyncPublishExample';
 import themeManagerAsyncPublishExampleCode from './ThemeManagerAsyncPublishExample?raw';
 import ThemeManagerCustomDefaultExample from './ThemeManagerCustomDefaultExample';
