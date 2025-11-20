@@ -1,21 +1,21 @@
 'use client';
 
 import { PageID } from '@/@dront/components';
-import ChartModule from '@/modules/components/Chart';
+import AreaChart from '@/modules/components/Chart/AreaChart';
 
 const ChartPage = () => {
   return (
     <PageID
-      title="Chart"
+      title="Area Chart"
       breadcrumbs={{
-        title: 'Chart',
+        title: 'Area Chart',
         routes: [
           { label: 'Components', href: '#' },
-          { label: 'Charts', href: '#' }
+          { label: 'Area Charts', href: '#' }
         ]
       }}
     >
-      <ChartModule />
+      <AreaChart />
     </PageID>
   );
 };
