@@ -1,5 +1,5 @@
+import { useState, useEffect } from 'react';
 import { parse, format, isValid } from 'date-fns';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import TimeMachineDatePickerMain from '../main';
 import type { TimeMachineDatePickerFilterProps } from './types/time-machine-date-picker-filter-props';
 
@@ -7,24 +7,42 @@ const FORMAT = 'dd-MM-yyyy HH:mm:ss';
 
 const TimeMachineDatePickerFilter = (props: TimeMachineDatePickerFilterProps) => {
   const { filter, ...rest } = props;
+  const [date, setDate] = useState<Date | null>(null);
 
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
-  const params = new URLSearchParams(searchParams);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const dateParam = params.get(filter.name);
+      const parsedDate = dateParam ? parse(dateParam, FORMAT, new Date()) : null;
 
-  const dateParam = searchParams.get(filter.name);
-  const parsedDate = dateParam ? parse(dateParam, FORMAT, new Date()) : null;
-  const date = parsedDate && isValid(parsedDate) ? parsedDate : null;
+      setDate(parsedDate && isValid(parsedDate) ? parsedDate : null);
+    }
+  }, [filter.name]);
 
   const handleSearch = (term: Date | null) => {
-    if (term) params.set(filter.name, format(term, FORMAT));
-    replace(`${pathname}?${params.toString()}`);
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+
+      if (term) params.set(filter.name, format(term, FORMAT));
+
+      const newUrl = `${window.location.pathname}?${params.toString()}`;
+
+      window.history.pushState({}, '', newUrl);
+      setDate(term);
+    }
   };
 
   const handleClear = () => {
-    params.delete(filter.name);
-    replace(`${pathname}?${params.toString()}`);
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+
+      params.delete(filter.name);
+
+      const newUrl = `${window.location.pathname}?${params.toString()}`;
+
+      window.history.pushState({}, '', newUrl);
+      setDate(null);
+    }
   };
 
   return (

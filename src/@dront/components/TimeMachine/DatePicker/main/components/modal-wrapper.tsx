@@ -16,7 +16,7 @@ const ModalWrapper = ({ open, title, subheader, sx, children, onClose }: ModalWr
     <Modal open={open} onClose={onClose} aria-labelledby="parent-modal-title">
       <Box
         sx={{
-          minWidth: '480px',
+          minWidth: 'min(480px, calc(100% - 24px))',
           position: 'absolute',
           top: '50%',
           left: '50%',
