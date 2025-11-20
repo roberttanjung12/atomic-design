@@ -29,4 +29,5 @@ export type TimeMachineDatePickerMainProps = {
   datePickerProps?: DatePickerPropsWithCallback;
   timePickerProps?: DatePickerPropsWithCallback;
   textFieldProps?: TextFieldProps;
+  formatRenderValue?: (date: DateValue, locale: Locale, showTime?: boolean) => string;
 };

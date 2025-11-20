@@ -1,9 +1,9 @@
+import { alertFloating } from '@dront/ui';
 import { Button, Stack } from '@mui/material';
-import callAlert from '@/@dront/components/Alert/CallAlert.action';
 
 const FloatingAlertProgrammaticExample = () => {
   const showSuccessAlert = () => {
-    callAlert.open({
+    alertFloating.open({
       severity: 'success',
       title: 'Action Successful',
       message: 'The operation completed without any issues.',
@@ -12,7 +12,7 @@ const FloatingAlertProgrammaticExample = () => {
   };
 
   const showErrorAlert = () => {
-    callAlert.open({
+    alertFloating.open({
       severity: 'error',
       title: 'Action Failed',
       message: 'An unexpected error occurred. Please contact support.',

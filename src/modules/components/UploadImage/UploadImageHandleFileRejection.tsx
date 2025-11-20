@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import UploadImage from '@/@dront/components/UploadImage';
-import type { IPreview } from '@/@dront/components/UploadImage/upload-image.type';
+import UploadImage, { type IPreview } from '@dront/ui/UploadImage';
 
 const UploadImageHandleFileRejection = () => {
   const [preview, setPreview] = useState<IPreview | undefined>(undefined);

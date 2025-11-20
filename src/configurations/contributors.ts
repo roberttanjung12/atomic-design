@@ -28,8 +28,16 @@ const contributors = [
     url: 'https://gitlab.spesolution.net/nanda.pratama'
   },
   {
+    name: 'Rafli Rai Rizky',
+    url: 'https://gitlab.spesolution.net/rafli.rizky'
+  },
+  {
     name: 'Robert Tanjung',
     url: 'https://gitlab.spesolution.net/robert.tanjung'
+  },
+  {
+    name: 'Sanday Azis Prayogi',
+    url: 'https://gitlab.spesolution.net/sanday.prayogi'
   }
 ] as const;
 

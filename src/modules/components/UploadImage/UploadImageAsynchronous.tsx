@@ -1,8 +1,7 @@
 import { useState } from 'react';
+import UploadImage, { type IPreview } from '@dront/ui/UploadImage';
 import { Box } from '@mui/material';
 import axios from 'axios';
-import UploadImage from '@/@dront/components/UploadImage';
-import type { IPreview } from '@/@dront/components/UploadImage/upload-image.type';
 
 const UploadImageAsynchronousExample = () => {
   const [preview, setPreview] = useState<IPreview | undefined>(undefined);

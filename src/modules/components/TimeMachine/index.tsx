@@ -136,6 +136,10 @@ const TimeMachineModule = () => {
             description:
               "Configuration object required when `isFilter` is `true`. Defines the URL query parameter names. The object's shape depends on the variant (e.g., `{ name: 'dp-query' }` for `date-picker`, `{ startName: 'start', endName: 'end' }` for `date-range`, `{ startName, endName, modeName }` for `ultimate`)."
           },
+          formatRenderValue: {
+            type: '(date: T, locale: Locale, showTime?: boolean) => string',
+            description: 'Function to format the displayed date value.'
+          },
           date: {
             type: 'Date | [Date | null, Date | null] | DateValueWithMode',
             description:

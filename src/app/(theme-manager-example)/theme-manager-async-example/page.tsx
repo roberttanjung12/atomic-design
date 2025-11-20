@@ -1,7 +1,6 @@
 'use client';
 
-import ThemeManager from '@/@dront/components/ThemeManager';
-import type { IThemeManager } from '@/@dront/components/ThemeManager/ThemeManager.type';
+import ThemeManager, { type IThemeManager } from '@dront/ui/ThemeManager';
 
 /**
  * An example demonstrating how to handle asynchronous operations with the onPublish callback.

@@ -27,4 +27,5 @@ export type TimeMachineDateRangeTwoMonthsMainProps = {
   locale?: Locale;
   datePickerProps?: DatePickerPropsWithCallback;
   textFieldProps?: TextFieldProps;
+  formatRenderValue?: (date: DateValue, locale: Locale) => string;
 };

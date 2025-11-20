@@ -1,5 +1,5 @@
+import ThemeManager from '@dront/ui/ThemeManager';
 import { Box } from '@mui/material';
-import ThemeManager from '@/@dront/components/ThemeManager';
 
 // Define a custom theme to be used as the default
 const myCustomTheme = {

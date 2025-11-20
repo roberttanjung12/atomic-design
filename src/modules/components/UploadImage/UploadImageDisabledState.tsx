@@ -1,5 +1,5 @@
+import UploadImage from '@dront/ui/UploadImage';
 import { Box } from '@mui/material';
-import UploadImage from '@/@dront/components/UploadImage';
 
 const UploadImageHidePreview = () => {
   return (

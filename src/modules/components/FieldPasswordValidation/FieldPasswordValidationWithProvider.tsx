@@ -1,10 +1,10 @@
 'use client';
 
+import FieldPasswordValidation from '@dront/ui/FieldPasswordValidation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Button from '@mui/material/Button';
 import { FormProvider, useForm, type DefaultValues, type SubmitHandler } from 'react-hook-form';
 import * as yup from 'yup';
-import { FieldPasswordValidation } from '@/@dront/components';
 
 // Define the validation schema using yup
 const validationSchema = yup.object({
@@ -21,7 +21,7 @@ const defaultValues = (): DefaultValues<FormValues> => ({
 
 // The nested component.
 const PasswordField = () => {
-  return <FieldPasswordValidation<FormValues> name="password" label="Password" placeholder="Password" />;
+  return <FieldPasswordValidation<FormValues> label="Password" name="password" />;
 };
 
 const FieldPasswordValidationWithProvider = () => {

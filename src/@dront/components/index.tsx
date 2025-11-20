@@ -12,14 +12,6 @@ export { default as DynamicAlert } from './DynamicAlert';
 
 export { default as Field } from './Field';
 
-export { default as FieldPassword } from './FieldPassword';
-
-export { default as FieldPasswordValidation } from './FieldPasswordValidation';
-
-export { default as FieldText } from './FieldText';
-
-export { default as FieldTextValidation } from './FieldTextValidation';
-
 export { default as LoadingScreen } from './LoadingScreen';
 
 export { default as MainScrollbar } from './MainScrollbar';
@@ -41,3 +33,13 @@ export { default as TopLoader } from './TopLoader';
 export { default as Chip } from './Chips';
 
 export { LineChart, BarChart, DonutChart } from './Chart';
+
+export { default as Avatar } from './Avatar';
+
+export { default as TimelineTree } from './TimelineTree';
+
+export { default as GanttChart } from './GanttChart';
+
+export { default as Countdown } from './Countdown';
+
+export { default as Skeleton } from './Skeleton';

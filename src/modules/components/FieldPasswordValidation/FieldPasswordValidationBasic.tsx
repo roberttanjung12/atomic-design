@@ -1,8 +1,8 @@
 'use client';
 
+import FieldPasswordValidation from '@dront/ui/FieldPasswordValidation';
 import Button from '@mui/material/Button';
 import { useForm, type SubmitHandler } from 'react-hook-form';
-import { FieldPasswordValidation } from '@/@dront/components';
 
 // Define FormValues
 type FormValues = {
@@ -19,9 +19,8 @@ const FieldPasswordValidationBasic = () => {
   return (
     <form noValidate onSubmit={handleSubmit(handleOnSubmit)}>
       <FieldPasswordValidation
-        name="password"
         label="Password"
-        placeholder="Password"
+        name="password"
         control={control}
         defaultValue=""
         rules={{
