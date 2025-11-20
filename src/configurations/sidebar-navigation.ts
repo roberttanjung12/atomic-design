@@ -34,11 +34,6 @@ const sidebarGroups: Record<string, NavigationItem[]> = {
     },
     {
       id: uniqueId(),
-      title: 'Chart',
-      href: '/components/chart'
-    },
-    {
-      id: uniqueId(),
       title: 'Checkbox',
       href: '/components/checkbox'
     },
@@ -46,11 +41,6 @@ const sidebarGroups: Record<string, NavigationItem[]> = {
       id: uniqueId(),
       title: 'Countdown',
       href: '/components/countdown'
-    },
-    {
-      id: uniqueId(),
-      title: 'Gantt Chart',
-      href: '/components/gantt-chart'
     },
     {
       id: uniqueId(),
@@ -119,6 +109,58 @@ const sidebarGroups: Record<string, NavigationItem[]> = {
     }
   ],
   'Data Display': [
+    {
+      id: uniqueId(),
+      title: 'Chart',
+      href: '/components/chart',
+      children: [
+        {
+          id: uniqueId(),
+          title: 'Area Chart',
+          href: '/components/chart/area'
+        },
+        {
+          id: uniqueId(),
+          title: 'Bar Chart',
+          href: '/components/chart/bar'
+        },
+        {
+          id: uniqueId(),
+          title: 'Donut Chart',
+          href: '/components/chart/donut'
+        },
+        {
+          id: uniqueId(),
+          title: 'Heatmap Chart',
+          href: '/components/chart/heatmap'
+        },
+        {
+          id: uniqueId(),
+          title: 'Line Chart',
+          href: '/components/chart/line'
+        },
+        {
+          id: uniqueId(),
+          title: 'Radar Chart',
+          href: '/components/chart/radar'
+        },
+        {
+          id: uniqueId(),
+          title: 'Sankey Chart',
+          href: '/components/chart/sankey'
+        },
+        {
+          id: uniqueId(),
+          title: 'Sunburst Chart',
+          href: '/components/chart/sunburst'
+        },
+        {
+          id: uniqueId(),
+          title: 'Gantt Chart',
+          href: '/components/chart/gantt'
+        }
+      ]
+    },
     {
       id: uniqueId(),
       title: 'Image Viewer',
