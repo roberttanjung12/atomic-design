@@ -1,21 +1,21 @@
 'use client';
 
 import { PageID } from '@/@dront/components';
-import ChartModule from '@/modules/components/Chart';
+import HeatmapChart from '@/modules/components/Chart/HeatmapChart';
 
 const ChartPage = () => {
   return (
     <PageID
-      title="Chart"
+      title="Heatmap Chart"
       breadcrumbs={{
-        title: 'Chart',
+        title: 'Heatmap Chart',
         routes: [
           { label: 'Components', href: '#' },
-          { label: 'Charts', href: '#' }
+          { label: 'Heatmap Chart', href: '#' }
         ]
       }}
     >
-      <ChartModule />
+      <HeatmapChart />
     </PageID>
   );
 };

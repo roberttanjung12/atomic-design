@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { HighlightOff as HighlightOffIcon, Search as SearchIcon } from '@mui/icons-material';
 import {
   Box,
@@ -28,6 +28,7 @@ const Search = () => {
   const [showDrawer, setShowDrawer] = useState(false);
   const [search, setSearch] = useState('');
   const { navigations } = useMainLayout();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleClose = () => {
     setShowDrawer(false);
@@ -81,6 +82,9 @@ const Search = () => {
         maxWidth={'sm'}
         aria-labelledby="quick-search-title"
         aria-describedby="quick-search-description"
+        TransitionProps={{
+          onEntered: () => inputRef.current?.focus()
+        }}
         sx={{ position: 'fixed', top: 30, m: 0 }}
       >
         <DialogContent className="testdialog">
@@ -89,6 +93,7 @@ const Search = () => {
               id="quick-search"
               placeholder="Search here"
               fullWidth
+              inputRef={inputRef}
               onChange={e => setSearch(e.target.value)}
               slotProps={{ htmlInput: { 'aria-label': 'Search here' } }}
             />
