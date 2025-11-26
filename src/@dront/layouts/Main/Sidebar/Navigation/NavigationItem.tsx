@@ -1,32 +1,26 @@
 import { Circle as CircleIcon, NearbyError as NearbyErrorIcon } from '@mui/icons-material';
-import {
-  Chip,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-  useMediaQuery,
-  useTheme
-} from '@mui/material';
+import { Chip, List, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery } from '@mui/material';
 import { type ChipProps } from '@mui/material/Chip';
-import { lighten, styled, type Theme } from '@mui/material/styles';
+import { styled, type Theme } from '@mui/material/styles';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
+import { useAppearance } from '@/@dront/context/AppearanceProvider';
 import type { NavigationItemProps } from './navigation-types';
 
 const NavigationItem = ({ item, level = 1, pathDirect, hideMenu, onClick }: NavigationItemProps) => {
+  const {
+    appearanceState: { sidebar }
+  } = useAppearance();
+
   const lgDown = useMediaQuery((theme: Theme) => theme.breakpoints.down('lg'));
 
   const Icon = level > 1 ? CircleIcon : (item?.icon ?? NearbyErrorIcon);
 
-  const { palette } = useTheme();
-
   const { t } = useTranslation();
 
-  const itemIcon = level > 1 ? <Icon sx={{ fontSize: '0.4rem!important' }} /> : <Icon fontSize="small" />;
+  const itemIcon = level > 1 ? <Icon sx={{ fontSize: '0.625rem!important' }} /> : <Icon fontSize="small" />;
 
-  const subPadding = level > 2 ? `${level * 15}px` : '20px';
+  const subPadding = level > 1 ? `${level * 25}px` : '35px';
 
   const paddingX = 20;
 
@@ -36,23 +30,23 @@ const NavigationItem = ({ item, level = 1, pathDirect, hideMenu, onClick }: Navi
     padding: `14px ${paddingX}px`,
     paddingLeft: hideMenu ? `${paddingX}px` : subPadding,
     borderRight: '4px solid transparent',
-    color: palette.grey['400'],
+    color: sidebar.itemColor,
     '& .MuiListItemIcon-root': {
       minWidth: 36,
-      color: palette.grey['400']
+      color: sidebar.itemColor
     },
     '&:hover': {
-      backgroundColor: palette.action.hover
+      backgroundColor: sidebar.itemHoverBackground
     },
     '&.Mui-selected': {
-      backgroundColor: palette.primary.light,
-      color: palette.primary.main,
-      borderRight: `4px solid ${palette.primary.main}`,
+      backgroundColor: sidebar.itemSelectedBackground,
+      color: `${sidebar.itemSelectedColor}!important`,
+      borderRight: `4px solid ${sidebar.itemSelectedBorderColor}`,
       '& .MuiListItemIcon-root': {
-        color: palette.primary.main
+        color: `${sidebar.itemSelectedColor}!important`
       },
       '&:hover': {
-        backgroundColor: lighten(palette.primary.light, 0.4)
+        backgroundColor: sidebar.itemSelectedBackground
       }
     }
   }));
@@ -68,8 +62,7 @@ const NavigationItem = ({ item, level = 1, pathDirect, hideMenu, onClick }: Navi
           <ListItemIcon
             sx={{
               minWidth: '36px',
-              p: '3px 0',
-              color: level > 1 && pathDirect === item?.href ? `${palette.primary.main}!important` : 'inherit'
+              p: '3px 0'
             }}
           >
             {itemIcon}
