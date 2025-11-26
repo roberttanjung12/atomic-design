@@ -8,6 +8,7 @@ export interface AppearanceSidebar {
   itemHoverColor: string;
   itemSelectedBackground: string;
   itemSelectedColor: string;
+  itemSelectedBorderColor: string;
   miniWidth: number;
   subheaderColor: string;
   subMenuHoverBackground: string;
