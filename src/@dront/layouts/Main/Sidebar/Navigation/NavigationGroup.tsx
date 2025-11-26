@@ -19,7 +19,7 @@ const NavigationGroup = ({ item, hideMenu }: NavigationGroupProps) => {
     letterSpacing: 1.5,
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(1),
-    marginLeft: hideMenu ? '' : '-10px',
+    marginLeft: hideMenu ? '' : '10px',
     color: sidebar.subheaderColor,
     lineHeight: '26px',
     padding: '3px 20px'
