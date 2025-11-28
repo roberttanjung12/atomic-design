@@ -221,6 +221,11 @@ const sidebarGroups: Record<string, NavigationItem[]> = {
   Utility: [
     {
       id: uniqueId(),
+      title: 'Access Control',
+      href: '/utility/access-control'
+    },
+    {
+      id: uniqueId(),
       title: 'Alert (Floating)',
       href: '/utility/alert-floating'
     },
