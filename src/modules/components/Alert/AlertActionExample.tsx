@@ -1,4 +1,4 @@
-import { Alert } from '@dront/ui';
+import Alert from '@dront/ui/Alert';
 import { Button, Stack } from '@mui/material';
 
 const AlertActionExample = () => {

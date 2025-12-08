@@ -1,6 +1,6 @@
 'use client';
 
-import type { AlertProps } from '@dront/ui';
+import type { AlertProps } from '@dront/ui/Alert';
 import type { ProgrammaticComponentProps } from '@dront/ui/programmatic';
 import { Alert } from '@mui/material';
 
