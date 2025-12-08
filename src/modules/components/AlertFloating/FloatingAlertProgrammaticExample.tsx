@@ -1,4 +1,4 @@
-import { alertFloating } from '@dront/ui';
+import { alertFloating } from '@dront/ui/Alert';
 import { Button, Stack } from '@mui/material';
 
 const FloatingAlertProgrammaticExample = () => {

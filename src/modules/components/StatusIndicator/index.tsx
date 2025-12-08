@@ -1,4 +1,4 @@
-import { StatusIndicator } from '@dront/ui';
+import StatusIndicator from '@dront/ui/StatusIndicator';
 import { DocView } from '@/@dront/components';
 import BasicExample from './StatusIndicatorBasic';
 import basicExampleCode from './StatusIndicatorBasic?raw';
