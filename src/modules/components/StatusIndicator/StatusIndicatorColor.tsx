@@ -1,4 +1,4 @@
-import { StatusIndicator } from '@dront/ui';
+import StatusIndicator from '@dront/ui/StatusIndicator';
 import { Stack } from '@mui/material';
 
 const StatusColor = () => {
