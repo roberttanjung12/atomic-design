@@ -5,11 +5,14 @@ import { Avatar, Box, IconButton, Skeleton, useTheme, Button } from '@mui/materi
 import { sizeOf } from '../../DocumentFileType/utils';
 import { PreviewWrapper, ProcessCompress } from '../file-uploader.styled';
 
-const previewImageStyling: React.CSSProperties = {
+const commonStyling = {
   width: '56px',
   height: '56px',
-  objectFit: 'cover',
   borderRadius: '8px'
+};
+const previewImageStyling: React.CSSProperties = {
+  ...commonStyling,
+  objectFit: 'cover'
 };
 
 interface PreviewProps {
@@ -106,7 +109,7 @@ const Preview = ({
           </Avatar>
         )
       ) : (
-        <Skeleton sx={previewImageStyling} variant="rectangular" />
+        <Skeleton sx={commonStyling} variant="rectangular" />
       )}
 
       <Box sx={{ flexGrow: 1, width: '0%' }}>
