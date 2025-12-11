@@ -233,6 +233,11 @@ const sidebarGroups: Record<string, NavigationItem[]> = {
       id: uniqueId(),
       title: 'Programmatic',
       href: '/utility/programmatic'
+    },
+    {
+      id: uniqueId(),
+      title: 'Thousand',
+      href: '/utility/thousand'
     }
   ]
 };
