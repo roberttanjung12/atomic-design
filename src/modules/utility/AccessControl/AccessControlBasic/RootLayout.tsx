@@ -1,11 +1,11 @@
-import AccessControlProvider from '@dront/ui/AccessControl';
+import { AccessControl } from '@dront/ui/AccessControl';
 import HomePage from './HomePage';
 
 // app/layout.tsx
 // or
 // pages/_app.tsx
 const RootLayout = () => (
-  <AccessControlProvider
+  <AccessControl
     from={{
       static: [
         {
@@ -20,7 +20,7 @@ const RootLayout = () => (
     shape={{ path: 'href', permission: 'permission' }}
   >
     <HomePage />
-  </AccessControlProvider>
+  </AccessControl>
 );
 
 export default RootLayout;
