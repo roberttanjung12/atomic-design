@@ -106,6 +106,11 @@ const sidebarGroups: Record<string, NavigationItem[]> = {
       id: uniqueId(),
       title: 'Document File Type',
       href: '/components/document-file-type'
+    },
+    {
+      id: uniqueId(),
+      title: 'Quick Search Menu',
+      href: '/components/quick-search-menu'
     }
   ],
   'Data Display': [

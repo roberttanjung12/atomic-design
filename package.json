@@ -20,7 +20,7 @@
   "dependencies": {
     "@casl/ability": "^6",
     "@casl/react": "^5",
-    "@dront/ui": "^1.0.0-alpha.6",
+    "@dront/ui": "^1.0.0-alpha.8",
     "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "@emotion/server": "^11.11.0",

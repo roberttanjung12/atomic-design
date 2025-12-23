@@ -96,11 +96,11 @@ function haveCodeExamplesNotWithExamples(
 const renderOverview = (overviewItems: TextHighLightIntern) => {
   if (Array.isArray(overviewItems)) {
     return overviewItems.map(overviewItem => {
-      return <TextHighlighter key={uniqueId()} text={overviewItem} />;
+      return <TextHighlighter key={uniqueId()} text={overviewItem} sx={{ whiteSpace: 'pre-line' }} />;
     });
   }
 
-  return <TextHighlighter text={overviewItems} />;
+  return <TextHighlighter text={overviewItems} sx={{ whiteSpace: 'pre-line' }} />;
 };
 
 const renderDescription = (descrioptionItems: Descriptions) => {
