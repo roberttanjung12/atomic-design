@@ -25,7 +25,8 @@ const DescriptionText = ({ text }: DescriptionTextProps) => {
   return (
     <TextHighlighter
       sx={{
-        mb: 2
+        mb: 2,
+        whiteSpace: 'pre-line'
       }}
       text={text}
     />
