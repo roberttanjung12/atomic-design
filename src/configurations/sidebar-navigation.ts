@@ -223,6 +223,13 @@ const sidebarGroups: Record<string, NavigationItem[]> = {
       href: '/components/accordion'
     }
   ],
+  Hooks: [
+    {
+      id: uniqueId(),
+      title: 'useBroadcastChannel',
+      href: '/hooks/use-broadcast-channel'
+    }
+  ],
   Utility: [
     {
       id: uniqueId(),
